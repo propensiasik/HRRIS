@@ -1,0 +1,87 @@
+@font-face {
+  font-family: 'BrandonText';
+  src: url('BrandonText-Regular.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src:  url('BrandonText-Regular.otf')  format('opentype'), url('BrandonText-Regular.ttf')  format('truetype'), url('BrandonText-Regular.svg#BrandonText-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src: url('BrandonText-Medium.eot') format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BrandonText';
+  src:  url('BrandonText-Medium.otf')  format('opentype'), url('BrandonText-Medium.ttf')  format('truetype'), url('BrandonText-Medium.svg#BrandonText-Medium') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('DINPro-Regular.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro';
+  src:  url('DINPro-Regular.otf')  format('opentype'), url('DINPro-Regular.ttf')  format('truetype'), url('DINPro-Regular.svg#DINPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro';
+  src: url('DINPro-Medium.eot') format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINPro';
+  src:  url('DINPro-Medium.otf')  format('opentype'), url('DINPro-Medium.ttf')  format('truetype'), url('DINPro-Medium.svg#DINPro-Medium') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'FuturaLT';
+  src: url('FuturaLT-Book.eot') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaLT';
+  src: url('FuturaLT-Book.ttf')  format('truetype'), url('FuturaLT-Book.svg#FuturaLT-Book') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'FuturaLT';
+  src: url('FuturaLT.eot') format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaLT';
+  src: url('FuturaLT.ttf')  format('truetype'), url('FuturaLT.svg#FuturaLT') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
