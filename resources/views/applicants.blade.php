@@ -49,4 +49,45 @@
 
 </section>
 
+<h1 style="text-align: center"> List Of Applicant </h1>
+<br>
+<div class="container">
+	<div class="col-md-8">
+		<div class="table-responsive">
+			<table class="table" style="margin-left:25%; margin-right:15%;">	
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nama</th>
+						<th>Posisi</th>
+						<th>Company</th>
+					</tr>
+				</thead>
+				<tbody>
+			        <?php $i = 0; ?>
+			        @foreach ($applicants as $applicant)
+			        <?php $i++; ?>
+					<tr>
+						<td>
+							{{ $i }}		
+						</td>
+						<td>
+							<a href="{{ URL::to('applicant/profile/' . $applicant->id_applicant) }}">
+								{{ $applicant->nama_applicant }}
+							</a>		
+						</td>
+						<td> 
+							{{ $applicant->posisi_ditawarkan }}
+						</td>
+						<td>
+							{{ $applicant->nama_company }}
+						</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
 @endsection

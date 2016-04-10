@@ -24,6 +24,14 @@ Route::get('/Tai','HomeController@index');
 |
 */
 
+// ROUTER FERRI 
+Route::get('/applicant', 'ApplicantController@getListOfApplicant');
+Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile');
+
+
+
+
+
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
