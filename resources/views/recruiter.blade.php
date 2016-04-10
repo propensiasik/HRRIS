@@ -100,7 +100,7 @@
 <div class="container">
    <div class="column-left">
     <div class="well">
-      <a href = "{{url('applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
+      <a href = "{{action('ApplicantController@getListOfApplicant')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
           <img src="img/applicant.png" style="width:50%">
           <h2> Applicants </h2>
       </a>  
