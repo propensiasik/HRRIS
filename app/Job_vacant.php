@@ -4,8 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job_vacant extends Model {
 	
-		protected $table = 'job_vacant';
 		public $timestamps = false;
+		protected $table ='job_vacant';
+
+		protected $fillable = ['capacity', 'Requirement'];
 
 	public function apply(){
 		return $this->hasMany('App\apply', 'id_job_vacant');
