@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Saka UI Kit</title>
+  <title>HRRIS</title>
   <meta name="description" content="UI Kit.">
   <meta name="author" content="Faizal Rahman">
 
@@ -32,17 +32,17 @@
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 
   <!-- Fonts -->
-  <link rel="stylesheet" href="fonts/font-text/fonts.css">
+  <link rel="stylesheet" href="{{asset('fonts/font-text/fonts.css')}}">
 
   <!-- CSS Bootstrap -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-select.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-slider.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-theme.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datetimepicker.css')}}">
 
   <!-- CSS Component -->
-  <link rel="stylesheet" href="css/component.css">
+  <link rel="stylesheet" href="{{asset('css/component.css')}}">
 
 </head>
 <body>
@@ -59,10 +59,10 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">
-            <img class="icon-menu" src="img/Logo.png">
+            <img class="icon-menu" src="{{asset('img/Logo.png')}}">
           </a>
-          <a class="navbar-brand title" href="#">
-            Platform Title
+          <a class="navbar-brand title" href="{{url('/Home')}}">
+            HRRIS
           </a>
         </div>
 
@@ -72,18 +72,18 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="img/Icon - User.png">
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}">
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Profile</a></li>
+                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
                 <li><a href="#">Setting</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="{{url('/dologout')}}">Logout</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="img/Icon - Add.png">
+                <img class="icon-menu" src="{{asset('img/Icon - Add.png')}}">
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Action</a></li>
@@ -96,9 +96,9 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right main-nav">
-            <li class="active"><a href="#">Menu 1</a></li>
-            <li><a href="#">Menu 2</a></li>
-            <li><a href="#">Menu 3</a></li>
+            <li class="active"><a href="{{url('/Home')}}">Home</a></li>
+            <li><a href="{{url('/Schedule')}}">Schedule</a></li>
+            <li><a href="#">Statistic</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->
@@ -131,13 +131,13 @@
     </div>
   </footer>
 
-  <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  <script type="text/javascript" src="js/bootstrap-select.js"></script>
-  <script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-  <script type="text/javascript" src="js/moment-with-locales.js"></script>
-  <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-select.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-slider.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.file-input.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/moment-with-locales.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
-@extends('master')
-
+@extends('layouts.master')
+<?php 
+    session_start();
+?>
 
 @section('title')
 	Create Report Form
@@ -27,42 +29,22 @@
                   </tbody>
                 </table>
               </div>
-        </div>
+            <label>Competency List :</label>
+            <form>
 
-
-        <div class="col-md-8">
-
-        	@foreach($competency as $competency)
-        			{{ $competency }}
-        			<br>
+        	   @foreach($competency as $competency)
+                <label>
+                <input type="checkbox" />
+                <span class="lbl padding-8">{{$competency->nama_kompetensi}}</span>
+                </label><br/>
         		@endforeach
-
-
-        {{--	<!-- 	{{ Form::open(array('url' => 'foo/bar')) }}
-
-        	<?php 
-        		$all_data = array();
-        		foreach($competencies as $competency){
-        			all_data[] = $competency->id_kompetensi;
-        		}
-        	?>
-
-        	@foreach ($competencies as $competency)
-        		{{ Form::checkbox('competency[]', $competency->id_kompetensi, in_array($competency->id_kompetensi)) }}
-        		{{ Form::label('competency', $competency->nama_kompetemsi) }}<br>
-        	@endforeach
-
-        	{{ Form::submit('Save') }}
-        
-        {{ Form::close() }} --> --}}
-
-
-
-        	
-        </div>
+            
+            </form>
+  
+    </div>
 
         <div>
-        	<button type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/SaveReportForm/" .$id_job_vacant)}}'">Save</button>
+        	<button type ="submit">Save</button>
         </div>
       
 

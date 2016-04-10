@@ -4,8 +4,22 @@
 
 <?php
 session_start();
-$_SESSION['email']='anestanggang@gmail.com';
-?>	
+?>
+<script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
+  <script type="text/javascript">
+  	var a = '<?php echo $_SESSION['booleanRole'] ?>';
+  	
+  	$(function(){
+  		if(a !='0'){
+  			$("button#HR").hide(1);	
+  		}
+  		if(a !='2'){
+  			$("button#R").hide(1);	
+  		}
+  	});
+  	
+  	
+  </script>
 <table style="width:50%">
 	
 	<caption>Interview Schedule</caption>
@@ -16,7 +30,7 @@ $_SESSION['email']='anestanggang@gmail.com';
 	    <th>Applicant</th>
 	  </tr>
 
-	@foreach ($schedule as $sc) 
+	@foreach ($schedule as $sc)
 		@if($_SESSION['email']===$sc->email_users)
 		<tr>
 			<td>
@@ -40,4 +54,7 @@ $_SESSION['email']='anestanggang@gmail.com';
 		
 		@endforeach
 </table>
+<div class="vertical-separator"></div>
+        <a href="{{url('/CreateInterview')}}"><button type="submit" class="btn btn-primary" id="HR">Create Interview Schedule</button></a>
+        <a href="{{url('#')}}"><button type="submit" class="btn btn-primary" id="R">Create Available Schedule</button></a>
 @stop

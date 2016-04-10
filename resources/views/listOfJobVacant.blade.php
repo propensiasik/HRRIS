@@ -1,4 +1,7 @@
-@extends('master')
+<?php 
+  session_start();
+?>
+@extends('layouts.master')
 
 @section('title')
   Job Vacant Information
@@ -47,6 +50,9 @@
               </div>
         </div>
       </div>
-
-
+<div class="col-md-12">
+        <div class="vertical-separator"></div>
+        <a href="{{url('/CreateAvailablePosition')}}"><button type="submit" class="btn btn-primary">Create Job Vacant</button></a>
+        </div>
+        
 @stop

@@ -68,7 +68,7 @@
           <a class="navbar-brand" href="#">
             <img class="icon-menu" src="img/Logo.png">
           </a>
-          <a class="navbar-brand title" href="{{url('hr')}}" {{$page == 'hr' ? 'class=active' : ''}}>
+          <a class="navbar-brand title" href="{{url('/Home')}}" {{$page == '/hr' ? 'class=active' : ''}}>
             HRRIS
           </a>
         </div>
@@ -84,7 +84,8 @@
                 <img class="icon-menu" src="img/Icon - User.png">
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
+                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
+                <li><a href="{{url('/dologout')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
               </ul>
             </li>
           </ul> 
@@ -100,7 +101,7 @@
 <div class="container">
    <div class="column-left">
 		<div class="well">
-			<a href = "{{url('hr-applicants')}}" {{$page == 'applicants_hr' ? 'class=active' : ''}}>
+			<a href = "{{url('/Applicants')}}" {{$page == 'applicants_hr' ? 'class=active' : ''}}>
 					<img src="img/applicant.png" style="width:50%">
 					<h2> Applicants </h2>
 			</a>	
@@ -109,7 +110,7 @@
 	
 	<div class="column-center">
 		<div class="well">
-			<a href="{{url('hr-schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
+			<a href="{{url('/Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
 				<img src="img/schedule.png" style="width:50%">
 				<h2>Schedule </h2>
 			</a>
@@ -138,7 +139,7 @@
 	
 	<div class="column-center">
 		<div class="well">
-			<a href="{{url('hr-availableposition')}}" {{$page == 'available_position' ? 'class=active' : ''}}>
+			<a href="{{url('/JobVacant')}}" {{$page == 'available_position' ? 'class=active' : ''}}>
 				<img src="img/vacant.png" style="width:50%">
 				<h2>Available Position </h2>
 			</a>

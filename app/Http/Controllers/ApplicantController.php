@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;		
-
+use Validator;
+use Session;
+use Auth;
 use DB;
-
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 use App\Applicant;
 
 class ApplicantController extends Controller
@@ -21,7 +23,7 @@ class ApplicantController extends Controller
     	
         // var_dump($applicants);die();
 
-        return view('applicants', ['applicants' => $applicants]);
+        return view('applicants')->with('applicants',$applicants)->with('page','applicants');
     }
 
     public function getApplicantProfile($id_applicant){
@@ -33,7 +35,7 @@ class ApplicantController extends Controller
         
         $applicantCV = DB::select('select id_applicant, cv from applicant where id_applicant=?', [$id_applicant]);
 
-    	return view('ProfileApplicant', ['applicantProfile' => $applicantProfile, 'applicantStatus' => $applicantStatus, 'applicantCV' => $applicantCV]);
+    	return view('ProfileApplicant', ['applicantProfile' => $applicantProfile, 'applicantStatus' => $applicantStatus, 'applicantCV' => $applicantCV, 'page'=>'recruiter']);
     }
 
     public function getCV($id_applicant) {

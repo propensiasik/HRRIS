@@ -29,7 +29,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="{{asset('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css')}}" />
 
   <!-- Fonts -->
   <link rel="stylesheet" href="{{asset('fonts/font-text/fonts.css')}}">
@@ -60,9 +60,9 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="{{url('recruiter')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
-            <img class="icon-menu" src="img/Logo.png">
+            <img class="icon-menu" src="{{asset('img/Logo.png')}}">
           </a>
-          <a class="navbar-brand title" href="{{url('recruiter')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
+          <a class="navbar-brand title" href="{{url('/Home')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
             HRRIS
           </a>
         </div>
@@ -75,7 +75,7 @@
 		<ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="img/Icon - User.png">
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}">
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
@@ -85,7 +85,7 @@
 		  
 		  <ul class="nav navbar-nav navbar-right main-nav">
 				<li><a href="{{url('recruiter')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
-                <li><a href="{{url('applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>Applicants</a></li>
+                <li><a href="{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>Applicants</a></li>
                 <li><a href="{{url('schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>Schedule</a></li>
                 <li><a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>Statistic</a></li>
           </ul>
@@ -116,13 +116,13 @@
     </div>
   </footer>
   
-  <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  <script type="text/javascript" src="js/bootstrap-select.js"></script>
-  <script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-  <script type="text/javascript" src="js/moment-with-locales.js"></script>
-  <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-select.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-slider.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.file-input.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/moment-with-locales.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 </body>
 </html>

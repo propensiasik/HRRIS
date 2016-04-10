@@ -37,40 +37,18 @@ class ReportFormController extends Controller
                           //   dd($competencyUsed);
 
             //menampilkan data pendukung
-            // $nama_jv = DB::select('select posisi_ditawarkan
-    //                              from job_vacant
-    //                              where id_job_vacant=?',[$id_job_vacant]); //belum berbentuk single value
-
-
             $nama_jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('posisi_ditawarkan');
-
-
-            // $id_divisi = DB::select('select id_divisi
-            //                      from job_vacant
-            //                      where id_job_vacant=?',[$id_job_vacant]); //belum berbentuk single value
 
             $id_divisi = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('id_divisi');
 
-            // $nama_divisi = DB::select('select nama_divisi
-            //                      from divisi
-            //                      where id_divisi=?',[$id_divisi]); //belum berbentuk single value
-
             $nama_divisi = DB::table('divisi')->where('id_divisi',$id_divisi)->value('nama_divisi');
 
-            // $id_company = DB::select('select id_company
-            //                      from divisi
-            //                      where id_divisi=?',[$id_divisi]); //belum berbentuk single value
-
             $id_company = DB::table('divisi')->where('id_divisi',$id_divisi)->value('id_company');
-
-            // $nama_company = DB::select('select nama_company
-            //                      from company
-            //                      where id_company=?',[$id_company]); //belum berbentuk single value
 
             $nama_company = DB::table('company')->where('id_company',$id_company)->value('nama_company');
 
 
-        return view('viewReportForm', ['nama_jv' => $nama_jv, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'competency' => $competencyUsed]); 
+        return view('viewReportForm', ['nama_jv' => $nama_jv, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'competency' => $competencyUsed, 'id_job_vacant' => $id_job_vacant]); 
  		     
  		 }
 
@@ -79,7 +57,6 @@ class ReportFormController extends Controller
 
 
     public function openReportForm($id_job_vacant){ //untuk menampilkan form pengisisan report form
-            
             $nama_jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('posisi_ditawarkan');
 
             $id_divisi = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('id_divisi');
@@ -91,7 +68,7 @@ class ReportFormController extends Controller
             $nama_company = DB::table('company')->where('id_company',$id_company)->value('nama_company');
 
             $competency = competency::all('nama_kompetensi');
-           // dd($competency);
+            //dd($competency);
 
 
     	return view('createReportForm', ['nama_jv' => $nama_jv, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'competency' => $competency]);
@@ -116,12 +93,8 @@ class ReportFormController extends Controller
                              dd($competency);
 
             //menampilkan data pendukung
-            // $nama_jv = DB::select('select posisi_ditawarkan
-    //                              from job_vacant
-    //                              where id_job_vacant=?',[$id_job_vacant]); //belum berbentuk single value
 
-
-            $nama_jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('posisi_ditawarkan');
+            $nama_jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('posisi_ditawarkan')->first();
 
 
             // $id_divisi = DB::select('select id_divisi

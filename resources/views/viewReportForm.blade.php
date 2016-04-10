@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 
 
 @section('title')
@@ -33,8 +33,8 @@
         <div class="col-md-8">
 
         	@foreach($competency as $competency)
-              {{ $competency }}
-              <br>
+              {{ $competency->nama_kompetensi }}
+              <br/>
             @endforeach
         	
         </div>

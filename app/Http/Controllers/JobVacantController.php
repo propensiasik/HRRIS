@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Http\Request;
+use Validator;
+use Session;
+use Auth;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Request;
+
 //use Request;
 
 //use Input;
 
 use App\Applicant;
-use App\job_vacant; 
 
 use App\Http\Controllers\Controller;
 
@@ -63,33 +64,11 @@ class JobVacantController extends Controller
 
         return view('registrasi');
     }
-
-
-
-    //DARI SINI PUNYA KHALILA
-        public function getListOfJobVacant()
+    public function getListOfJobVacant()
     {
-      $jobVacantList = job_vacant::all(); //mendapatkan semua objek job vacant
-
-
-     // dd($temp);
-
-     //  $jobVacantList = DB::table('job_vacant')->get();
-
-   //  dd($jobVacantList);
-
-     //  return view('pages.listOfJobVacant', '$jobVacantList');
-
-       //echo $jobVacantList;
-
-
-   //   return view('pages.listOfJobVacant');
-   // // return view('pages.listOfJobVacant', compact('jobVacantList'));
-   //   //return View::make('jobVacantList.listOfJobVacant', compact('jobVacantList'));
-     
-     // $jobVacantList = DB::select('select * from job_vacantfirst
-     // echo $jobVacantList;
-     return view('listOfJobVacant', ['jobVacantList' => $jobVacantList]);
+    //$jobVacantList = Job_vacant::all(); //mendapatkan semua objek job vacant
+     $jobVacantList = DB::table('job_vacant')->get();   
+     return view('/listOfJobVacant', ['jobVacantList' => $jobVacantList]);
     }
 
     public function showJobVacantInformation($id_job_vacant)

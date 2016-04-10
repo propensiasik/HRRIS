@@ -1,10 +1,14 @@
-@extends('Master')
+@extends('layouts.master_recruiter')
 
 @section('title')
 	Profile | Applicant
 @endsection
 
 @section('content')
+<?php
+	session_start();
+?>
+
 <div class="container">
 	
 

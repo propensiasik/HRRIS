@@ -68,23 +68,24 @@
           <a class="navbar-brand" href="#">
             <img class="icon-menu" src="img/Logo.png">
           </a>
-          <a class="navbar-brand title" href="{{url('recruiter')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
+          <a class="navbar-brand title" href="{{url('/Home')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
             HRRIS
           </a>
         </div>
-    
-    
+		
+		
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-     
-    <ul class="nav navbar-nav navbar-right">
+		 
+		<ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 <img class="icon-menu" src="img/Icon - User.png">
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
+                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
+                <li><a href="{{url('/dologout')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
               </ul>
             </li>
           </ul> 
@@ -99,36 +100,36 @@
 <center>
 <div class="container">
    <div class="column-left">
-    <div class="well">
-      <a href = "{{action('ApplicantController@getListOfApplicant')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
-          <img src="img/applicant.png" style="width:50%">
-          <h2> Applicants </h2>
-      </a>  
-    </div>
-  </div>
-  
-  <div class="column-center">
-    <div class="well">
-      <a href="{{url('schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
-        <img src="img/schedule.png" style="width:50%">
-        <h2>Schedule </h2>
-      </a>
-    </div>
-  </div>
+		<div class="well">
+			<a href = "{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
+					<img src="img/applicant.png" style="width:50%">
+					<h2> Applicants </h2>
+			</a>	
+		</div>
+	</div>
+	
+	<div class="column-center">
+		<div class="well">
+			<a href="{{url('/Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
+				<img src="img/schedule.png" style="width:50%">
+				<h2>Schedule </h2>
+			</a>
+		</div>
+	</div>
    
-  <div class="column-right">
-    <div class="well">
-      <a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
-        <img src="img/statistics.png" style="width:50%">
-        <h2>Statistic</h2></div></div>
-      </a>
-    </div>
-  </div>
-  
+	<div class="column-right">
+		<div class="well">
+			<a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
+				<img src="img/statistics.png" style="width:50%">
+				<h2>Statistic</h2></div></div>
+			</a>
+		</div>
+	</div>
+	
 </div>
 </center>
-  
-</section>    
+	
+</section>	  
 
 <footer>
     <div class="container-fluid">

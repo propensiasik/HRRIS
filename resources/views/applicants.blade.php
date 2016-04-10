@@ -1,4 +1,7 @@
-@extends('layouts.master_recruiter')
+<?php 
+	session_start();
+?>
+@extends('layouts.master')
 
 @section('content')
 <section id="content">

@@ -38,7 +38,9 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">{{$_SESSION['username']}}</div>
+                <h2>{{$_SESSION['role']}}</h2>
+                <button type ="button" onclick="window.location='{{url("/dologout")}}'">Aku Berhenti</button>
             </div>
         </div>
     </body>

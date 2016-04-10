@@ -1,4 +1,7 @@
-@extends('master')
+@extends('layouts.master')
+<?php  
+session_start();
+?>
 
 
 @section('title')
@@ -14,7 +17,7 @@
 </div>
 
 <div>
-	<button type ="button" onclick="window.location='{{url("/JobVacant/ReportForm/CreateReportForm/" . $id_job_vacant)}}'">Create report form</button>
+	<a href="{{url('/JobVacant/ReportForm/CreateReportForm/' . $id_job_vacant) }}"><button type ="button">Create report form</button></a>
 
 
 </div>

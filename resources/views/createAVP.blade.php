@@ -1,7 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-
+<?php
+	session_start();
+?>
 <section id="content">
 
 	<h1> Create Available Posistion</h1>
