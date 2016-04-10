@@ -47,7 +47,21 @@ Route::get('/applicant', 'ApplicantController@getListOfApplicant');
 Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile');
 
 
+//ROUTER KHALILA
+//untuk menampilkan halaman list of job vacant ketika user memilih menu Job Vacant
+Route::get('/JobVacant', 'JobVacantController@getListOfJobVacant');
 
+//untuk menampilkan halaman penjelasan dari suatu job vacant ketika user memilih salah satu job vacant
+Route::get('/JobVacant/{id_job_vacant}', 'JobVacantController@showJobVacantInformation');
+
+//untuk cek apakah suatu jobVacant udah punya report form atau belum
+Route::get('/JobVacant/ReportForm/{id_job_vacant}', 'ReportFormController@cekApakahReportFormUdahDibuat');
+
+//untuk menampilkan form create report form
+Route::get('/JobVacant/ReportForm/CreateReportForm/{id_job_vacant}', 'ReportFormController@openReportForm');
+
+//untuk menampikan halaman ketika report form telah exist
+Route::get('/JobVacant/ReportForm/ViewReportForm/{id_report_form}', 'ReportFormController@viewReportForm');
 
 
 Route::group(['middleware' => ['web']], function () {

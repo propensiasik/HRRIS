@@ -6,11 +6,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 //use Request;
 
 //use Input;
 
 use App\Applicant;
+use App\job_vacant; 
 
 use App\Http\Controllers\Controller;
 
@@ -61,5 +63,73 @@ class JobVacantController extends Controller
 
         return view('registrasi');
     }
+
+
+
+    //DARI SINI PUNYA KHALILA
+        public function getListOfJobVacant()
+    {
+      $jobVacantList = job_vacant::all(); //mendapatkan semua objek job vacant
+
+
+     // dd($temp);
+
+     //  $jobVacantList = DB::table('job_vacant')->get();
+
+   //  dd($jobVacantList);
+
+     //  return view('pages.listOfJobVacant', '$jobVacantList');
+
+       //echo $jobVacantList;
+
+
+   //   return view('pages.listOfJobVacant');
+   // // return view('pages.listOfJobVacant', compact('jobVacantList'));
+   //   //return View::make('jobVacantList.listOfJobVacant', compact('jobVacantList'));
+     
+     // $jobVacantList = DB::select('select * from job_vacantfirst
+     // echo $jobVacantList;
+     return view('listOfJobVacant', ['jobVacantList' => $jobVacantList]);
+    }
+
+    public function showJobVacantInformation($id_job_vacant)
+    {
+      
+      $tuple_jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->first();
+     // dd($tuple_jv);
+
+      $id_divisi = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('id_divisi');
+
+      $nama_divisi = DB::table('divisi')->where('id_divisi',$id_divisi)->value('nama_divisi');
+
+      $id_company = DB::table('divisi')->where('id_divisi',$id_divisi)->value('id_company');
+
+      $nama_company = DB::table('company')->where('id_company',$id_company)->value('nama_company');
+
+      // $posisi = $tuple_jv->value('posisi_ditawarkan');
+      // $jml_kebutuhan = $tuple_jv->value('jml_kebutuhan');
+      // $requirement = $tuple_jv->value('requirement');
+      // $status = $tuple_jv->value('is_open');
+
+      // if($status == 1){
+      //   $status = 'published';
+      // }else if($status == 0){
+      //   $status = 'not published';
+      // }
+
+        return view('jobVacantInformation', ['idJobVacant' => $id_job_vacant]); 
+
+       // return view('jobVacantInformation', ['idJobVacant' => $id_job_vacant, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'posisi' => $posisi, 'jml_kebutuhan' => $jml_kebutuhan, 
+    //   'requirement' => $requirement, 'status' => $status]); 
+   
+    }
+
+    public function updateJobVacant()
+    {
+
+    }
+
+    //PUNYA KHALILA SAMPAI SINI YA
+
 
 }
