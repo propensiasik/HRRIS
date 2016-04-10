@@ -3,8 +3,11 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Applicant extends Model {
-	
+		public $timestamps = false;
 		protected $table = 'applicant';
+		
+		protected $fillable = ['id_applicant', 'nama_applicant', 'email_applicant', 'alamat', 'gender' , 'no_hp', 
+    						'universitas', 'jurusan', 'ipk', 'thn_lulus', 'CV'];
 
 	public function status_applicant(){
 		return $this->hasMany('App\status_applicant');
