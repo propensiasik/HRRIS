@@ -43,7 +43,7 @@ class ScheduleController extends Controller
                         ->select('interview.tgl_wawancara', 'interview.waktu_wawancara', 'interview.cara_wawancara', 'applicant.nama_applicant')
                         ->get();
         */
-        return view('pages.schedule' , ['schedule' => $temp]);
+        return view('schedule' , ['schedule' => $temp]);
 
     }
     

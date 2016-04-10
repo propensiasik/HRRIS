@@ -24,7 +24,23 @@ Route::get('/Tai','HomeController@index');
 |
 */
 //ROUTER DINI
+Route::get('/registrasi', 'JobvacantController@form'); //registrasi form
+Route::post('registrasi', 'JobvacantController@store');
+//Route::post('registrasi', 'JobvacantController@reg');
+Route::get('create', 'PageController@create'); //create available position
+Route::post('create', 'PageController@store'); //UNTUK SIMPAN AV.POSISTION
 
+//Route::get('/applicant', 'ApplicantController@show'); //view list applicant
+//Route::get('about/create', 'PageController@form'); //untuk membuat job baru
+Route::post('jobvacant', 'JobvacantController@store'); 
+
+Route::get('jobvacant', 'JobvacantController@reg');
+
+Route::get('jobvacant', 'JobvacantController@regis'); //nampilin home applicant yang bisa registrasi sekalian
+
+Route::get('create/jobvacant' , 'JobvacantController@form'); //ngeliat jobvacant
+
+Route::get('interviewSchedule', 'ScheduleController@getListSchedule'); //untuk ambil schedule
 
 // ROUTER FERRI 
 Route::get('/applicant', 'ApplicantController@getListOfApplicant');

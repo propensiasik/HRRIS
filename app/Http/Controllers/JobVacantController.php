@@ -24,7 +24,7 @@ class JobVacantController extends Controller
         $jobs = DB::select('select * from job_vacant') ;
         return view('pages.jobvacant' , ['jobs' => $jobs]);
 
-       // return view('pages.jobvacant');
+       // return view('jobvacant');
 
     }
     public function store() {
@@ -52,14 +52,14 @@ class JobVacantController extends Controller
 
     public function regis(){
         $jobs = DB::select('select * from job_vacant') ;
-        return view('pages.job' , ['jobs' => $jobs]);
+        return view('job' , ['jobs' => $jobs]);
        
 
     }
 
     public function reg(){
 
-        return view('pages.registrasi');
+        return view('registrasi');
     }
 
 }

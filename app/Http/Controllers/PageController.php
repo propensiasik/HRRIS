@@ -25,11 +25,11 @@ class PageController extends Controller
 
     	$firstname = 'Dini';
     	$lastname = 'Seprilia';
-    	return view('pages.about', compact('firstname', 'lastname')); 
+    	return view('about', compact('firstname', 'lastname')); 
     }
 
     public function form(){
-        return view('pages.create'); 
+        return view('create'); 
     }
 
     public function store() {
@@ -44,7 +44,7 @@ class PageController extends Controller
         $post->Requirement = Input::get('requirement');
 
         $post->save();
-        //return view('pages.jobvacant');
+        //return view('jobvacant');
         return $input;
     }
 
@@ -61,12 +61,12 @@ class PageController extends Controller
     }
     */
     public function contact(){
-    	return view('pages.registrasi');
+    	return view('registrasi');
     }
 
     public function create()
     {
-        return view('pages.create');
+        return view('create');
     }
 
     
