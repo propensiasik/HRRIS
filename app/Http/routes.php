@@ -23,6 +23,8 @@ Route::get('/Tai','HomeController@index');
 | and give it the controller to call when that URI is requested.
 |
 */
+//ROUTER DINI
+
 
 // ROUTER FERRI 
 Route::get('/applicant', 'ApplicantController@getListOfApplicant');
@@ -37,5 +39,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
+
 
 });
