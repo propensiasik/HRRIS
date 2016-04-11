@@ -71,43 +71,70 @@ class JobVacantController extends Controller
      return view('/listOfJobVacant', ['jobVacantList' => $jobVacantList]);
     }
 
-    public function showJobVacantInformation($id_job_vacant)
+     public function showJobVacantInformation($id_job_vacant)
     {
       
-      $tuple_jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->first();
-     // dd($tuple_jv);
+      $jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant);
+    //  dd($jv);
 
-      $id_divisi = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('id_divisi');
+      //mengambil tuple job vacant yang dimaksud
+      // $jv = job_vacant::all()->where('id_job_vacant', $id_job_vacant);
+      // dd($jv);
 
-      $nama_divisi = DB::table('divisi')->where('id_divisi',$id_divisi)->value('nama_divisi');
+      //mengambil posisi job vacant yang ditawarkan
+      $nama_jv = $jv->value('posisi_ditawarkan'); //1
+    //  dd($nama_jv);
 
-      $id_company = DB::table('divisi')->where('id_divisi',$id_divisi)->value('id_company');
+      //mengambil id_divisi untuk digunakan pada pencarian nama divisi
+      $id_divisi = $jv->value('id_divisi');
+     // dd($id_divisi);
+   //   $id_divisi = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant)->value('id_divisi');
 
-      $nama_company = DB::table('company')->where('id_company',$id_company)->value('nama_company');
+      //mengembalikan tuple dari divisi yang dimaksud
+   //   $div = divisi::all()->where('id_divisi', $id_divisi);
+      $div = DB::table('divisi')->where('id_divisi', $id_divisi);
 
-      // $posisi = $tuple_jv->value('posisi_ditawarkan');
-      // $jml_kebutuhan = $tuple_jv->value('jml_kebutuhan');
-      // $requirement = $tuple_jv->value('requirement');
-      // $status = $tuple_jv->value('is_open');
+      $nama_divisi = $div->value('nama_divisi'); //2
+     // dd($nama_divisi);
 
-      // if($status == 1){
-      //   $status = 'published';
-      // }else if($status == 0){
-      //   $status = 'not published';
-      // }
+      $id_company = $div->value('id_company');
+     // dd($id_company);
 
-        return view('jobVacantInformation', ['idJobVacant' => $id_job_vacant]); 
+    //  $nama_divisi = DB::table('divisi')->where('id_divisi',$id_divisi)->value('nama_divisi');
 
-       // return view('jobVacantInformation', ['idJobVacant' => $id_job_vacant, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'posisi' => $posisi, 'jml_kebutuhan' => $jml_kebutuhan, 
-    //   'requirement' => $requirement, 'status' => $status]); 
+      // $com = company::all()->where('id_company', $id_company);
+
+      $com = DB::table('company')->where('id_company', $id_company);
+
+       $nama_company = $com->value('nama_company'); //3
+    //   dd($nama_company);
+
+      //$id_company = DB::table('divisi')->where('id_divisi',$id_divisi)->value('id_company');
+
+     // $nama_company = DB::table('company')->where('id_company',$id_company)->value('nama_company');
+
+       
+      $jml_kebutuhan = $jv->value('jml_kebutuhan'); //4
+      $requirement = $jv->value('requirement'); //5
+      $status_job = $jv->value('is_open'); //6
+      //dd($status);
+
+      $status = "";
+      echo ($status);
+
+      if($status_job == 1){
+         $status = 'Published';
+        // echo ($tatus);
+       }else{
+         $status = 'Not published';
+       }
+
+      //return view('jobVacantInformation', ['idJobVacant' => $id_job_vacant]); 
+
+      return view('jobVacantInformation', ['id_job_vacant' => $id_job_vacant, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'nama_jv' => $nama_jv, 'jml_kebutuhan' => $jml_kebutuhan, 
+     'requirement' => $requirement, 'status' => $status]); 
    
     }
-
-    public function updateJobVacant()
-    {
-
-    }
-
     //PUNYA KHALILA SAMPAI SINI YA
 
 
