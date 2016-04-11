@@ -17,7 +17,7 @@ session_start();
 </div>
 
 <div>
-	<a href="{{url('/JobVacant/ReportForm/CreateReportForm/' . $id_job_vacant) }}"><button type ="button">Create report form</button></a>
+	<a href="{{url('/JobVacant/ReportForm/CreateReportForm/' . $id_job_vacant) }}"><button type ="button" class="btn btn-primary">Create report form</button></a>
 
 
 </div>

@@ -97,13 +97,11 @@
               </div>
         </div>
       </div>
+  
   </div>
+  <div class="vertical-separator"></div>
+<a href="{{url('/Schedule')}}"><button type="button" class="btn btn-primary">Save</button></a>
 </div>
-  <div class="col-md-12">
-              <div class="vertical-separator"></div>
-    <div class="modal-footer">
-        <a href="{{url('/Schedule')}}"><button type="button" class="btn btn-primary">Save</button></a>
-    </div>
-  </div>
+  
 </body>
 @stop

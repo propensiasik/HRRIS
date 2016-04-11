@@ -15,6 +15,13 @@
     return view('welcome');
 });*/
 //Route::get('/av','ScheduleController@available_schedule');
+//View Applicant
+//Route::get('/registrasi', 'PageController@form'); //registrasi form
+//Route::post('/registrasi', 'JobVacantController@store');
+//Route::post('/Cari', 'JobVacantController@store'); 
+//Route::get('/Cari', 'JobVacantController@gantiNama');
+//Route::get('/Cari', 'JobVacantController@regis'); //nampilin home applicant yang bisa registrasi sekalian
+
 //Schedule
 Route::get('/Schedule','ScheduleController@getListSchedule');
 Route::get('/CreateInterview','ScheduleController@create_interview');
@@ -44,7 +51,7 @@ Route::get('/JobVacant/ReportForm/ViewReportForm/{id_report_form}', 'ReportFormC
 Route::get('/','UserController@index');
 Route::get('/Home','HomeController@index');
 
-Route::group(['middleware'=>['web']],function(){
+Route::group(['middleware'=>'web'],function(){
 	Route::post('/dologin','UserController@login');
 	Route::get('/dologout','UserController@logout');
 	}

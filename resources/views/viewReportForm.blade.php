@@ -1,18 +1,20 @@
 @extends('layouts.master')
 
-
+<?php 
+  session_start();
+?>
 @section('title')
-	View Report Form
+  View Report Form
 @endsection
 
 @section('content')
 <h1 style="text-align: center"> View Report Form </h1>
 <br>
-	<div class="col-md-8">
+  <div class="col-md-8">
           <div class="table-responsive">
-                <table class="table" style="margin-left:25%; margin-right:15%;">	
+                <table class="table" style="margin-left:25%; margin-right:15%;">  
                   <tbody>
-				<tr>
+        <tr>
             <td>Job vacancy</td>
             <td>{{ $nama_jv }}</td>
           </tr>
@@ -29,20 +31,22 @@
               </div>
         </div>
 
-        <div>
+        <div class="col-md-8">
           <h4>Competency List</h4>
           @foreach($competency as $competency)
             <li>
               {{ $competency }}
             </li>
             @endforeach 
-          </div>
+        <div class="vertical-separator"></div>
+        <div>
+          <button type ="submit" onclick="#" class="btn btn-primary">Update</button>
+        </div>
+        </div>
 
           
         
-        <div>
-          <button type ="submit" onclick="window.location='{{url("/JobVacant/update")}}'">Update</button>
-        </div>
+        
 
 
 

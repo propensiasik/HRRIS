@@ -10,6 +10,7 @@
 @section('content')
 <h1 style="text-align: center"> Create Report Form </h1>
 <br>
+<div class="container">
 	<div class="col-md-8">
           <div class="table-responsive">
                 <table class="table" style="margin-left:25%; margin-right:15%;">	
@@ -28,26 +29,24 @@
 					</tr>
                   </tbody>
                 </table>
-              </div>  
-    </div>
-    <div>
-         <label>Competency List :</label>
+              </div>
+            <label>Competency List :</label>
             <form>
 
-               @foreach($competency as $competency)
+        	   @foreach($competency as $competency)
                 <label>
                 <input type="checkbox" />
                 <span class="lbl padding-8">{{$competency->nama_kompetensi}}</span>
                 </label><br/>
-                @endforeach
+        		@endforeach
             
             </form>
+  
     </div>
-
+</div>
         <div>
-        	<button type ="submit">Save</button>
-        </div>
-      
+        	<button type ="submit" class="btn btn-primary">Save</button>
+        </div>      
 
 
 

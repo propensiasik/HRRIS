@@ -52,7 +52,7 @@
       </div>
 <div class="col-md-12">
         <div class="vertical-separator"></div>
-        <a href="{{url('/CreateAvailablePosition')}}"><button type="submit" class="btn btn-primary">Create Job Vacant</button></a>
+        <a href="{{url('/CreateAvailablePosition')}}"><button type="submit" class="btn btn-primary">Create Available Position</button></a>
         </div>
         
 @stop

@@ -60,7 +60,7 @@
 			<table class="table" style="margin-left:25%; margin-right:15%;">	
 				<thead>
 					<tr>
-						<th>#</th>
+						<th>No.</th>
 						<th>Nama</th>
 						<th>Posisi</th>
 						<th>Company</th>

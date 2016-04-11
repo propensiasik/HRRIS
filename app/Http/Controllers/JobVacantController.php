@@ -60,9 +60,9 @@ class JobVacantController extends Controller
 
     }
 
-    public function reg(){
+    public function gantiNama(){
 
-        return view('registrasi');
+        return view('/registrasi');
     }
     public function getListOfJobVacant()
     {
@@ -71,7 +71,7 @@ class JobVacantController extends Controller
      return view('/listOfJobVacant', ['jobVacantList' => $jobVacantList]);
     }
 
-     public function showJobVacantInformation($id_job_vacant)
+    public function showJobVacantInformation($id_job_vacant)
     {
       
       $jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant);
@@ -136,6 +136,4 @@ class JobVacantController extends Controller
    
     }
     //PUNYA KHALILA SAMPAI SINI YA
-
-
 }

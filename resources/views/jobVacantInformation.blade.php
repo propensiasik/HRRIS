@@ -41,15 +41,15 @@
                 </table>
                 <div>
                   <div style="text-align: center"><h2>Requirement</h2></div>
-                	<div>{{ $requirement }}</div>
+                	<div >{{ $requirement }}</div>
                 </div>
               </div>
         </div>
       </div> 
-
+      <div class="vertical-separator"></div>
 	<div>
-  	<a href="{{ URL::to('/JobVacant/ReportForm/' . $id_job_vacant) }}"><button>View report form</button></a>
-  	<a href="{{ URL::to('/JobVacant/ReportForm/' . $id_job_vacant) }}"><button>Update Information</button></a>
+  	<a href="{{ URL::to('/JobVacant/ReportForm/' . $id_job_vacant) }}"><button class="btn btn-primary">View report form</button></a>
+  	<a href="#{{ URL::to('/JobVacant/ReportForm/' . $id_job_vacant) }}"><button class="btn btn-secondary">Update Information</button></a>
   	</div>
 
 @stop

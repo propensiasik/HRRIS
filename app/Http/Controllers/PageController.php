@@ -30,7 +30,7 @@ class PageController extends Controller
     }
 
     public function form(){
-        return view('create'); 
+        return view('/jobvacant'); 
     }
 
     public function store() {

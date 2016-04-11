@@ -79,7 +79,7 @@
                 
               }
             ?>
-            <div class="form-group">
+            <!--<div class="form-group">
               Haven't register yet? <a href="">Register here</a>
             </div>
 
@@ -88,7 +88,7 @@
             <div class="form-group">
               <button type="submit" class="btn btn-danger">Login via Google Account</button>
             </div>
-
+            -->
           </form>
         </div>
       </div>

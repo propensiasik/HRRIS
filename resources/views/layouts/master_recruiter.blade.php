@@ -84,7 +84,7 @@
           </ul> 
 		  
 		  <ul class="nav navbar-nav navbar-right main-nav">
-				<li><a href="{{url('recruiter')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
+				<li><a href="{{url('/Home')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
                 <li><a href="{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>Applicants</a></li>
                 <li><a href="{{url('schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>Schedule</a></li>
                 <li><a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>Statistic</a></li>
