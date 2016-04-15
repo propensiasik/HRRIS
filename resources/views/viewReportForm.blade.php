@@ -11,10 +11,10 @@
 <h1 style="text-align: center"> View Report Form </h1>
 <br>
   <div class="col-md-8">
-          <div class="table-responsive">
-                <table class="table" style="margin-left:25%; margin-right:15%;">  
-                  <tbody>
-        <tr>
+    <div class="table-responsive">
+      <table class="table" style="margin-left:25%; margin-right:15%;">  
+        <tbody>
+          <tr>
             <td>Job vacancy</td>
             <td>{{ $nama_jv }}</td>
           </tr>
@@ -26,31 +26,43 @@
             <td>Company</td>
             <td>{{ $nama_company }}</td>
           </tr>
-                  </tbody>
-                </table>
-              </div>
-        </div>
+        </tbody>
+      </table>
 
-        <div class="col-md-8">
-          <h4>Competency List</h4>
-          @foreach($competency as $competency)
-            <li>
-              {{ $competency }}
-            </li>
-            @endforeach 
-        <div class="vertical-separator"></div>
+      <br>
+
+      <table class="table" style="margin-left:25%; margin-right:15%;">
+         <h3 style="text-align:center">Competency List</h3>
+        <thead>
+            <th>#</th>
+            <th>Nama Kompetensi</th>              
+            <th>Penjelasan</th>
+        </thead> 
+        <tbody>
+          <?php $i=0; ?>
+            @foreach ($competency as $competency)
+              <?php $i++; ?>
+          <tr>
+              <td>
+                {{ $i }}
+              </td>
+              <td>
+                {{ $competency->nama_kompetensi}}
+              </td>
+              <td>
+                {{ $competency->penjelasan_kompetensi }}
+              </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <br>
+        
         <div>
-          <button type ="submit" onclick="#" class="btn btn-primary">Update</button>
+          <button type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/UpdateReportForm/". $id_job_vacant)}}'">Update</button>
         </div>
-        </div>
-
-          
-        
-        
-
-
 
 @stop
-
-
 

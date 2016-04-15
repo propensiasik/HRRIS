@@ -44,9 +44,14 @@ Route::get('/JobVacant/{id_job_vacant}', 'JobVacantController@showJobVacantInfor
 //untuk cek apakah suatu jobVacant udah punya report form atau belum
 Route::get('/JobVacant/ReportForm/{id_job_vacant}', 'ReportFormController@cekApakahReportFormUdahDibuat');
 //untuk menampilkan form create report form
-Route::get('/JobVacant/ReportForm/CreateReportForm/{id_job_vacant}', 'ReportFormController@openReportForm');
+Route::get('/JobVacant/ReportForm/CreateReportForm/{id_job_vacant}', 'ReportFormController@createReportForm');
 //untuk menampikan halaman ketika report form telah exist
 Route::get('/JobVacant/ReportForm/ViewReportForm/{id_report_form}', 'ReportFormController@viewReportForm');
+//untuk menampilkan form update report form
+Route::get('/JobVacant/ReportForm/UpdateReportForm/{id_job_vacant}', 'ReportFormController@updateReportForm');
+
+
+
 
 Route::get('/','UserController@index');
 Route::get('/Home','HomeController@index');
