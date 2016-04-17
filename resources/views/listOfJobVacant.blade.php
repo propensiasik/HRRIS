@@ -4,7 +4,7 @@ session_start();
 @extends('layouts.master')
 
 @section('title')
-Job Vacant Information
+
 @endsection
 
 @section('content')
@@ -52,12 +52,9 @@ Job Vacant Information
         @endforeach
       </tbody>
     </table>
+    <div class="vertical-separator"></div>
+    <a href="{{url('/CreateAvailablePosition')}}"><button type="submit" class="btn btn-primary" style="margin-left:25%; margin-right:15%;">Create Job Vacant</button></a>
   </div>
-</div>
-</div>
-<div class="col-md-12">
-  <div class="vertical-separator"></div>
-  <a href="{{url('/CreateAvailablePosition')}}"><button type="submit" class="btn btn-primary">Create Job Vacant</button></a>
 </div>
 
 

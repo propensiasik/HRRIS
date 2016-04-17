@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <title>@yield('title')</title>
+@yield('title')
+  <title> HRRIS</title>
   <meta name="description" content="UI Kit.">
   <meta name="author" content="Faizal Rahman">
 
@@ -66,13 +66,13 @@
             HRRIS
           </a>
         </div>
-		
-		
+    
+    
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		 
-		<ul class="nav navbar-nav navbar-right">
+     
+    <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 <img class="icon-menu" src="{{asset('img/Icon - User.png')}}">
@@ -82,14 +82,14 @@
               </ul>
             </li>
           </ul> 
-		  
-		  <ul class="nav navbar-nav navbar-right main-nav">
-				<li><a href="{{url('/Home')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
+      
+      <ul class="nav navbar-nav navbar-right main-nav">
+        <li><a href="{{url('/Home')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
                 <li><a href="{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>Applicants</a></li>
-                <li><a href="{{url('schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>Schedule</a></li>
+                <li><a href="{{url('Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>Schedule</a></li>
                 <li><a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>Statistic</a></li>
           </ul>
-		  
+      
 
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

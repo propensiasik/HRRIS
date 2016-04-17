@@ -4,7 +4,6 @@
 @extends('layouts.master')
 
 @section('title')
-	Applicants
 @endsection
 
 @section('content')

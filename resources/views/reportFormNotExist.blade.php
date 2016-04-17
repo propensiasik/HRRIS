@@ -5,7 +5,6 @@ session_start();
 
 
 @section('title')
-	Report Form
 @endsection
 
 

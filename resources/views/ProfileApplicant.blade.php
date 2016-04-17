@@ -1,7 +1,6 @@
 @extends('layouts.master_recruiter')
 
 @section('title')
-	Profile | Applicant
 @endsection
 
 @section('content')

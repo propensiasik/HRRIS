@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <title> @yield('title')</title>
+  @yield('title')
+  <title> HRRIS</title>
   <meta name="description" content="UI Kit.">
   <meta name="author" content="Faizal Rahman">
 
@@ -98,6 +98,9 @@
           <ul class="nav navbar-nav navbar-right main-nav">
             <li class="active"><a href="{{url('/Home')}}">Home</a></li>
             <li><a href="{{url('/Applicants')}}">Applicants</a></li>
+            @if($_SESSION['booleanRole']==0)
+            <li><a href="{{url('/JobVacant')}}">Av. Position</a></li>
+            @endif
             <li><a href="{{url('/Schedule')}}">Schedule</a></li>
             <li><a href="#">Statistic</a></li>
           </ul>

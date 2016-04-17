@@ -4,7 +4,6 @@
   session_start();
 ?>
 @section('title')
-  View Report Form
 @endsection
 
 @section('content')
@@ -57,12 +56,13 @@
         </tbody>
       </table>
     </div>
+  <div>
+          <button type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/UpdateReportForm/". $id_job_vacant)}}'">Update</button>
+        </div>
   </div>
   <br>
         
-        <div>
-          <button type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/UpdateReportForm/". $id_job_vacant)}}'">Update</button>
-        </div>
+        
 
 @stop
 

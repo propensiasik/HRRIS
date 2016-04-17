@@ -7,7 +7,7 @@ class Job_vacant extends Model {
 		public $timestamps = false;
 		protected $table ='job_vacant';
 
-		protected $fillable = ['capacity', 'Requirement'];
+    	protected $fillable = ['id_job_vacant', 'posisi_ditawarkan', 'jml_kebutuhan','requirement', 'id_divisi' ];
 
 	public function apply(){
 		return $this->hasMany('App\apply', 'id_job_vacant');

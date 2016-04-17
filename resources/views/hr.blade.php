@@ -137,8 +137,8 @@
 </div>
 
 </div>
-	
-</section>	  
+  
+</section>    
 
 <!--Footer-->
 <footer>

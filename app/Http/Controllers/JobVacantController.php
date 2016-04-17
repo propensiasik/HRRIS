@@ -1,66 +1,82 @@
-  <?php
-
-  namespace App\Http\Controllers;
-
-  use Illuminate\Http\Request;
-  use Validator;
-  use Session;
-  use Auth;
-  use App\Http\Requests;
-  use Illuminate\Support\Facades\Input;
+<?php
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use Validator;  
+use Session;
+use Auth;
+use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
   //use Request;
 
   //use Input;
 
-  use App\Applicant;
-  use App\Jobvacant;
+use App\Applicant;
+use App\Jobvacant;
 
-  use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
-  use DB;
+use DB;
 
-  class JobVacantController extends Controller
+class JobVacantController extends Controller
+{
+
+  public function create()
   {
-	
-	public function create()
-    {
-        return view('\createAVP')->with('page','avp');
+    $id_job_vacant = DB::select('select id_job_vacant from job_vacant order by id_job_vacant desc limit 1');
+    foreach ($id_job_vacant as $ijv ) {
+      $newId = (int)substr($ijv->id_job_vacant, 1);
+      if($newId === 0){
+        $newId = (int)substr($ijv->id_job_vacant, 2);
+        $newId +=1; 
+        $newId_jv ='JV0'.$newId;
+      }
+      else{
+        $newId +=1; 
+        $newId_jv ='JV'.$newId;
+      }
+      //dd($newId_jv);
+      return view('\createAVP')->with('page','avp')->with('newID',$newId_jv);
     }
+  }
 
+  public function process() {
 
-    public function process() {
+    $post = new Jobvacant;
+    $postIJV = new \App\Involved_Job_Vacant;
+    $postIJV2 = new \App\Involved_Job_Vacant;
+    $postIJV3 = new \App\Involved_Job_Vacant;
+    $input = Input::all();
+    
+    
 
-        $post = new Jobvacant;
-         
-         $input = Input::all();
-         
-         $post->id_divisi=  $input['divisi'];
-         $post->id_job_vacant = $input['id']; //ini untuk ambil dari dropdown
-         $post->posisi_ditawarkan = $input['jobname']; //ini untuk ambil dari dropdown
-         $post->jml_kebutuhan = $input['capacity'];
-         $post->requirement = $input['requirement'];
-        
+    $post->id_divisi=  $input['divisi'];
+    $post->id_job_vacant = $input['id']; //ini untuk ambil dari dropdown
+    $post->posisi_ditawarkan = $input['jobname']; //ini untuk ambil dari dropdown
+    $post->jml_kebutuhan = $input['capacity'];
+    $post->requirement = $input['requirement'];
+    $post->save();
 
-        $post->save();
-       // return $input;
+    DB::table('involved_job_vacant')->insert([
+      ['id_job_vacant'=>$input['id'],'email_users'=>$input['author_terkait0']],
+      ['id_job_vacant'=>$input['id'],'email_users'=>$input['author_terkait1']],
+      ['id_job_vacant'=>$input['id'],'email_users'=>$input['author']]]);
+    return redirect('/JobVacant');
+  }
 
-       return redirect('/JobVacant');
-    }
+  public function form() {
 
-      public function form() {
-
-          $jobs = DB::select('select * from job_vacant') ;
-          return view('pages.jobvacant' , ['jobs' => $jobs]);
+    $jobs = DB::select('select * from job_vacant') ;
+    return view('pages.jobvacant' , ['jobs' => $jobs]);
 
          // return view('jobvacant');
 
-      }
-      public function store() {
+  }
+  public function store() {
 
-          $input = Input::all();
-          
-          $post = new Applicant;
+    $input = Input::all();
+
+    $post = new Applicant;
 
           $post->id_applicant = Input::get('id_applicant'); //ini untuk ambil dari dropdown
           $post->nama_applicant = Input::get('nama_applicant'); //ini untuk ambil dari dropdown
@@ -77,34 +93,34 @@
 
           $post->save();
           return $input;
-      }
+        }
 
-      public function regis(){
+        public function regis(){
           $jobs = DB::select('select * from job_vacant') ;
           return view('job' , ['jobs' => $jobs]);
-         
 
-      }
 
-      public function gantiNama(){
+        }
+
+        public function gantiNama(){
 
           return view('/registrasi');
-      }
-      public function getListOfJobVacant()
-      {
-        $jobVacantList = DB::table('job_vacant')
-                            ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
-                            ->join('company', 'divisi.id_company', '=', 'company.id_company')
-                            ->select('job_vacant.posisi_ditawarkan', 'divisi.nama_divisi', 'company.nama_company', 'job_vacant.is_open', 'job_vacant.id_job_vacant')->get();
-      
-       return view('listOfJobVacant', ['jobVacantList' => $jobVacantList]);
-      }
+        }
+        public function getListOfJobVacant()
+        {
+          $jobVacantList = DB::table('job_vacant')
+          ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+          ->join('company', 'divisi.id_company', '=', 'company.id_company')
+          ->select('job_vacant.posisi_ditawarkan', 'divisi.nama_divisi', 'company.nama_company', 'job_vacant.is_open', 'job_vacant.id_job_vacant')->get();
 
-     public function showJobVacantInformation($id_job_vacant)
-      {
-        
-        $jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant);
-   
+          return view('listOfJobVacant', ['jobVacantList' => $jobVacantList]);
+        }
+
+        public function showJobVacantInformation($id_job_vacant)
+        {
+
+          $jv = DB::table('job_vacant')->where('id_job_vacant',$id_job_vacant);
+
         //mengambil posisi job vacant yang ditawarkan
         $nama_jv = $jv->value('posisi_ditawarkan'); //1
 
@@ -117,7 +133,7 @@
        // dd($nama_divisi);
 
         $id_company = $div->value('id_company');
-      
+
         $com = DB::table('company')->where('id_company', $id_company);
 
         $nama_company = $com->value('nama_company'); //3
@@ -131,14 +147,14 @@
         echo ($status);
 
         if($status_job == 1){
-           $status = 'Published';
+         $status = 'Published';
           // echo ($tatus);
-         }else{
-           $status = 'Not published';
-         }
+       }else{
+         $status = 'Not published';
+       }
 
-        return view('jobVacantInformation', ['id_job_vacant' => $id_job_vacant, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'nama_jv' => $nama_jv, 'jml_kebutuhan' => $jml_kebutuhan, 
-       'requirement' => $requirement, 'status' => $status]); 
-     
-      }
-  }
+       return view('jobVacantInformation', ['id_job_vacant' => $id_job_vacant, 'nama_divisi' => $nama_divisi, 'nama_company' => $nama_company, 'nama_jv' => $nama_jv, 'jml_kebutuhan' => $jml_kebutuhan, 
+         'requirement' => $requirement, 'status' => $status]); 
+
+     }
+   }
