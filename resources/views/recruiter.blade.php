@@ -1,16 +1,10 @@
-<style>
-.column-left{ float: left; width: 30%; }
-.column-right{ float: left; width: 30%; }
-.column-center{ float: left; width: 30%; }
-</style>
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>HRRIS | Home</title>
+  <title>HRRIS</title>
   <meta name="description" content="UI Kit.">
   <meta name="author" content="Faizal Rahman">
 
@@ -65,30 +59,25 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
-            <img class="icon-menu" src="img/Logo.png">
-          </a>
-          <a class="navbar-brand title" href="{{url('/Home')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
-            HRRIS
-          </a>
+            <a class="navbar-brand" href="{{url('/Home')}}">
+              <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
+            </a>
         </div>
-		
-		
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		 
-		<ul class="nav navbar-nav navbar-right">
+
+          <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="img/Icon - User.png">
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}"> 
+                <span>Hello, {{$_SESSION['username']}}</span>              
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
-                <li><a href="{{url('/dologout')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
+                <li><a href="{{url('/dologout')}}">Logout</a></li>
               </ul>
             </li>
-          </ul> 
+          </ul>
 
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -97,56 +86,63 @@
 
 <section id="content">
 
-<center>
 <div class="container">
-   <div class="column-left">
-		<div class="well">
-			<a href = "{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
-					<img src="img/applicant.png" style="width:50%">
-					<h2> Applicants </h2>
-			</a>	
-		</div>
-	</div>
-	
-	<div class="column-center">
-		<div class="well">
-			<a href="{{url('/Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
-				<img src="img/schedule.png" style="width:50%">
-				<h2>Schedule </h2>
-			</a>
-		</div>
-	</div>
-   
-	<div class="column-right">
-		<div class="well">
-			<a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
-				<img src="img/statistics.png" style="width:50%">
-				<h2>Statistic</h2></div></div>
-			</a>
-		</div>
-	</div>
-	
-</div>
-</center>
-	
-</section>	  
 
+<div class="mid">
+
+<div class = "col-md-14">
+
+<div class="table-responsive">
+  <table class="table-head">
+    <thead>
+      <tr>
+        <th>
+          <div class="well">
+            <a href = "{{url('/Applicants')}}" {{$page == 'applicants_hr' ? 'class=active' : ''}}>
+              <img src="img/applicant.png" style="width:40%">
+              <h3> Applicants </h3>
+            </a>  
+          </div>
+        </th>
+        <th>
+          <div class="well">
+            <a href="{{url('/Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
+              <img src="img/schedule.png" style="width:40%">
+              <h3>Schedule </h3>
+            </a>
+          </div>
+        </th>
+        <th>
+          <div class="well">
+            <a href="{{url('hr-statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
+              <img src="img/statistics.png" style="width:40%">
+              <h3>Statistic</h3></div></div>
+            </a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+</div>
+
+</div>
+  
+</section>   
+
+<!--Footer-->
 <footer>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 copyright">
-          All Right Reserved © Saka Digital, PT Saka Digital Arsana
-        </div>
-        <div class="col-md-6">
-          <ul class="menu list-inline">
-            <li><a href="">About</a></li>
-            <li><a href="">Terms &amp; Conditions</a></li>
-            <li><a href="">Privacy Policy</a></li>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="copyright">
+        <ul class="menu list-ctr">
+          <li>Copyright PT.Definite Maji Arsana 2016</li>
           </ul>
-        </div>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
   
   <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -156,5 +152,7 @@
   <script type="text/javascript" src="js/moment-with-locales.js"></script>
   <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
+
 </body>
+
 </html>

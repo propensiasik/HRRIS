@@ -45,6 +45,7 @@
   <link rel="stylesheet" href="{{asset('css/component.css')}}">
 
 </head>
+
 <body>
 
   <header>
@@ -58,12 +59,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
-            <img class="icon-menu" src="{{asset('img/Logo.png')}}">
-          </a>
-          <a class="navbar-brand title" href="{{url('/Home')}}">
-            HRRIS
-          </a>
+            <a class="navbar-brand" href="{{url('/Home')}}">
+              <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
+            </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -72,64 +70,46 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}">
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}"> 
+                <span>Hello, {{$_SESSION['username']}}</span>              
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
-                <li><a href="#">Setting</a></li>
-                <li class="divider"></li>
                 <li><a href="{{url('/dologout')}}">Logout</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="{{asset('img/Icon - Add.png')}}">
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
               </ul>
             </li>
           </ul>
 
-          <ul class="nav navbar-nav navbar-right main-nav">
-            <li class="active"><a href="{{url('/Home')}}">Home</a></li>
+          <!--Menu Bar-->          
+          <ul class="nav navbar-nav">
+            <li><a href="{{url('/Home')}}">Home</a></li>
             <li><a href="{{url('/Schedule')}}">Schedule</a></li>
             <li><a href="#">Statistic</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
-    </nav>
   </header>
 
   <section id="content">
-  <div class="container">
+    <div class="container">
       <div class="row margin">
-  @yield('content')
-  </div>
-  </div>
-  </section>
-
-<footer>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 copyright">
-          All Right Reserved © Saka Digital, PT Saka Digital Arsana
-        </div>
-        <div class="col-md-6">
-          <ul class="menu list-inline">
-            <li><a href="">About</a></li>
-            <li><a href="">Terms &amp; Conditions</a></li>
-            <li><a href="">Privacy Policy</a></li>
-          </ul>
-        </div>
+          @yield('content')
       </div>
     </div>
-  </footer>
+  </section>
+
+<!--Footer-->
+<footer>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="copyright">
+        <ul class="menu list-ctr">
+          <li>Copyright PT.Definite Maji Arsana 2016</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</footer>
 
   <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
@@ -139,5 +119,7 @@
   <script type="text/javascript" src="{{asset('js/moment-with-locales.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
+
 </body>
+
 </html>

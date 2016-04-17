@@ -29,7 +29,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="{{asset('http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css')}}" />
 
   <!-- Fonts -->
   <link rel="stylesheet" href="{{asset('fonts/font-text/fonts.css')}}">
@@ -59,39 +59,35 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{url('hr')}}" {{$page == 'hr' ? 'class=active' : ''}}>
-            <img class="icon-menu" src="img/Logo.png">
-          </a>
-          <a class="navbar-brand title" href="{{url('hr')}}" {{$page == 'hr' ? 'class=active' : ''}}>
-            HRRIS
-          </a>
+            <a class="navbar-brand" href="{{url('/Home')}}">
+              <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
+            </a>
         </div>
-		
-		
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		 
-		<ul class="nav navbar-nav navbar-right">
+
+          <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="img/Icon - User.png">
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}"> 
+                <span>Hello, {{$_SESSION['username']}}</span>              
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="{{url('')}}" {{$page == 'login' ? 'class=active' : ''}}>Logout</a></li>
+                <li><a href="{{url('/dologout')}}">Logout</a></li>
               </ul>
             </li>
-          </ul> 
-		  
-		  <ul class="nav navbar-nav navbar-right main-nav">
-				<li><a href="{{url('hr')}}" {{$page == 'hr' ? 'class=active' : ''}}>Home</a></li>
-                <li><a href="{{url('applicants')}}" {{$page == 'applicants_hr' ? 'class=active' : ''}}>Applicants</a></li>
-                <li><a href="{{url('hr-schedule')}}" {{$page == 'schedule_hr' ? 'class=active' : ''}}>Schedule</a></li>
-                <li><a href="{{url('hr-statistic')}}" {{$page == 'statistic_hr' ? 'class=active' : ''}}>Statistic</a></li>
-				<li><a href="{{url('hr-reportform')}}" {{$page == 'report_form' ? 'class=active' : ''}}>Report Form</a></li>
-				<li><a href="{{url('hr-availableposition')}}" {{$page == 'available_position' ? 'class=active' : ''}}>Available Position</a></li>
           </ul>
-		  
+
+          <!--Menu Bar-->
+          
+          <ul class="nav navbar-nav">
+            <li><a href="{{url('/Home')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
+            <li><a href="{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>Applicants</a></li>
+            <li><a href="{{url('/Schedule')}}" {{$page == 'Schedule' ? 'class=active' : ''}}>Schedule</a></li>
+            <li><a href="{{url('statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>Statistic</a></li>
+            <li><a href="{{url('/JobVacant')}}">Available Position</a></li>
+          </ul>
 
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -99,32 +95,34 @@
   </header>
   
 
-@yield('content')
-
-<footer>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 copyright">
-          All Right Reserved © Saka Digital, PT Saka Digital Arsana
-        </div>
-        <div class="col-md-6">
-          <ul class="menu list-inline">
-            <li><a href="">About</a></li>
-            <li><a href="">Terms &amp; Conditions</a></li>
-            <li><a href="">Privacy Policy</a></li>
-          </ul>
-        </div>
+ <section id="content">
+    <div class="container">
+      <div class="row margin">
+          @yield('content')
       </div>
     </div>
-  </footer>
+  </section>
+
+<!--Footer-->
+<footer>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="copyright">
+        <ul class="menu list-ctr">
+          <li>Copyright PT.Definite Maji Arsana 2016</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</footer>
   
-  <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  <script type="text/javascript" src="js/bootstrap-select.js"></script>
-  <script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-  <script type="text/javascript" src="js/moment-with-locales.js"></script>
-  <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-select.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-slider.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap.file-input.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/moment-with-locales.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 </body>
 </html>
