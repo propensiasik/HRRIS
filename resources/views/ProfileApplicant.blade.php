@@ -40,6 +40,37 @@
 			</td>
 		</tr>
 	</table> 
+	
+	<br>
+
+	<form method="POST">
+	{{ csrf_field() }}
+	@foreach ($applicantProfile as $as)
+		<input type="text" name="id_applicant" style="display:none" value="{{$as->id_applicant}}">
+	@endforeach
+	
+	@foreach ($applicantStatus as $as)
+		<input type="text" name="sla" style="display:none" value="{{$as->id_sla}}">
+	@endforeach
+
+	@foreach ($applicantStatus as $as)
+		<input type="text" name="id_job" style="display:none" value="{{$as->id_job_vacant}}">
+	@endforeach
+	
+	
+	<div class="form-group">
+         <label for="status">Change Status : </label>
+            <select id='valuestatus' class="status" name="status">
+                <option value="S03">Interview 1</option>
+                <option value="S04">Interview 2</option>
+                <option value="S06">Offering Letter</option>
+                <option value="S02">Reject</option>
+                <option value="S07">Hire</option>
+            </select>
+           <input type="submit" value="Change">
+    </div>  
+    </form>
+	
 	</div>
 	<div class="vertical-separator"></div>
 	
@@ -68,7 +99,11 @@
 			<td> </td>
 			<td> 
 				@foreach ($applicantProfile as $ap)
-					{{ $ap->gender }}
+					@if($ap->gender == '0')
+						{{$ap->gender = 'Woman'}}
+					@else
+						{{$ap->gender = 'Boy'}}
+					@endif
 				@endforeach
 			</td>
 		</tr>

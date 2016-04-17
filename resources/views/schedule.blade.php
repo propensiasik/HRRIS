@@ -22,12 +22,12 @@ session_start();
   </script>
 <table style="width:50%">
 	
-	<caption>Interview Schedule</caption>
+	<h4>Interview Schedule</h4>
 	  <tr>
-	    <th>Tanggal</th>
-	    <th>Waktu</th>
-	    <th>Cara</th>
-	    <th>Applicant</th>
+	    <th>Date</th>
+	    <th>Time</th>
+	    <th>Method</th>
+	    <th>Applicant name</th>
 	  </tr>
 
 	@foreach ($schedule as $sc)

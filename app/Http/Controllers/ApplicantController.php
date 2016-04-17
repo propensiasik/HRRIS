@@ -82,5 +82,36 @@ class ApplicantController extends Controller
          return view('applicants')->with('applicants',$applicants)->with('page','applicants');
     }
     
+	public function process(Request $val){
+
+        $id = $val->input('id_applicant');
+       $status = $val->input('status');
+       $sla = $val->input('sla');
+       $id_job = $val->input('id_job');
+
+    $applicantProfile = Applicant::where('id_applicant', $id)->get();
+
+       $id = $val->input('id_applicant');
+       $status = $val->input('status');
+       $sla = $val->input('sla');
+       $id_job = $val->input('id_job');
+
+        $post = new Status_applicant;
+         
+        
+        $post->id_status=  $val->input('status');
+        $post->id_job_vacant =$val->input('id_job'); //ini untuk ambil dari dropdow       
+        $post->id_sla = $val->input('sla'); //ini untuk ambil dari dropdown         
+        $post->id_applicant = $val->input('id_applicant');
+        //$post->tgl_konfirmasi = Carbon::now();
+        
+
+         $post->save();
+        //return redirect('/Applicants')->with('status', 'Profile updated!');
+         //return redirect()->route('/applicant/profile/{id_applicant}', ['id_applicant' => $val->input('id_applicant')]);
+         return redirect()->back();
+       
+       
+    }
 
 }

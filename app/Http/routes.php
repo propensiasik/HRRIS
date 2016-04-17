@@ -25,18 +25,19 @@
 //Schedule
 Route::get('/Schedule','ScheduleController@getListSchedule');
 Route::get('/CreateInterview','ScheduleController@create_interview');
-Route::get('/a','ScheduleController@info');
+Route::get('/s','ApplicantController@process');
 
 //Applicant
 Route::get('/Applicants', 'ApplicantController@getListOfApplicant');
 Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile');
+Route::post('/applicant/profile/{id_applicant}', 'ApplicantController@process');
 Route::post('/Applicants/search', 'ApplicantController@getSearch');	
 Route::post('/Applicants', 'ApplicantController@getStatus');
 //Route::post('uploadFile', 'ApplicantController@uploadCV');
 
 //Av Position
-Route::get('/CreateAvailablePosition', 'PageController@create'); //create available position
-Route::post('/create', 'PageController@store'); //UNTUK SIMPAN AV.POSISTION
+Route::get('/CreateAvailablePosition', 'JobVacantController@create'); //create available position
+Route::post('/CreateAvailablePosition', 'JobVacantController@process'); //UNTUK SIMPAN AV.POSISTION
 //untuk menampilkan halaman list of job vacant ketika user memilih menu Job Vacant
 Route::get('/JobVacant', 'JobVacantController@getListOfJobVacant');
 

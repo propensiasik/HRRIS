@@ -14,6 +14,7 @@
   //use Input;
 
   use App\Applicant;
+  use App\Jobvacant;
 
   use App\Http\Controllers\Controller;
 
@@ -21,6 +22,31 @@
 
   class JobVacantController extends Controller
   {
+	
+	public function create()
+    {
+        return view('\createAVP')->with('page','avp');
+    }
+
+
+    public function process() {
+
+        $post = new Jobvacant;
+         
+         $input = Input::all();
+         
+         $post->id_divisi=  $input['divisi'];
+         $post->id_job_vacant = $input['id']; //ini untuk ambil dari dropdown
+         $post->posisi_ditawarkan = $input['jobname']; //ini untuk ambil dari dropdown
+         $post->jml_kebutuhan = $input['capacity'];
+         $post->requirement = $input['requirement'];
+        
+
+        $post->save();
+       // return $input;
+
+       return redirect('/JobVacant');
+    }
 
       public function form() {
 
