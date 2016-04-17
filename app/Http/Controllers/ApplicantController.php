@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Applicant;
+use App\Status_applicant;
 use Input;
 
 class ApplicantController extends Controller
