@@ -30,6 +30,9 @@ Route::get('/a','ScheduleController@info');
 //Applicant
 Route::get('/Applicants', 'ApplicantController@getListOfApplicant');
 Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile');
+Route::post('/Applicants/search', 'ApplicantController@getSearch');	
+Route::post('/Applicants', 'ApplicantController@getStatus');
+//Route::post('uploadFile', 'ApplicantController@uploadCV');
 
 //Av Position
 Route::get('/CreateAvailablePosition', 'PageController@create'); //create available position

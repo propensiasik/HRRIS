@@ -11,17 +11,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Applicant;
+use Input;
 
 class ApplicantController extends Controller
 {
     public function getListOfApplicant(){
-        // $temp1 = Job_vacant::all()->id_job_vacant;
-
     	$applicants = DB::select('select app.id_applicant, app.nama_applicant, j.posisi_ditawarkan, c.nama_company, app.ipk
     	 						from applicant app, job_vacant j, apply a, company c, divisi d
     	 						where app.id_applicant=a.id_applicant and a.id_job_vacant=j.id_job_vacant and j.id_divisi=d.id_divisi and d.id_company=c.id_company');
-    	
-        // var_dump($applicants);die();
 
         return view('applicants')->with('applicants',$applicants)->with('page','applicants');
     }
@@ -38,13 +35,52 @@ class ApplicantController extends Controller
     	return view('ProfileApplicant', ['applicantProfile' => $applicantProfile, 'applicantStatus' => $applicantStatus, 'applicantCV' => $applicantCV, 'page'=>'recruiter']);
     }
 
+    public function getSearch(Request $request){
+        $keyword = $request->input('keyword');
+
+        $applicants = DB::select('select app.id_applicant, app.nama_applicant, j.posisi_ditawarkan, c.nama_company, app.ipk
+                                from applicant app, job_vacant j, apply a, company c, divisi d 
+                                where app.id_applicant=a.id_applicant and a.id_job_vacant=j.id_job_vacant and j.id_divisi=d.id_divisi and d.id_company=c.id_company and app.nama_applicant LIKE "%'.$keyword.'%" ');
+
+        if($applicants==null){
+            return view('applicantSearchNotFound');
+        }
+        else {
+            return view('applicants', ['applicants' => $applicants]);
+        }
+    }
+
+
+
+    public function uploadCV() {
+        $file = Input::file('file');
+        $path = 'uploads/';
+        $file_name = $file->getClientOriginalName();
+        
+    }
+
     public function getCV($id_applicant) {
-    	$applicantCV2 = DB::select('select cv from applicant where id_applicant=?', [$id_applicant]);
+        $applicantCV2 = DB::select('select cv from applicant where id_applicant=?', [$id_applicant]);
         return $applicantCV2;
     }
 
     public function getPortofolio() {
-    	return 'ini Portofolio coy';
+        return 'ini Portofolio';
     }
+
+    public function getStatus(){
+        $post = new Applicant;
+
+        $status = Input::get('status');
+
+        dd($status);
+
+        $applicants = DB::select('select app.id_applicant, app.nama_applicant, j.posisi_ditawarkan, c.nama_company, app.ipk
+                                from applicant app, job_vacant j, apply a, company c, divisi d, status_applicant sa, status s
+                                where app.id_applicant=a.id_applicant and a.id_job_vacant=j.id_job_vacant and j.id_divisi=d.id_divisi and d.id_company=c.id_company and app.id_applicant=sa.id_applicant and sa.id_status=s.id_status and s.nama_status=?', [$status]);
+
+         return view('applicants')->with('applicants',$applicants)->with('page','applicants');
+    }
+    
 
 }

@@ -84,38 +84,15 @@
 					</tr>
 				</thead>
 				<tbody>
-			        <?php $i = 0; ?>
-			        @foreach ($applicants as $applicant)
-			        <?php $i++; ?>
 					<tr>
-						<td>
-							{{ $i }}		
-						</td>
-						<td>
-							<a href="{{ URL::to('applicant/profile/' . $applicant->id_applicant) }}">
-								{{ $applicant->nama_applicant }}
-							</a>		
-						</td>
+						<td></td>
+						<td></td>
 						<td> 
-							{{ $applicant->posisi_ditawarkan }}
+							<br>
+							<strong>{{ 'Search not found' }}</strong>
 						</td>
-						<td>
-							{{ $applicant->nama_company }}
-						</td>
-						<!-- <td>
-							<div class="checkbox" id="show">
-            					<label>
-              						<input type="checkbox" />
-              						<span class="lbl padding-8">Yes</span>
-            					</label>
-            					<label>
-              						<input type="checkbox" />
-              						<span class="lbl padding-8">No</span>
-            					</label>
-          					</div>
-						</td> -->
+						<td></td>
 					</tr>
-					@endforeach
 				</tbody>
 			</table>
 		</div>
@@ -125,31 +102,32 @@
 <script language="javascript" type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script language="javascript" type="text/javascript">
-	// $(document).ready(function() {
-	// 	$('#search').keyup(function() {
-	// 		searchTable($(this).val());
-	// 	});
-	// });
-	// function searchTable(inputVal) {
-	// 	var table = $('#searchTable');
-	// 	table.find('tr').each(function(index, row) {
-	// 		var allCells = $(row).find('td');
-	// 		if (allCells.length > 0) {
-	// 			var found = false;
-	// 			allCells.each(function(index, td) {
-	// 				var regExp = new RegExp(inputVal, 'i');
-	// 				if (regExp.test($(td).text())) {
-	// 					found = true;
-	// 				}
-	// 			});
-	// 			if (found == true)
-	// 				$(row).show();
-	// 			else
-	// 				$(row).hide();
-	// 		}
-	// 	});
-	// }
-	// // source: http://www.a2ztechguide.com/2011/11/jquery-to-search-text-in-html-table.html
+	$(document).ready(function() {
+		$('#search').keyup(function() {
+			searchTable($(this).val());
+		});
+	});
+	function searchTable(inputVal) {
+		var table = $('#searchTable');
+		table.find('tr').each(function(index, row) {
+			var allCells = $(row).find('td');
+			if (allCells.length > 0) {
+				var found = false;
+				allCells.each(function(index, td) {
+					var regExp = new RegExp(inputVal, 'i');
+					if (regExp.test($(td).text())) {
+						found = true;
+					}
+				});
+				if (found == true)
+					$(row).show();
+				else
+					$(row).hide();
+			}
+		});
+	}
+	// source: http://www.a2ztechguide.com/2011/11/jquery-to-search-text-in-html-table.html
 </script>
+
 
 @endsection

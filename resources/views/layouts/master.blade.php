@@ -4,26 +4,26 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>HRRIS</title>
+  <title> @yield('title')</title>
   <meta name="description" content="UI Kit.">
   <meta name="author" content="Faizal Rahman">
 
-  <link rel="apple-touch-icon" sizes="57x57" href="img/favicon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="img/favicon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-  <link rel="manifest" href="img/favicon/manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="{{asset('img/favicon/apple-icon-57x57.png')}}">
+  <link rel="apple-touch-icon" sizes="60x60" href="{{asset('img/favicon/apple-icon-60x60.png')}}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{asset('img/favicon/apple-icon-72x72.png')}}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/favicon/apple-icon-76x76.png')}}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{asset('img/favicon/apple-icon-114x114.png')}}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{{asset('img/favicon/apple-icon-120x120.png')}}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{asset('img/favicon/apple-icon-144x144.png')}}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{asset('img/favicon/apple-icon-152x152.png')}}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{asset('img/favicon/apple-icon-180x180.png')}}">
+  <link rel="icon" type="image/png" sizes="192x192"  href="{{asset('img/favicon/android-icon-192x192.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{asset('img/favicon/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{{asset('img/favicon/favicon-96x96.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('img/favicon/favicon-16x16.png')}}">
+  <link rel="manifest" href="{{asset('img/favicon/manifest.json')}}">
   <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
+  <meta name="msapplication-TileImage" content="{{asset('img/favicon/ms-icon-144x144.png')}}">
   <meta name="theme-color" content="#ffffff">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -45,7 +45,6 @@
   <link rel="stylesheet" href="{{asset('css/component.css')}}">
 
 </head>
-
 <body>
 
   <header>
@@ -59,9 +58,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <a class="navbar-brand" href="{{url('/Home')}}">
-              <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
-            </a>
+          <a class="navbar-brand" href="#">
+            <img class="icon-menu" src="{{asset('img/Logo.png')}}">
+          </a>
+          <a class="navbar-brand title" href="{{url('/Home')}}">
+            HRRIS
+          </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,46 +72,65 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}"> 
-                <span>Hello, {{$_SESSION['username']}}</span>              
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}">
               </a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
+                <li><a href="#">Setting</a></li>
+                <li class="divider"></li>
                 <li><a href="{{url('/dologout')}}">Logout</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <img class="icon-menu" src="{{asset('img/Icon - Add.png')}}">
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
               </ul>
             </li>
           </ul>
 
-          <!--Menu Bar-->          
-          <ul class="nav navbar-nav">
-            <li><a href="{{url('/Home')}}">Home</a></li>
+          <ul class="nav navbar-nav navbar-right main-nav">
+            <li class="active"><a href="{{url('/Home')}}">Home</a></li>
+            <li><a href="{{url('/Applicants')}}">Applicants</a></li>
             <li><a href="{{url('/Schedule')}}">Schedule</a></li>
             <li><a href="#">Statistic</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
+    </nav>
   </header>
 
   <section id="content">
-    <div class="container">
+  <div class="container">
       <div class="row margin">
-          @yield('content')
-      </div>
-    </div>
+  @yield('content')
+  </div>
+  </div>
   </section>
 
-<!--Footer-->
 <footer>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="copyright">
-        <ul class="menu list-ctr">
-          <li>Copyright PT.Definite Maji Arsana 2016</li>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 copyright">
+          All Right Reserved © Saka Digital, PT Saka Digital Arsana
+        </div>
+        <div class="col-md-6">
+          <ul class="menu list-inline">
+            <li><a href="">About</a></li>
+            <li><a href="">Terms &amp; Conditions</a></li>
+            <li><a href="">Privacy Policy</a></li>
           </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
@@ -119,7 +140,5 @@
   <script type="text/javascript" src="{{asset('js/moment-with-locales.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
-
 </body>
-
 </html>

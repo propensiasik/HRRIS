@@ -55,7 +55,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td> <label> Alamat </label> </td>
+			<td> <label> Address </label> </td>
 			<td> </td>
 			<td> 
 				@foreach ($applicantProfile as $ap)
@@ -73,7 +73,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td> <label> No. Telepon </label> </td>
+			<td> <label> Phone Number </label> </td>
 			<td> </td>
 			<td> 
 				@foreach ($applicantProfile as $ap)
@@ -82,7 +82,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td> <label> Universitas </label> </td>
+			<td> <label> University </label> </td>
 			<td> </td>
 			<td> 
 				@foreach ($applicantProfile as $ap)
@@ -91,7 +91,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td> <label> Jurusan </label> </td>
+			<td> <label> Major </label> </td>
 			<td> </td>
 			<td> 
 				@foreach ($applicantProfile as $ap)
@@ -100,7 +100,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td> <label> Tahun Lulus </label> </td>
+			<td> <label> Graduate Year </label> </td>
 			<td> </td>
 			<td> 
 				@foreach ($applicantProfile as $ap)
@@ -121,6 +121,16 @@
 		</a>
 		@endforeach
 		<a href="{{asset('portofolio/ChrisAvore_UX_Portfolio.pdf')}}"> <button type="button" class="btn btn-success"> View <br> Portofolio</button>
+
+<!-- <br> <br>
+
+<form action="{{ url('uploadFile') }}" enctype="multipart/form-data">
+
+    <input type="file" name="file">
+    <input type="submit">
+
+</form> -->
+
 
 @endsection
 
