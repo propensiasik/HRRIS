@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>HRRIS | Home</title>
+  <title>HRRIS</title>
   <meta name="description" content="UI Kit.">
   <meta name="author" content="Faizal Rahman">
 
@@ -47,36 +47,43 @@
 </head>
 
 <body>
-  <section id="content" class="login">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <h1>Human Resources Recruitment Information System</h1>
+  
+<section id="content" class="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-13">
+
+        <h1>HRRIS Login</h1>
           <form action = {{url('/dologin')}} method="POST">
 
-            <div class="form-inline">
-              <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
-              </div>
+          <br>
 
-              <div class="form-group">
-                <label class="sr-only" for="exampleInputPassword3">Password</label>
-                <input type="password" name ="password"class="form-control" id="exampleInputPassword3" placeholder="Password">
-              </div>
-
-              <button type="submit" class="btn btn-secondary">Login</button>
-              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+          <div class="form-inline">
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputEmail3">Email address</label>
+              <input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
             </div>
-            <?php 
-              
-              if(session_id()){
+
+            <br>
+
+            <div class="form-group">
+              <label class="sr-only" for="exampleInputPassword3">Password</label>
+              <input type="password" name ="password"class="form-control" id="exampleInputPassword3" placeholder="Password">
+            </div>
+
+            <br>
+
+            <button type="submit" class="btn btn-secondary">Login</button>
+            <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+          </div>
+          
+          <?php 
+            if(session_id()){
                 echo'<h4>';
                 echo $_SESSION['loginError'];
                 echo'</h4>';
               }
-              else{
-                
+              else{ 
               }
             ?>
             <!--<div class="form-group">
@@ -89,11 +96,12 @@
               <button type="submit" class="btn btn-danger">Login via Google Account</button>
             </div>
             -->
-          </form>
+        </form>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
   
 </body>
 
