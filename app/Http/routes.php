@@ -31,6 +31,7 @@ Route::post('/applicant/profile/{id_applicant}', 'ApplicantController@process');
 Route::get('/applicant/profile/report/{id_applicant}', 'ApplicantController@getReport'); // Report
 Route::get('/applicant/profile/cv/{id_applicant}', 'ApplicantController@getCV'); // CV
 Route::get('/applicant/profile/portofolio/{id_applicant}', 'ApplicantController@getPortofolio'); // Portofolio
+Route::post('/Applicants', 'ApplicantController@filter'); //Filtering
 
 //Av Position
 Route::get('/CreateAvailablePosition', 'JobVacantController@create'); //create available position

@@ -21,6 +21,9 @@ class ApplicantController extends Controller
         // METHOD INI UNTUK ME-RETRIEVE SEMUA DAFTAR APPLICANT YANG ME-APPLY JOB VACANT
 
         // Retrieve List of Applicant dari database untuk mengambil atribut yang dibutuhkan untuk di tampilkan pada UI, seperti NAMA applicant, POSISI atau job vacant apa yang applicant apply, dan COMPANY mana yang membuka job vacant tsb. Retrieve ini menampilkan tabel dengan fungsi pagination. 
+
+        $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+
         $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
@@ -28,10 +31,11 @@ class ApplicantController extends Controller
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                 ->paginate(15);
 
+
         $count = DB::table('applicant')->count();
 
         // Melempar data yang dibutuhkan ke VIEW/UI
-        return view('applicants')->with('applicants',$applicants)->with('count',$count)->with('page','applicants');
+        return view('applicants')->with('applicants',$applicants)->with('jobs',$jobs)->with('count',$count)->with('page','applicants');
     }
 
     public function getListOfApplicantChoosen(){
@@ -67,7 +71,6 @@ class ApplicantController extends Controller
                                 ->get();
 
         
-
         if($applicants == null){
             return view('applicantChooseNotFound')->with('statusFor', $statusFor);
         }
@@ -285,6 +288,84 @@ class ApplicantController extends Controller
         else{
             return view('applicants')->with('applicants',$applicants)->with('count',$count)->with('page','applicants');
         }
+    }
+
+
+    public function filter(){
+
+        //METHOD INI DIGUNAKAN UNUTK MELAKUKAN FILTERING 2 HAL SEKALIGUS, YAITU POSITION DAN GENDER
+
+        //MENGAMBIL INPUT DARI USER
+        $posisi = Input::get('ambilposisi');
+        $gender = Input::get('ambilgender');
+
+        /*APPLICANT DIGUNAKAN UNTUK ME-RETRIEVE DATA DARI DATABASE MENGENAI APPLICANT YANG AKAN DITAMPILKAN DALAM LIST OF
+        APPLICANT, DIMANA KETIKA USER MELAKUKAN FITERING, INPUT YANG MASUK DI CEK DENGAN DATA YANG ADA DI DATABASE SEHINGGA
+        DAPAT DITAMPILKAN KEMBALI PADA LIST OF APPLICANT. SEDANGKAN JOBS DIGUNAKAN HANYA UNTUK MENAMPILKAN DATA PADA BLADE
+
+        */
+
+         $applicants = DB::table('applicant')
+                                         ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                         ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+                                         ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                         ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                         ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
+                                        ->where('applicant.gender', '=', $gender)
+                                         ->get();
+               
+         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+
+
+        //JIKA USER MEMASUKKAN INPUT POSISI KOSONG
+        if($posisi == "none"){
+            if($gender != "none"){
+                 $applicants = DB::table('applicant')
+                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->where('applicant.gender', '=', $gender)
+                                 ->get();
+
+                  $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+            }
+
+        //JIKA USER MEMASUKKAN INPUT GENDER KOSONG
+        }elseif ($posisi != "none"){
+            if($gender == "none"){
+                 $applicants = DB::table('applicant')
+                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                 ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
+                                 ->get();
+                 $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+            }
+
+        }
+        
+        //JIKA PILIHAN TIDAK ADA YANG SESUAI
+        if($applicants == null){
+            $applicants = DB::table('applicant')
+                                         ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                         ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+                                         ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                         ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                         ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
+                                        ->where('applicant.gender', '=', $gender)
+                                         ->get();
+               
+            $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+            return view('applicantChooseNotFound')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+        }else {
+            //JIKA SEMUA PILIHAN SESUAI
+            return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+        }
+
     }
 
     public function getApplicantProfile($id_applicant){

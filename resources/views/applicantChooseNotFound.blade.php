@@ -65,6 +65,32 @@
 
 </section>
 
+{!!  Form::open(array('action' => 'ApplicantController@filter')) !!}
+<form method="POST">
+	{{ csrf_field() }}
+	<div class="form-group">
+         
+            <select class = "selectpicker" name="ambilposisi" id="selection">  
+					<option value="none">None</option>
+				@foreach ($jobs as $job)
+					<option value="{{$job->posisi_ditawarkan}}">{{$job->posisi_ditawarkan}}</option>
+					{{ Form::label('ambilposisi', $job->posisi_ditawarkan) }}<br>
+				@endforeach
+			</select> 
+
+			<select class="selectpicker" name="ambilgender" id="selection">
+					<option value="none">None</option>
+		            <option value="M">Male</option>
+		            <option value="F">Female</option>
+		    </select>
+
+         <input class ="btn btn-secondary" type="submit" value="Filter">
+
+     </div>
+
+    </form>
+{!! Form::close() !!}
+
 <div class="container">
 	<div class="col-md-8">
 		<h4> Choose For: {{ $statusFor }} </h4> <br>
