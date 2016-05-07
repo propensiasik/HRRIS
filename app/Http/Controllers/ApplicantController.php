@@ -736,5 +736,28 @@ class ApplicantController extends Controller
         }   
 
     }
+	
+	//Untuk halaman applicant buat admin
+	public function getListOfApplicantAdmin(){
+        $applicants = DB::table('applicant')
+                                ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+                                ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->paginate(15);
+
+
+        $count = DB::table('applicant')->count();
+
+        // Melempar data yang dibutuhkan ke VIEW/UI
+        return view('applicants_admin')->with('applicants',$applicants)->with('count',$count)->with('page','applicants_admin');
+    }
+	
+	//Untuk delete applicant
+	public function deleteApplicant($id_applicant)
+    {
+        Applicant::where('id_applicant', '=', $id_applicant)->delete();
+        return Redirect::to('ApplicantsAdmin');
+    }
 
 }

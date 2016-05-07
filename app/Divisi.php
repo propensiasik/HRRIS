@@ -12,4 +12,13 @@ class Divisi extends Model
     public function job_vacant(){
     	return $this->hasMany('\App\Job_Vacant');
     }
+	
+	public function users(){
+    	return $this->hasMany('\App\Users', 'id_divisi', 'id_divisi');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Company', 'id_company', 'id_company');
+    }
 }

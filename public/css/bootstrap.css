@@ -1956,7 +1956,13 @@ pre code {
     float: left;
   }
 
-.col-md-14 {
+  .col-md-15 {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .col-md-14 {
     width: 80%;
     margin: 0 auto;
     text-align: center;
@@ -2632,39 +2638,28 @@ output {
 .form-control {
   position: relative;
   display: inline-block;
-  min-width: 25%;
-  max-width: 70%
-  width: 100%;
+  width: 30%;
   padding: 8px 8px;
   font-size: 14px;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
   background-image: none;
-  border-top: 1px solid #333;
-  border-left: 1px solid #333;
-  border-right: 1px solid #333;
-  border-bottom: 1px solid #333;
+  border: 1px solid #333;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-.form-control2 {
+.form-login {
+  position: relative;
   display: inline-block;
-  float:right;
-  margin: 0px 600px 10px 10px;
-  min-width: 25%;
-  max-width: 70%
-  width: 100%;
+  width: 80%;
   padding: 8px 8px;
   font-size: 14px;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
   background-image: none;
-  border-top: 1px solid #333;
-  border-left: 1px solid #333;
-  border-right: 1px solid #333;
-  border-bottom: 1px solid #333;
+  border: 1px solid #333;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
@@ -3004,6 +2999,10 @@ select[multiple].form-group-lg .form-control {
   margin-top: 5px;
   margin-bottom: 10px;
   color: #737373;
+}
+
+.error{
+  color: red;
 }
 @media (min-width: 768px) {
   .form-inline .form-group {
@@ -6561,6 +6560,20 @@ button.close {
   margin: 0px 0px 0px 255px;
 }
 
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
+}
+
+.garage-title {
+    clear: both;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 @media (max-width: 767px) {
   .visible-xs {
     display: block !important;
@@ -6739,14 +6752,24 @@ button.close {
     padding:0 10px 0 10px;
 }
 
-.box-login  {
-    text-align: center;
-    width: 40%;
-}
 .mid {
   margin-top: 12.5%;
 }
 
+.box {
+  text-align: center;
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  margin:-30px auto;         
+  width: 490px;
+  height: 350px;
+  background-color: white;
+  border: 1px solid #e3e3e3;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
 @media print {
   .visible-print-block {
     display: block !important;
@@ -6772,5 +6795,24 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+
+#nav {
+    line-height:30px;
+    width:10%;
+    float:left;
+    padding-top: 12px;
+    
+}
+#section {
+    width:90%;
+    float:left;
+    padding:10px; 
+}
+
+#login {
+    width:60%;
+    float:left;
+    padding:10px; 
 }
 /*# sourceMappingURL=bootstrap.css.map */

@@ -87,6 +87,27 @@ Route::post('/JobVacant/ReportForm/UpdateReportForm/SaveUpdatedForm', 'ReportFor
 
 
 
+//Admin
+
+Route::get('/HomeAdmin','HomeController@admin');
+//Untuk menampilkan list of users
+Route::get('/Users','UsersController@getListofUser');
+//Untuk menampilkan create user
+Route::get('/Users/Create','UsersController@createUser');
+Route::post('/Users/Create','UsersController@storeUser');
+//Route::get('/Users/Create','UsersController@getCompanyDivisi');
+//Untuk delete user
+Route::get('Users/Delete/{email_users}','UsersController@deleteUser');
+//Untuk menampilkan update user
+Route::get('Users/Update/{email_users}', array('as' => 'edit', 'uses' => 'UsersController@editUser'));
+Route::patch('Users/Update/{email_users}', array('as' => 'update', 'uses' => 'UsersController@updateUser'));
+
+//Halaman list applicant untuk admin
+Route::get('/ApplicantsAdmin', 'ApplicantController@getListOfApplicantAdmin');
+//Delete applicant
+Route::get('Applicants/delete/{id_applicant}','ApplicantController@deleteApplicant');
+
+
 
 
 Route::get('/','UserController@index');
