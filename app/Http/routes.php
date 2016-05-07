@@ -21,11 +21,16 @@ Route::get('/a','ScheduleController@info');
 Route::get('/b','ScheduleController@getApplicant');
 
 //Applicant
-Route::get('/Applicants', 'ApplicantController@getListOfApplicant');
-Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile');
+Route::get('/Applicants/', 'ApplicantController@getListOfApplicant'); // list applicant
+Route::post('/applicants/choose', 'ApplicantController@getListOfApplicantChoosen'); // list applicant choose
+Route::post('/applicants/choose/select', 'ApplicantController@choose'); // submit applicant choose
+Route::post('/Applicants/search', 'ApplicantController@getSearch');	 // search
+Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile'); // profile + status
+Route::post('/Applicants', 'ApplicantController@getStatus');  // <=== ini keknya ga ke pake
 Route::post('/applicant/profile/{id_applicant}', 'ApplicantController@process');
-Route::post('/Applicants/search', 'ApplicantController@getSearch');	
-Route::post('/Applicants', 'ApplicantController@getStatus');
+Route::get('/applicant/profile/report/{id_applicant}', 'ApplicantController@getReport'); // Report
+Route::get('/applicant/profile/cv/{id_applicant}', 'ApplicantController@getCV'); // CV
+Route::get('/applicant/profile/portofolio/{id_applicant}', 'ApplicantController@getPortofolio'); // Portofolio
 
 //Av Position
 Route::get('/CreateAvailablePosition', 'JobVacantController@create'); //create available position

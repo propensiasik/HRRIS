@@ -4,6 +4,7 @@
 @extends('layouts.master')
 
 @section('title')
+	List of Applicants
 @endsection
 
 @section('content')
@@ -14,52 +15,39 @@
 		<div class="table-responsive">
         	<table class="table">
             	<thead>
-                    <tr>
                       <th width="420px">
                       	<!--Judul-->
                       	<div class="form-group"><h1>Applicants</h1></div>
                       </th>
-                      	<!-- <form action="" method="POST"> -->
-                      	{!! Form::open(['url' => 'Applicants']) !!}
-                      		<th>
-		                      	<!--Filter-->
-		                      	<div class="form-group" name="status">
-		            				<select class="selectpicker" name="status" id="selection">
-		                				<option value="Interview 1">Interview 1</option>
-		                				<option value="Interview  2">Interview 2</option>
-		                				<option value="Offering Letter">Offering Letter</option>
-		                				<option value="Hire">Hire</option>
-		            				</select>
-		          				</div>
-	                      	</th>
-		                      <th>
-		                      	<!--Choose-->
-		                      	<div class="form-group">
-								<button type="button" class="btn btn-secondary">Choose</button>
-								</div>
-							  </th>
-                      	<!-- </form> -->
-                      	{!! Form::close() !!}
 
+                      <!-- Choose Applicant -->
                       <th>
-                      	<!--Search-->
+                      	{!!  Form::open(array('action' => 'ApplicantController@getListOfApplicantChoosen')) !!}
+                      		<div class="form-group">
+					            <select class="selectpicker" id='valuestatus' class="status" name="status">
+					                <option value="1">Interview 1</option>
+					                <option value="3">Interview 2</option>
+					                <option value="4">Interview 3</option>
+					                <option value="5">Offering Letter</option>
+					                <option value="6">Hire</option>
+					            </select>
+	           						<button type="submit" class="btn btn-secondary">Choose</button> 
+   							</div>  
+                      	{!! Form::close() !!}
+                      </th>
+
+
+                      <!-- Search -->
+                      <th>
                       	{!!  Form::open(array('action' => 'ApplicantController@getSearch')) !!}
-                      	<!-- <form name="myform" action="{{URL::action('ApplicantController@getSearch')}}" method="post"> -->
 							<div class="form-group">
 	            				<div class="input-group">
 	            					{!!  Form::text('keyword') !!}
-	              					<!-- <input type="text" class="form-control" id="search" name="search" placeholder="Search for...">
-	            					}
- -->	              				<span class="input-group-btn">
- 									<!-- {!! Form::submit('submit') !!} -->
 	                				<button class="btn-search" type="submit"><img src="{{asset('img/search.png')}}"></button>
-	              					</span>
-	            				</div><!-- /input-group -->
+	            				</div>
 	        				</div>
-        				<!-- </form> -->
         				{!! Form::close() !!}
         			  </th>
-         			</tr>
          		</thead>
          	</table>
         </div>
@@ -72,26 +60,22 @@
 <div class="container">
 	<div class="col-md-8">
 		<div class="table-responsive">
-			<table id="searchTable" class="table" style="margin-left:25%; margin-right:15%;">	
+			<table border="0" id="searchTable" class="table" style="margin-left:25%; margin-right:15%;">	
 				<thead>	
 					<tr>
-						<th>No.</th>
 						<th>Name</th>
 						<th>Position</th>
 						<th>Company</th>
-						<!-- <th>Choose</th> -->
 					</tr>
 				</thead>
 				<tbody>
-			        <?php $i = 0; ?>
+			       
 			        @foreach ($applicants as $applicant)
-			        <?php $i++; ?>
+			       
 					<tr>
+
 						<td>
-							{{ $i }}		
-						</td>
-						<td>
-							<a href="{{ URL::to('applicant/profile/' . $applicant->id_applicant) }}">
+							<a href="{{ URL::to('applicant/profile/' . $applicant->id_applicant) }}" target="_blank">
 								{{ $applicant->nama_applicant }}
 							</a>		
 						</td>
@@ -101,54 +85,22 @@
 						<td>
 							{{ $applicant->nama_company }}
 						</td>
-						<!-- <td>
-							<div class="checkbox" id="show">
-            					<label>
-              						<input type="checkbox" />
-              						<span class="lbl padding-8">Yes</span>
-            					</label>
-            					<label>
-              						<input type="checkbox" />
-              						<span class="lbl padding-8">No</span>
-            					</label>
-          					</div>
-						</td> -->
 					</tr>
 					@endforeach
-				</tbody>
+					<tr>
+						<td colspan="3"> <br> <p> Total Applicants: {{ $count }} </p></td>
+					</tr>
+			</table>
+			<table id="searchTable" style="margin-left:55%; margin-right:10%; ">	
+					<tr>
+						<td> 
+							 <p> {!! $applicants->render() !!} </p>
+						</td>
+					</tr>
+
 			</table>
 		</div>
 	</div>
 </div>
-
-<script language="javascript" type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script language="javascript" type="text/javascript">
-	// $(document).ready(function() {
-	// 	$('#search').keyup(function() {
-	// 		searchTable($(this).val());
-	// 	});
-	// });
-	// function searchTable(inputVal) {
-	// 	var table = $('#searchTable');
-	// 	table.find('tr').each(function(index, row) {
-	// 		var allCells = $(row).find('td');
-	// 		if (allCells.length > 0) {
-	// 			var found = false;
-	// 			allCells.each(function(index, td) {
-	// 				var regExp = new RegExp(inputVal, 'i');
-	// 				if (regExp.test($(td).text())) {
-	// 					found = true;
-	// 				}
-	// 			});
-	// 			if (found == true)
-	// 				$(row).show();
-	// 			else
-	// 				$(row).hide();
-	// 		}
-	// 	});
-	// }
-	// // source: http://www.a2ztechguide.com/2011/11/jquery-to-search-text-in-html-table.html
-</script>
 
 @endsection

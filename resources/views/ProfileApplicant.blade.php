@@ -1,6 +1,9 @@
 @extends('layouts.master_recruiter')
 
 @section('title')
+	@foreach ($applicantProfile as $ap)
+		{{ $ap->nama_applicant}} {{'- Applicant Profile' }}
+	@endforeach
 @endsection
 
 @section('content')
@@ -17,27 +20,23 @@
 	<br>
 	<div class="desc-group inline">
 	<table border="0">
+		<label> Status Applicant History: </label>
+		@foreach ($applicantStatus as $as)
 		<tr>
-			<label> Status Applicant History: </label>
 			<td> <p style="color: white;"> spc </p></td>
 			<td> 
-				@foreach ($applicantStatus as $as)
-					<h5> {{ $as->posisi_ditawarkan }} </h5>
-				@endforeach
+				<h5> {{ $as->posisi_ditawarkan }} </h5>
 			</td>
 			<td> <p style="color: white;"> spc </p></td>
 			<td>
-				@foreach ($applicantStatus as $as)
-					<h5> {{ $as->nama_status }} </h5>
-				@endforeach
+				<h5> {{ $as->nama_status }} </h5>
 			</td>
 			<td> <p style="color: white;"> spc </p></td>
 			<td>
-				@foreach ($applicantStatus as $as)
-					<h5> {{ $as->tgl_konfirmasi }} </h5>
-				@endforeach
+				<h5> {{ $as->tgl_notifikasi }} </h5>				
 			</td>
 		</tr>
+		@endforeach
 	</table> 
 	
 	<br>
@@ -75,96 +74,84 @@
 	
 	<div class="desc-group inline">
 	<table border="0">
+		@foreach ($applicantProfile as $ap)
 		<tr>
 			<td> <label>Email</label> </td>
 			<td> <p style="color: white;"> wspace </p></td>
-			<td> 
-				@foreach ($applicantProfile as $ap)
-					<h5> {{ $ap->emai_applicant }} </h5>
-				@endforeach
+			<td> 				
+				<h5> {{ $ap->email_applicant }} </h5>
 			</td>
 		</tr>
 		<tr>
 			<td> <label> Address </label> </td>
 			<td> </td>
 			<td> 
-				@foreach ($applicantProfile as $ap)
-					{{ $ap->alamat }}
-				@endforeach
+				{{ $ap->alamat }}
 			</td>
 		</tr>
 		<tr>
 			<td> <label> Gender </label> </td>
 			<td> </td>
 			<td> 
-				@foreach ($applicantProfile as $ap)
-					@if($ap->gender == '0')
-						{{$ap->gender = 'Woman'}}
-					@else
-						{{$ap->gender = 'Boy'}}
-					@endif
-				@endforeach
+				@if($ap->gender == 'F')
+					{{ 'Female' }}
+				@else
+					{{ 'Male' }}
+				@endif
 			</td>
 		</tr>
 		<tr>
 			<td> <label> Phone Number </label> </td>
 			<td> </td>
 			<td> 
-				@foreach ($applicantProfile as $ap)
-					{{ $ap->no_hp }}
-				@endforeach
+				{{ $ap->no_hp }}
 			</td>
 		</tr>
 		<tr>
 			<td> <label> University </label> </td>
 			<td> </td>
-			<td> 
-				@foreach ($applicantProfile as $ap)
-					{{ $ap->universitas }}
-				@endforeach
+			<td>
+				{{ $ap->universitas }}
 			</td>
 		</tr>
 		<tr>
 			<td> <label> Major </label> </td>
 			<td> </td>
 			<td> 
-				@foreach ($applicantProfile as $ap)
-					{{ $ap->jurusan }}
-				@endforeach
+				{{ $ap->jurusan }}
 			</td>
 		</tr>
 		<tr>
 			<td> <label> Graduate Year </label> </td>
 			<td> </td>
-			<td> 
-				@foreach ($applicantProfile as $ap)
-					{{ $ap->thn_lulus }}
-				@endforeach
+			<td>
+				{{ $ap->thn_lulus }}
 			</td>
 		</tr>
-	</table>
-</div>
-	<br>
-		<button type="button" class="btn btn-secondary"> View <br> Report </button>
-		@foreach ($applicantCV as $cv)
-		<?php 
-		//<a href="{{ URL::to('applicant/profile/CV/' . $cv->id_applicant) }}"> <button type="button" class="btn btn-primary">View <br> CV</button></a>
-		?>
-		<a href="{{asset('cv/CVfile.pdf')}}"> <button type="button" class="btn btn-primary">
-				View <br> CV</button>
-		</a>
 		@endforeach
-		<a href="{{asset('portofolio/ChrisAvore_UX_Portfolio.pdf')}}"> <button type="button" class="btn btn-success"> View <br> Portofolio</button>
+	</table>
 
-<!-- <br> <br>
+	<br>
+		@foreach ($applicantProfile as $ap)
 
-<form action="{{ url('uploadFile') }}" enctype="multipart/form-data">
+		<a href="{{ URL::to('applicant/profile/report/' . $ap->id_applicant) }}">
+			<button type="button" class="btn btn-secondary"> View <br> Report </button>
+		</a>
 
-    <input type="file" name="file">
-    <input type="submit">
+		<a href="{{ URL::to('applicant/profile/cv/' . $ap->id_applicant) }}"> 
+			<button type="button" class="btn btn-primary">View <br> CV</button>
+		</a>
+		
+		@if($ap->portofolio !== null)
+		<a href="{{ URL::to('applicant/profile/portofolio/' . $ap->id_applicant) }}">
+			<button type="button" class="btn btn-success"> View <br> Portofolio</button>
+		</a>
+		@endif	
 
-</form> -->
+		@endforeach
 
+</div>
+		
 
 @endsection
 
