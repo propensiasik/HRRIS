@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Response;
 use App\Applicant;
 use App\Status_applicant;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicantController extends Controller
 {
@@ -475,6 +477,264 @@ class ApplicantController extends Controller
          return redirect()->back();
        
        
+    }
+
+
+    /*  writter  : Khalila Hunafa
+        function : untuk menampilkan form registrasi applicant 
+        caller   : dari halaman jobVacancyOffered ketika applicant memilih menu apply pada salah satu job vacancy
+        input    : menerima input id_job_vacant yang dipilih oleh applicant 
+        output   : melempar id_job_vacant ke halaman applicantRegistrationForm
+    */  
+    public function showRegistrationForm()
+    {
+        $job_vacant = DB::table('job_vacant')->where('is_open', '=', 1 )->get(); 
+        $id_job_vacant = Input::all();
+        $id_job_vacant = array_flip($id_job_vacant);
+        $id_job_vacant = $id_job_vacant["Apply"];
+        return view('applicantRegistrationForm', ['id_job_vacant' => $id_job_vacant]);
+    }
+
+
+    /*  writter  : Khalila Hunafa
+        function : untuk memvalidasi input dari applicant dan menyimpannya pada database
+        caller   : dari halaman applicantRegistrationForm setelah applicant klik button save
+        input    : isi dari form dan id_job_vacant yang di apply
+        output   : akan menampilkan pesan berhasil dengan memanggil halaman registrationSuccess
+    */  
+    public function storeApplicant()
+    {
+        $input = Input::all();
+        //dd($input);
+        $nama = Input::get('nama');
+        $universitas = Input::get('universitas');
+        $id_job_vacant = Input::get('id_job_vacant');
+        $email = Input::get('email');
+
+        $posisi = DB::table('job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->select('posisi_ditawarkan')->value('posisi_ditawarkan');
+
+        $error = false; //flag
+
+        //validasi nama applicant    
+        if (empty($input['nama'])){
+             $error = true;
+             dd('Name is required');
+             session()->flash('nameErr', 'Name is required');
+        }
+        else if (!preg_match("/^[a-zA-Z ]*$/", $input['nama'])) {
+             $error = true;
+             dd('Only letters and white space allowed');
+        }
+
+        //validasi email applicant
+        if (empty($input['email'])){
+            $error = true;
+            dd('Email is required');
+            session()->flash('emailErr', 'Email is required');
+        }
+        else if (!filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
+            $error = true;
+            dd('Invalid email format');
+            session('Invalid email format')->flash('emailErr', 'Invalid email format');
+        }
+
+        //validasi gender applicant
+        if (empty($input['gender'])){
+            $error = true;
+            dd('Please select your gender as male or female');
+            session()->flash('genderErr', 'Please select your gender as male or female');
+        }
+
+        //validasi alamat
+        if (empty($input['alamat'])){
+            $error = true;
+            dd('Address is required');
+            session()->flash('addressErr', 'Address is required');
+        }
+
+        //validasi telp
+        if (empty($input['phone'])){
+            $error = true;
+            dd('Phone number is required');
+            session()->flash('phoneErr', 'Phone number is required');
+        }
+
+        //validasi jurusan
+        if (empty($input['jurusan'])){
+            $error = true;
+            dd( 'Major is required');
+            session()->flash('jurusanErr', 'Major is required');
+        }
+
+        //validasi universitas
+        if (empty($input['universitas'])){
+            $error = true;
+            dd('University is required');
+            session()->flash('universitasErr', 'University is required');
+        }
+
+        //validasi tahunLulus
+        if (empty($input['tahunLulus'])){
+            $error = true;
+            dd('Graduation Year is required');
+            session()->flash('tahunLulusErr', 'Graduation Year is required');
+        }
+
+        //validasi IPK
+        if (empty($input['ipk'])){
+            $error = true;
+            dd('GPA is required');
+            session()->flash('ipkErr', 'GPA is required');
+        }
+
+        //validasi portofolio
+        $is_portofolio_null = false;
+        if(!empty($input['portofolio'])){
+            $destinationPathPortofolio = 'uploads/portofolio'; // destination path
+            $extension = $input['portofolio']->getClientOriginalExtension(); // ambil extension
+            $firstNameFile = 'Portofolio - '.$nama.' - '.$universitas; // nama depan
+            $fileNamePortofolio = $firstNameFile.'.'.$extension;
+            if($extension == "pdf"){
+                $input['portofolio']->move($destinationPathPortofolio, $fileNamePortofolio);
+            }
+            else{
+                $error = true;
+                dd('Only pdf allowed');
+                session()->flash('portofolioErr', 'Only pdf allowed, please upload your portofolio as pdf');
+            }
+        }else{
+            $is_portofolio_null = true;
+        }
+
+        //validasi CV
+        if(!empty($input['cv'])){
+            $destinationPathCV = 'uploads/cv'; // destination path
+            $extension = $input['cv']->getClientOriginalExtension(); // ambil extension
+            $firstNameFile = 'CV - '.$nama.' - '.$universitas; // nama depan
+            $fileNameCV = $firstNameFile.'.'.$extension;
+            if($extension == "pdf"){
+                $input['cv']->move($destinationPathCV, $fileNameCV);
+            }
+            else{
+                $error = true;
+                dd('Only pdf allowed');
+                session()->flash('cvErr', 'Only pdf allowed, please upload your CV as pdf');
+            }
+        }else{
+            $error = true;
+            dd('CV is required');
+            session()->flash('cvErr', 'CV is required');
+        }
+
+        //cek input work experience
+        $work_exp_list = []; 
+        for ($i=1; $i <= 10 ; $i++) { 
+            if(!empty($input['posisi'.$i]) || !empty($input['perusahaan'.$i]) || !empty($input['start'.$i]) || !empty($input['end'.$i])){
+                //berarti dia berniat diisi
+                if(empty($input['posisi'.$i])){
+                    $error = true;
+                    dd('Please make sure that you fill in all the position of your work experience');
+                    session()->flash('posisiErr', 'Please make sure that you fill in all the position of your work experience');
+                }else if(empty($input['perusahaan'.$i])){
+                    $error = true;
+                    dd('Please make sure that you fill in all the company name');
+                    session()->flash('perusahaanErr', 'Please make sure that you fill in all the company name');
+                }else if (empty($input['start'.$i])) {
+                    $error = true;
+                    dd('Please make sure you have entered all your start period of your experience');
+                    session()->flash('startErr', 'Please make sure you have entered all your start period of your experience');
+                }else if (empty($input['end'.$i])) {
+                    $error = true;
+                    dd('Please make sure you have entered all your end period of your experience');
+                    session()->flash('endErr', 'Please make sure you have entered all your end period of your experience');
+                }else if(!empty($input['posisi'.$i]) && !empty($input['perusahaan'.$i]) && !empty($input['start'.$i]) && !empty($input['end'.$i])){
+                    $date_start = date_create($input['start'.$i]);
+                    $date_end = date_create( $input['end'.$i]);
+                    $difference = date_diff($date_start, $date_end); //untuk ngecek start dan end
+                    $range = $difference->format("%R%a");
+                    $get_today_date = getdate();
+                    $temp = $get_today_date['year']."-".$get_today_date['mon']."-".$get_today_date["mday"];
+                    $today = date_create($temp);
+                    $today_start = date_diff($date_start, $today);
+                    $today_end = date_diff($date_end, $today);
+                    $range_start_today = $today_start->format("%R%a");
+                    $range_end_today = $today_end->format("%R%a");
+                    if($range_start_today < 0 || $range_end_today < 0){ //berarti dia ngisi tanggal lewat dari hari ini
+                        $error = true;
+                        dd('You can not choose a date greater than today\'s date');
+                        session()->flash('dateErr', 'You can not choose a date greater than todays date');  
+                    }else{
+                        if( $range > 0){
+                            $work_exp = array('posisi' => $input['posisi'.$i], 
+                                'perusahaan' => $input['perusahaan'.$i], 
+                                'start' => $input['start'.$i], 
+                                'end' => $input['end'.$i]);
+                            $work_exp_obj = (object) $work_exp;
+                            array_push($work_exp_list, $work_exp_obj);
+                        }else{
+                            $error = true;
+                            dd('Please make sure that all your end period of work have a bigger date than the start period');
+                            session()->flash('endErr', 'Please make sure that all your end period of work have a bigger date than the start period');
+                        }
+                    } 
+                }
+            }
+        }
+
+        //menyimpan data applicant ke table applicant
+        if($error == false){
+            if($is_portofolio_null == false){
+                $id_applicant = DB::table('applicant')->insertGetId(['nama_applicant' => $input['nama'],
+                                                                    'email_applicant' => $input['email'], 
+                                                                    'alamat' => $input['alamat'],
+                                                                    'gender' =>  $input['gender'],
+                                                                    'no_hp' => $input['phone'],
+                                                                    'universitas' => $input['universitas'],
+                                                                    'jurusan' => $input['jurusan'],
+                                                                    'ipk' => $input['ipk'],
+                                                                    'thn_lulus' => $input['tahunLulus'], 
+                                                                    'cv' => $destinationPathCV.'/'.$fileNameCV,
+                                                                    'portofolio' => $destinationPathPortofolio.'/'.$fileNamePortofolio,
+                                                                    'text' => $input['pesan'],
+                                                                    'status_ter_update' => 1,
+                                                                    'id_job_vacant' => $id_job_vacant,
+                                                                    'is_active' => 1]);
+            }else{ //kalo portofolio tidak null
+                $id_applicant = DB::table('applicant')->insertGetId(['nama_applicant' => $input['nama'],
+                                                                    'email_applicant' => $input['email'], 
+                                                                    'alamat' => $input['alamat'],
+                                                                    'gender' =>  $input['gender'],
+                                                                    'no_hp' => $input['phone'],
+                                                                    'universitas' => $input['universitas'],
+                                                                    'jurusan' => $input['jurusan'],
+                                                                    'ipk' => $input['ipk'],
+                                                                    'thn_lulus' => $input['tahunLulus'], 
+                                                                    'cv' => $destinationPathCV.'/'.$fileNameCV,
+                                                                    'status_ter_update' => 1,
+                                                                    'text' => $input['pesan'],
+                                                                    'id_job_vacant' => $id_job_vacant,
+                                                                    'is_active' => 1]);
+            }
+
+        //menyimpan data work experience 
+            foreach ($work_exp_list as $w) {
+                $id_worl_exp = DB::table('work_experience')->insertGetId(['position' => $w->posisi,
+                                                                        'company' => $w->perusahaan, 
+                                                                        'start' => $w->start,
+                                                                        'end' => $w->end,
+                                                                        'id_applicant' => $id_applicant]);
+            }
+
+            //mengirim email konfirmasi ke email applicant dan hr
+            // Mail::send('emails.toSend', ['nama' => $nama, 'posisi' => $posisi], function($message) {
+            //   $message->to('khalila9616@gmail.com', 'Khalila Hunafa')->subject('Definite Confirmation');
+            // });
+
+             return view('registrationSuccess', ['nama' => $nama, 'posisi' => $posisi]);
+        }else{ //ketika error ditemukan dia akan melempar error message ke form
+
+        }   
+
     }
 
 }

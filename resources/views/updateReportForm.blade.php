@@ -8,25 +8,24 @@ session_start();
 
 
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
-<script type="text/javascript">
-</script>
+<script type="text/javascript"></script>
 
 @section('content')
 <div id="createForm">
- <h1 > Update Report Form </h1>
+ <h1 style="text-align: center"> Update Assessment Form Competency </h1>
 </div>
 
 <br>
-<div class="col-md-8">
+<div class="col-md-12">
   <div class="table-responsive">
-    <table class="table" >  
+    <table class="table" style="margin-left:25%; margin-right:15%;">  
       <tbody>
         <tr>
-          <td>Job vacancy</td>
+          <td>Job Vacancy</td>
           <td>{{ $nama_jv }}</td>
         </tr>
         <tr>
-          <td>Business function</td>
+          <td>Business Unit</td>
           <td>{{ $nama_divisi }}</td>
         </tr>
         <tr>
@@ -35,65 +34,131 @@ session_start();
         </tr>
       </tbody>
     </table>
-  </div><br>
+  </div>
+</div><br>
 
+<div class="col-md-12">
   <div class="table-responsive">
-  <table class="table">
+    <table class="table" style="margin-left:25%, margin-right:15%;">
       <h3>Competency List</h3>
       <thead>
         <th>#</th>
-        <th>Nama Kompetensi</th>
-        <th>Penjelasan</th>
+        <th>Competency</th>
+        <th>Explanation</th>
+        <th>Select</th>
       </thead>
       <tbody>
-        <?php $i=0; ?>
-        @foreach($competency as $competency)
+         <?php $i=0; ?>
+        @foreach($competency as $comp)
         <?php $i++; ?>
-        <tr>
+        <tr class="competencyList">
           <td>{{ $i }}</td>
-          <td>  <div id="competencyList"><div id="{{$competency->id_kompetensi}}" class="kompetensi">{{$competency->nama_kompetensi}}</div></div></td>
-          <td>{{ $competency->penjelasan_kompetensi }}</td>
+          <td>  <div><div id="{{$comp->id_kompetensi}}" class="kompetensi">{{$comp->nama_kompetensi}}</div></div></td>
+          <td>{{ $comp->penjelasan_kompetensi }}</td>
+          <td>
+            <button id="{{$comp->id_kompetensi}}" class="opsi-kompetensi tambah-kompetensi active">add</button>
+            <button id="{{$comp->id_kompetensi}}" class="opsi-kompetensi hapus-kompetensi" style="display:none">remove</button>
+          </td>
+          <td></td>
         </tr>        
-        @endforeach  
+        @endforeach 
       </tbody>
     </table>
   </div>
+</div>
+
+<div>
+  @foreach($competency as $com)
+  <div id = "{{$com->id_kompetensi}}" class = "choose" style = "display:none">{{$com->nama_kompetensi}}</div>
+  @endforeach
+</div>
+
+<div>
+   <form action="SaveUpdatedForm" method="post">
+    <input name="array_id" value= "" id="json_to_submit" style="display:none">
+    <input name="id_job_vacant" value= "{{$id_job_vacant}}" style="display:none">
+    <input name="id_report_form" value= "{{$id_report_form}}" style="display:none">
+  <button class="simpan btn btn-primary">Save</button>
+  </form>
+</div>
 
 
-  <div id="choosen">
-    <form>
-      <div id="kompetensi-choose">
-      </div>
-      <input type="submit" value="Submit">
-    </form>
-  </div>
+<script type="text/javascript">
+$(document).ready(function() {
 
-  <div class="kompetensidiv">lala</div>
+  //untuk mendapatkan competency yang sudah digunakan sebelumnya
+  <?php $j=0; $php_array=array();
+    foreach($competency_used as $used){
+       $j++;
+       $temp = $used->id_kompetensi;
+       //echo ($temp);
+        array_push($php_array, $temp);
+    }
+    $js_array = json_encode($php_array);
+    //echo "var javascript_array = ". $js_array . ";\n";
+  ?>
 
-  <script type="text/javascript">
-    $(document).ready(function() {
-      var array_id = new Array();
-      $('.kompetensi').click(function() {
-          // get kompetensi id
-          var id = $(this).attr('id');
-          var name = $(this).html();
-          var exist = false;
-          for (var i = array_id.length - 1; i >= 0; i--) {
-            if (array_id[i] == id) {
-              exist = true;
-            };
-          };
-          if (exist == false) {
-            array_id.push(id); 
-            $('#kompetensi-choose').append('<div id="'+id+'" class="kompetensidiv">'+name+'<br><input type="hidden" name="'+id+'" value="'+id+'"/></div>');
-          };
-        });
+  var array_id = new Array();
+  var id_job_vacant = '<?php Print($id_job_vacant);?>';
+  //alert(id_job_vacant);
+  var jml_used = '<?php Print($j);?>'
+  
 
-      $('.kompetensidiv').click(function(){
-        alert('test');
-        $(this).remove();
-      });
-    });
-  </script>
+  var array_temp = '<?php Print($js_array);?>';
+  //alert(array_temp);
+  var array_id = JSON.parse(array_temp); //memasukan id competency yang telah dipilih sebelumnya
 
-  @stop
+
+  for (var i = array_id.length - 1; i >= 0; i--) {
+      var id = array_id[i];
+     // alert(id);
+     $('.choose#'+id).show(); 
+     $('.tambah-kompetensi#'+id).hide();
+     $('.hapus-kompetensi#'+id).show();
+  };
+ 
+
+  $('.competencyList .opsi-kompetensi').click(function(){
+    $(this).hide();
+    $(this).siblings().show();
+    if($(this).hasClass('tambah-kompetensi')){
+                //console.log($(this).parent().parent().find('.kompetensi').html());
+                var id = $(this).attr('id');
+                $('.choose#'+id).show();
+                var exist = false;
+                for (var i = array_id.length - 1; i >= 0; i--) {
+                  if(array_id[i] == id){
+                    exist = true;
+                  }
+                };
+                if(exist==false){
+                  array_id.push(id);
+                }
+              }else if($(this).hasClass('hapus-kompetensi')){
+               // alert("khalila");
+               var id = $(this).attr('id');
+               $('.choose#'+id).hide();
+               for (var i = array_id.length - 1; i >= 0; i--) {
+                 if(array_id[i]==id){
+                      if(i==0){//kalo dia element pertama
+                        array_id.shift();
+                      }else if(i==array_id.length -1){//kalo dia element terakhir
+                        array_id.pop();
+                      }else{//element di tengah
+                        var part1 = array_id.slice(0,i);
+                        var part2 = array_id.slice(++i, array_id.length);
+                        array_id = part1.concat(part2); //menggabungkan array
+                      }
+                    }
+                  };  
+                }
+              });
+$('.simpan').click(function(){
+  var array_json = JSON.stringify(array_id);
+  document.getElementById('json_to_submit').value= array_json;
+});
+});
+
+</script>
+
+@stop

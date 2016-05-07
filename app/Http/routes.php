@@ -20,6 +20,10 @@ Route::get('/SetApplicant/SaveNewInterview/{id_av_schedule}-{type}-{id_applicant
 Route::get('/a','ScheduleController@info');
 Route::get('/b','ScheduleController@getApplicant');
 
+
+
+
+
 //Applicant
 Route::get('/Applicants/', 'ApplicantController@getListOfApplicant'); // list applicant
 Route::post('/applicants/choose', 'ApplicantController@getListOfApplicantChoosen'); // list applicant choose
@@ -32,25 +36,58 @@ Route::get('/applicant/profile/report/{id_applicant}', 'ApplicantController@getR
 Route::get('/applicant/profile/cv/{id_applicant}', 'ApplicantController@getCV'); // CV
 Route::get('/applicant/profile/portofolio/{id_applicant}', 'ApplicantController@getPortofolio'); // Portofolio
 Route::post('/Applicants', 'ApplicantController@filter'); //Filtering
+//untuk menampilkan form registrasi applicant
+Route::post('/applicant/registration', 'ApplicantController@showRegistrationForm');
+//untuk menyimpan isian form dari applicant
+Route::post('/applicant/Registration/Save', 'ApplicantController@storeApplicant');
 
-//Av Position
+
+
+
+
+//Available Position
 Route::get('/CreateAvailablePosition', 'JobVacantController@create'); //create available position
 Route::post('/CreateAvailablePosition', 'JobVacantController@process'); //UNTUK SIMPAN AV.POSISTION
+
 //untuk menampilkan halaman list of job vacant ketika user memilih menu Job Vacant
 Route::get('/JobVacant', 'JobVacantController@getListOfJobVacant');
-
 //untuk menampilkan halaman penjelasan dari suatu job vacant ketika user memilih salah satu job vacant
 Route::get('/JobVacant/{id_job_vacant}', 'JobVacantController@showJobVacantInformation');
+//untuk menampilkan list available position yang bisa di apply oleh applicant
+Route::get('/career', 'JobVacantController@showAvailablePosition');
+//untuk memproses perubahan pada update available position information
+Route::post('/AvailablePosition/Update', 'JobVacantController@storeUpdateJobVacantInformation');
+//untuk menampilkan form create job vacant
+Route::get('/CreateAvailablePosition', 'JobVacantController@showCreateJobVacantForm');
+//untuk menyimpan jobvacant yang baru dibuat
+Route::post('/CreateAvailablePosition/Save', 'JobVacantController@saveCreatedJobVacant');
+//untuk menampilkan form update job vacant
+Route::get('/UpdateAvailablePosition/{id_job_vacant}', 'JobVacantController@showUpdateJobVacantForm');
+//untuk menyimpan jobvacant yang baru diupdate
+Route::post('/UpdateAvailablePosition/Save', 'JobVacantController@saveUpdatedJobVacant');
 
-//Report Form
+
+
+//Assessment Form  (old: Report Form)
 //untuk cek apakah suatu jobVacant udah punya report form atau belum
 Route::get('/JobVacant/ReportForm/{id_job_vacant}', 'ReportFormController@cekApakahReportFormUdahDibuat');
 //untuk menampilkan form create report form
 Route::get('/JobVacant/ReportForm/CreateReportForm/{id_job_vacant}', 'ReportFormController@createReportForm');
 //untuk menampikan halaman ketika report form telah exist
 Route::get('/JobVacant/ReportForm/ViewReportForm/{id_report_form}', 'ReportFormController@viewReportForm');
+//untuk mengecek apakah reportform sedang digunakan
+Route::get('/JobVacant/ReportForm/CheckReportForm/{id_job_vacant}', 'ReportFormController@cekApakahReportFormUdahAdaYangGunain');
 //untuk menampilkan form update report form
 Route::get('/JobVacant/ReportForm/UpdateReportForm/{id_job_vacant}', 'ReportFormController@updateReportForm');
+//untuk menyimpan report form yang telah diisi
+Route::post('/JobVacant/ReportForm/CreateReportForm/SaveCreatedForm', 'ReportFormController@saveCreatedForm');
+//untuk menyimpan report form yang telah diupdate
+Route::post('/JobVacant/ReportForm/UpdateReportForm/SaveUpdatedForm', 'ReportFormController@saveUpdatedForm');
+
+
+
+
+
 
 Route::get('/','UserController@index');
 Route::get('/Home','HomeController@index');
