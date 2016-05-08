@@ -216,29 +216,35 @@ class JobVacantController extends Controller
         input    : input form dari user
         output   : akan menampilkan halaman jobVacantInformation
     */  
-    public function saveCreatedJobVacant(){
+     public function saveCreatedJobVacant(){
       $input = input::all();
 
+      $error_message = new MessageBag();
+      
       $error = false;
-
       $id_company = $input['company']; //mengembalikan value 0,1,2,3,4
       //validasi company
       if($id_company == 0){//dia kosong
           //throw pesan kesalahan bahwa compamy harus dipilih
-          $error = true;
+           $error = true;
            $comErr = "Please choose the company.";
-           dd($comErr);
-          // session()->put('comErr', 'Please choose the company.');
+           $error_message->add('comErr', $comErr);
+           session()->put('comErr', 'Please choose the company.');
             // if(session()->has('comErr')){
             //    return session()->get('comErr');
             //  }
+
+          dd($comErr);
+          //return redirect('CreateAvailablePosition');
       }
       //validasi kesesuaian company dan divisi
       $divisi = $input['divisi']; //mengembalikan value 0,1,2,.., 9, 10
       $nama_divisi = "";
       if($divisi == 0){//dia kosong
-          $divErr = "Please choose the business unit";
-          dd($divErr);
+        $error = true;
+        $divErr = "Please choose the business unit";
+        $error_message->add('divErr', $divErr);
+        dd($divErr);
       }elseif($divisi == 1){ //
         $nama_divisi = "Project Manager";
       }elseif($divisi == 2) { //
@@ -261,17 +267,20 @@ class JobVacantController extends Controller
         $nama_divisi = "Produser";
       }
 
-      //mendapatkan divisi mana
-      $id_divisi = DB::table('divisi')->where('id_company', '=', $id_company)
-                                      ->where('nama_divisi', '=', $nama_divisi)
-                                      ->value('id_divisi');
 
-      if($id_divisi == null){//kalo kosong berarti company dan divisi yang dipilih ga sesuai
-          $error = true;         
+      if($divisi != 0){
+      //mendapatkan divisi mana
+        $id_divisi = DB::table('divisi')->where('id_company', '=', $id_company)
+        ->where('nama_divisi', '=', $nama_divisi)
+        ->value('id_divisi');
+
+        if($id_divisi == null){//kalo kosong berarti company dan divisi yang dipilih ga sesuai
+          $error = true;
           $divErr = "There is no such business unit in the selected company";
+          $error_message->add('divErr', $divErr);
           dd($divErr);
-      }else{ //company dan divisi yang dipilih match
-          //validasi pic
+        }else{ //company dan divisi yang dipilih match
+            //validasi pic
           $pic = $input['pic'];
           $result = explode("\r\n", $pic);
           $temp = "";
@@ -280,47 +289,65 @@ class JobVacantController extends Controller
           }
           $result = explode("\n", $temp);
           $temp = "";
-           foreach ($result as $r) {
+          foreach ($result as $r) {
             $temp = $temp."".$r;
           }
           $result = explode(" ", $temp);
           $temp = "";
-           foreach ($result as $r) {
+          foreach ($result as $r) {
             $temp = $temp."".$r;
           }
-          $pic = explode(",", $temp); //$pic berbentuk array yang mengembalikan list username pic yang diinput     
+            $pic = explode(",", $temp); //$pic berbentuk array yang mengembalikan list username pic yang diinput     
 
 
-          //memeriksa apakah semua username yang ada pada array PIC merupakan username yang terdaftar
-          foreach ($pic as $p) {
-            $involved = DB::table('users')->where('email_users', '=', $p)->get();
-            if($involved == null){ //dia tidak ada di table users
+            //memeriksa apakah semua username yang ada pada array PIC merupakan username yang terdaftar
+            foreach ($pic as $p) {
+              $involved = DB::table('users')->where('email_users', '=', $p)->get();
+              if($involved == null){ //dia tidak ada di table users
                 $error = true;
                 $picErr = $p." is not a valid username";
+                $error_message->add('picErr', $picErr);
                 dd($picErr);
             }
-          }
-
-          if($error == false){
-          //input database job_vacant
-          $id_job_vacant = DB::table('job_vacant')->insertGetId(['posisi_ditawarkan' => $input['posisi'], 
-                                                                 'jml_kebutuhan' => $input['jml_kebutuhan'] , 
-                                                                 'requirement' => $input['requirement'], 
-                                                                 'description' => $input['description'],
-                                                                 'is_open' => $input['status'], 
-                                                                 'id_divisi' => $id_divisi]);
-          //input user involved ke table involved job vacant
-          foreach ($pic as $p) {
-            DB::table('involved_job_vacant')->insert(['id_job_vacant' => $id_job_vacant, 'email_users' => $p]);    
-          }
-
-          return redirect()->action('JobVacantController@showJobVacantInformation', $id_job_vacant);
-        
-        }else{ //terdapat error
-          //dia akan melempar error message
+          }  
         }
-      }                                
+      }
+
+      if($error == false){
+        //input database job_vacant
+        $id_job_vacant = DB::table('job_vacant')->insertGetId(['posisi_ditawarkan' => $input['posisi'], 
+                                                               'jml_kebutuhan' => $input['jml_kebutuhan'] , 
+                                                               'requirement' => $input['requirement'], 
+                                                               'description' => $input['description'],
+                                                               'is_open' => $input['status'], 
+                                                               'id_divisi' => $id_divisi]);
+        //input user involved ke table involved job vacant
+        foreach ($pic as $p) {
+          DB::table('involved_job_vacant')->insert(['id_job_vacant' => $id_job_vacant, 'email_users' => $p]);    
+        }
+        return redirect()->action('JobVacantController@showJobVacantInformation', $id_job_vacant);
+    }else{ //ditemukan error
+
+      $old_input = new MessageBag();
+      $old_input->add('posisi', $input['posisi']);
+      $old_input->add('status', $input['status']);
+      $old_input->add('company', $input['company']);
+      $old_input->add('divisi', $input['divisi']);
+      $old_input->add('jml_kebutuhan', $input['jml_kebutuhan']);
+      $old_input->add('description', $input['description']);
+      $old_input->add('requirement', $input['requirement']);
+      $old_input->add('pic', $input['pic']);
+
+      //memasukan $old_input ke session
+      //masukan $error_message ke session
+      //lempar session ke halaman form
+
+      if(!$error_message->isEmpty()){
+        return $error_message->all();
+      }
+
     }
+  }
 
 
 
@@ -352,6 +379,7 @@ class JobVacantController extends Controller
       $nama_divisi = "";
       if($divisi == 0){//dia kosong
           //throw pesan kesalahan bahwa compamy harus dipilih
+          $error = true;
           $divErr = "Please choose the business unit";
           dd($divErr);
       }elseif($divisi == 1){ //
@@ -403,8 +431,26 @@ class JobVacantController extends Controller
            foreach ($result as $r) {
             $temp = $temp."".$r;
           }
-          $pic = explode(",", $temp); //$pic berbentuk array yang mengembalikan list username pic yang diinput     
+          $pic = explode(",", $temp); //$pic berbentuk array yang mengembalikan list username pic yang diinput    
+          //dd($pic);
 
+          $id_report_form = DB::table('report_form')->where('id_job_vacant', '=', $id_job_vacant)->value('id_report_form');
+          //dd($id_report_form);
+          $list_pic_has_report = DB::table('report')->where('id_report_form', '=', $id_report_form)->get();
+          //dd($list_pic_has_report);
+          $list_pic_has_av_schd = DB::table('available_schedule')->where('id_job_vacant', '=', $id_job_vacant)->get(); 
+
+          //menambahkan list pic yang terhapus saat view
+          foreach ($list_pic_has_report as $key) {
+            array_push($pic, $key->email_users);
+          }
+
+          foreach ($list_pic_has_av_schd as $key) {
+            array_push($pic, $key->email_users);
+          }
+
+          $pic = array_unique($pic); //untuk membuang yang duplikat
+          
 
           //memeriksa apakah semua username yang ada pada array PIC merupakan username yang terdaftar
           foreach ($pic as $p) {
@@ -417,7 +463,6 @@ class JobVacantController extends Controller
           }
 
 
-          if($error = false){
           //me-update isi table job vacant
           DB::table('job_vacant')->where('id_job_vacant', '=', $id_job_vacant)
                                  ->update(['posisi_ditawarkan' => $input['posisi'], 
@@ -425,47 +470,46 @@ class JobVacantController extends Controller
                                            'requirement' => $input['requirement'], 
                                            'description' => $input['description'],
                                            'is_open' => $input['status'], 
-                                           'id_divisi' => $id_divisi]);
-
-
-           //me-update table involved job vacant      
-           $old_users_involved = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->get();
-           //dd($old_users_involved);
-           $to_delete = [];
-           $temp = "";
-           //membandingkan isi array 
-           foreach ($old_users_involved as $old) {
-             $exist = false;
-             foreach ($pic as $p) {
-               if ($old->email_users === $p) {
-                 $exist = true;
-                 break;
-               }
-             }
-             if($exist == false){
-              array_push($to_delete, $old->email_users);
-             }
-           }
-
-           //menghapus email user yang tidak ada di yang baru
-           foreach ($to_delete as $del) {
-              DB::table('involved_job_vacant')->where('email_users', '=', $del)->delete(); 
-           }
-
-           //mau menginput yang belum ada di database
-           foreach ($pic as $p) {
-              $old_exist = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->where('email_users', '=', $p)->value('email_users'); 
-              if(empty($old_exist)){ //dia belum ada
-                DB::table('involved_job_vacant')->insert(['id_job_vacant' => $id_job_vacant, 'email_users' => $p]);
-              }
-           }                       
+                                           'id_divisi' => $id_divisi]);                      
       }
 
-    }
+      if($error == false){
+       //me-update table involved job vacant      
+       $old_users_involved = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->get();
+       $to_delete = [];
+       $temp = "";
+       //membandingkan isi array 
+       foreach ($old_users_involved as $old) {
+         $exist = false;
+         foreach ($pic as $p) {
+           if ($old->email_users === $p) {
+             $exist = true;
+             break;
+           }
+         }
+         if($exist == false){
+          array_push($to_delete, $old->email_users);
+        }
+      }
 
-       return redirect()->action('JobVacantController@showJobVacantInformation', $id_job_vacant);
+      //menghapus email user yang tidak ada di yang baru
+      foreach ($to_delete as $del) {
+        DB::table('involved_job_vacant')->where('email_users', '=', $del)->delete(); 
+      }
+
+      //mau menginput yang belum ada di database
+      foreach ($pic as $p) {
+        $old_exist = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->where('email_users', '=', $p)->value('email_users'); 
+          if(empty($old_exist)){ //dia belum ada
+            DB::table('involved_job_vacant')->insert(['id_job_vacant' => $id_job_vacant, 'email_users' => $p]);
+          }
+      } 
+
+        return redirect()->action('JobVacantController@showJobVacantInformation', $id_job_vacant);
+     }else{ //terdapat error
+
+     }
   }
-
 
 
 
@@ -515,17 +559,59 @@ class JobVacantController extends Controller
       $requirement = $jv->value('requirement');
       $description = $jv->value('description');
 
-      $list_pic = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->get();
+
+      //PIC yang ditampilkan harus PIC yang belum mengisi report form atau available interview schedule
+      $list_pic_involved = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->get();
+      //dd($list_pic);
+      $id_report_form = DB::table('report_form')->where('id_job_vacant', '=', $id_job_vacant)->value('id_report_form');
+      //dd($id_report_form);
+      $list_pic_has_report = DB::table('report')->where('id_report_form', '=', $id_report_form)->get();
+      //dd($list_pic_has_report);
+      $list_pic_has_av_schd = DB::table('available_schedule')->where('id_job_vacant', '=', $id_job_vacant)->get();
+      //dd($list_pic_has_av_schd);
+
+      //akan memindahkan semua email_users yang ada di $list_pic kedalam suatu array
+      $list_pic = [];
+      foreach ($list_pic_involved as $lpi) {
+        array_push($list_pic, $lpi->email_users);
+      }
+      //dd($list_pic);
+
+      
+      //menghapus pic yang sudah ada di $list_pic_has_report
+      foreach ($list_pic_has_report as $lphr) {
+        foreach ($list_pic as $lp) {
+          if($lp === $lphr->email_users){ //dia akan dihapus
+              $key_to_delete = array_search($lp, $list_pic);
+              unset($list_pic[$key_to_delete]);
+            break;
+          }
+        }
+      }
+
+      //menghapus pic yang sudah ada di $list_pic_has_report
+      foreach ($list_pic_has_av_schd as $lphas) {
+        foreach ($list_pic as $lp) {
+          if($lp === $lphas->email_users){ //dia akan dihapus
+              $key_to_delete = array_search($lp, $list_pic);
+              unset($list_pic[$key_to_delete]);
+            break;
+          }
+        }
+      }
+      
+
       $pic = ""; //dalam bentuk string yang udah di konket
       foreach ($list_pic as $p) {
-       $username = $p->email_users;
+       //$username = $p->email_users;
         if($p == end($list_pic)){
-           $pic = $username.$pic;
+          // $pic = $username.$pic;
+           $pic = $p.$pic;
         }else{
-           $pic = $pic.", ".$username;
+          // $pic = $pic.", ".$username;
+           $pic = $pic.", ".$p;
         }
       }
       return view('updateJobVacantInformation',  ['id_job_vacant' => $id_job_vacant, 'posisi' => $posisi, 'status' => $status, 'company' => $company, 'divisi' => $divisi, 'jml_kebutuhan' => $jml_kebutuhan, 'requirement' => $requirement, 'description' => $description, 'pic' => $pic]); 
     }
-
    }
