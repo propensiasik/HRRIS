@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+<?php 
+	session_start();
+?>
 @section('content')
 
 <section id="content">

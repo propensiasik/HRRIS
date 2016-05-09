@@ -71,7 +71,7 @@
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 <img class="icon-menu" src="{{asset('img/Icon - User.png')}}"> 
-                <span>Hello</span>              
+                <span>Hello, {{$_SESSION['username']}}</span>              
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{url('/dologout')}}">Logout</a></li>
@@ -100,7 +100,7 @@
       <tr>
         <th>
           <div class="well">
-            <a href = "{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
+            <a href = "{{url('/ApplicantsAdmin')}}" {{$page == 'applicants' ? 'class=active' : ''}}>
               <img src="img/applicant.png" style="width:40%">
               <h3> Applicants </h3>
             </a>  

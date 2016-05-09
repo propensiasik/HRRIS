@@ -1,12 +1,7 @@
 <?php 
 session_start();
 ?>
-@extends('master')
-
-@section('title')
-  Job Vacant Information
-@endsection
-
+@extends('layouts.master')
 @section('content')
 
 <h1 style="text-align: center"> List Of Available Position </h1>

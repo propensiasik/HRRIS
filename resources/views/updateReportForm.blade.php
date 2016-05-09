@@ -77,6 +77,7 @@ session_start();
    <form action="SaveUpdatedForm" method="post">
     <input name="array_id" value= "" id="json_to_submit" style="display:none">
     <input name="id_job_vacant" value= "{{$id_job_vacant}}" style="display:none">
+    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
     <input name="id_report_form" value= "{{$id_report_form}}" style="display:none">
   <button class="simpan btn btn-primary">Save</button>
   </form>

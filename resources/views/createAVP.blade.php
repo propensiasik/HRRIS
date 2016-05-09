@@ -4,7 +4,11 @@
 <?php
 session_start();
 ?>
-
+<script type="text/javascript">
+    function goBack() {
+        window.location.href = 'ada/public/JobVacant/';
+    }
+</script>
 <section id="content">
 
     <h1> Create Available Posistion</h1>
@@ -16,18 +20,16 @@ session_start();
 
 
             <div class="form-group">
-               <label for="divisi">Division : </label>
-               <select class="divisi" name="divisi">
-                <option value="DIV04">Analyst</option>
-                <option value="DIV02">HR</option>
-                <option value="DIV05">PM</option>
-                <option value="DIV06">Programmer</option>
-                <option value="DIV03">UI/UX</option>
-            </select>
-        </div>  
+             <label for="divisi">Division : </label>
+             <select class="divisi" name="divisi">
+                 @foreach($listDivisi as $divisi)
+                 <option value="{{$divisi->id_divisi}}">{{$divisi->nama_divisi}} - {{$divisi->nama_company}}</option>
+                 @endforeach
+             </select>
+         </div>  
 
 
-        <div class="form-group">
+         <div class="form-group">
 
             {!! Form::label('id','ID:',['class' => 'form-control','style'=>'display:none']) !!}
 
@@ -38,14 +40,14 @@ session_start();
         <div class="form-group">
             {!! Form::label('jobname','Job name:') !!}<br/>
 
-            {!! Form::text('jobname', null, ['class' => 'form-control']) !!}
+            {!! Form::text('jobname', null, ['class' => 'form-control','required']) !!}
         </div>
 
 
         <div class="form-group">
-            {!! Form::label('capacity','Capacity:') !!}<br/>
+            {!! Form::label('capacity','Personal Needed:') !!}<br/>
 
-            {!! Form::text('capacity', null, ['class' => 'form-control']) !!}
+            {!! Form::text('capacity', null, ['class' => 'form-control','required']) !!}
 
         </div>
 
@@ -53,28 +55,13 @@ session_start();
         <div class="form-group">
             {!! Form::label('requirement','Requirement :') !!}<br/>
 
-            {!! Form::textarea('requirement', null, ['class' => 'form-control']) !!}
-        </div>
-        <div class="form-group">
+            {!! Form::textarea('requirement', null, ['class' => 'form-control','required']) !!}
+        </div>  
+        {!! Form::submit('Save', null,['class' => 'btn btn-primary'])!!}
+        <button class='btn btn-default' onclick="goBack()"  style='margin-left: 2%'>Cancel</button>
+        {!! Form::close() !!}
 
-            {!! Form::text('author_terkait0','anestanggang@gmail.com',['class' => 'form-control','style'=>'display:none']) !!}
-            {!! Form::text('author_terkait1','khalilahunafa@gmail.com',['class' => 'form-control','style'=>'display:none']) !!}
-        </div>
-        <div class="form-group">
-           <label for="author">Author : </label>
-           <select class="author" name="author">
-           <option value="diniseprilia@gmail.com">Dini Seprilia</option>
-            <option value="anestanggang@gmail.com">Yohanes Sitanggang</option>
-            <option value="khalilahunafa@gmail.com">Khalila Hunafa</option>
-            <option value="ferrisaputra@gmail.com">Ferri Saputra</option>
-            <option value="nabilaclydea@gmail.com">Nabila Clydea</option>
-        </select>
-    </div>  
-    {!! Form::submit('Save', null) !!}
-
-    {!! Form::close() !!}
-
-</div>
+    </div>
 </div>
 
 </section>

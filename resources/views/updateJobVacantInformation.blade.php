@@ -1,5 +1,7 @@
-@extends('master')
-
+@extends('layouts.master')
+<?php 
+  session_start();
+?>
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 <script type="text/javascript"></script>
 
@@ -78,6 +80,7 @@
                 </div>
                 <input type="number" name="id_job_vacant" value="{{ $id_job_vacant }}" style="display:none">
               </div>
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                <input type="submit" class="btn btn-primary" value="Save" style="display:none"> 
             </form>
               <a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-secondary">Cancle</button></a>

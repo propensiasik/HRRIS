@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class AuthenticateWizard
 {
     /**
      * Handle an incoming request.
@@ -16,15 +16,30 @@ class Authenticate
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
+    {    
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
+            // if(isset($_SESSION['username']) && $_SESSION['username']!=''){
+            // return $next($request);    
                 return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest('login');
+            }
+            else{
+                return redirect()->route('login');
             }
         }
 
+        // buat GM
+        if (orangnya = peasant || orangna=warrior) {
+            // if ($request->ajax() || $request->wantsJson()) {
+            // // if(isset($_SESSION['username']) && $_SESSION['username']!=''){
+            // return $next($request);    
+            //     //return response('Unauthorized.', 401);
+            // }
+            // else{
+                return redirect()->route('home');
+            }
+        }
+        
         return $next($request);
     }
 }

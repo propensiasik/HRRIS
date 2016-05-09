@@ -58,11 +58,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">
-            <img class="icon-menu" src="{{asset('img/Logo.png')}}">
-          </a>
-          <a class="navbar-brand title" href="{{url('/Home')}}">
-            HRRIS
+          <a class="navbar-brand" href="{{url('/Home')}}">
+            <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
           </a>
         </div>
 
@@ -72,32 +69,18 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}">
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="javascript: void(0)">Hello {{$_SESSION['username']}}!!</a></li>
-                <li><a href="#">Setting</a></li>
-                <li class="divider"></li>
+                <img class="icon-menu" src="{{asset('img/Icon - User.png')}}"> 
+                <span>Hello, {{$_SESSION['username']}}</span>
+                <ul class="dropdown-menu" role="menu">              
+                </a>
                 <li><a href="{{url('/dologout')}}">Logout</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img class="icon-menu" src="{{asset('img/Icon - Add.png')}}">
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
               </ul>
             </li>
           </ul>
 
-          <ul class="nav navbar-nav navbar-right main-nav">
-            <li class="active"><a href="{{url('/Home')}}">Home</a></li>
-            <li><a href="{{url('/Applicants')}}">Applicants</a></li>
+          <ul class="nav navbar-nav">
+            <li ><a href="{{url('/Home')}}">Home</a></li>
+            <li ><a href="{{url('/Applicants')}}">Applicants</a></li>
             @if($_SESSION['booleanRole']==0)
             <li><a href="{{url('/JobVacant')}}">Av. Position</a></li>
             @endif
@@ -111,14 +94,14 @@
   </header>
 
   <section id="content">
-  <div class="container">
+    <div class="container">
       <div class="row margin">
-  @yield('content')
-  </div>
-  </div>
+        @yield('content')
+      </div>
+    </div>
   </section>
 
-<footer>
+  <footer>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-6 copyright">

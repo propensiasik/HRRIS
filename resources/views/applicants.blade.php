@@ -3,10 +3,6 @@
 ?>
 @extends('layouts.master')
 
-@section('title')
-	List of Applicants
-@endsection
-
 @section('content')
 
 <section id="content">

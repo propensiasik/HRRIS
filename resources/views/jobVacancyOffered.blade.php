@@ -1,5 +1,7 @@
-@extends('master')
-
+@extends('layouts.master')
+<?php 
+  session_start();
+?>
 @section('title')
 Job Vacant List
 @endsection
@@ -49,6 +51,7 @@ Job Vacant List
     <br>
     <div>
       <form action="applicant/registration" method="post">
+        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <input type="submit" class="btn btn-primary" name="{{ $jv->id_job_vacant }}" value= "Apply">
       </form>
     </div>

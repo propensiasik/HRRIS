@@ -1,5 +1,7 @@
-@extends('master')
-
+@extends('layouts.master')
+<?php 
+  session_start();
+?>
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 <script type="text/javascript"></script>
 
@@ -92,6 +94,7 @@ if(session()->has('comErr')){
                   <div><textarea name="pic" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
                 </div>
               </div>
+              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                <input type="submit" id="real=save" class="btn btn-primary" value="Save" style="display:none"> 
             </form>
               <a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-secondary">Cancle</button></a>

@@ -48,10 +48,10 @@
 
 <body>
 
-<header>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
@@ -59,9 +59,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <a class="navbar-brand" href="{{url('/Home')}}">
-              <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
-            </a>
+          <a class="navbar-brand" href="{{url('/Home')}}">
+            <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
+          </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,90 +78,93 @@
               </ul>
             </li>
           </ul>
-  
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+          
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
-</header>
+  </header>
 
-<section id="content">
+  <section id="content">
 
-<div class="container">
+    <div class="container">
 
-<div class="mid">
+      <div class="mid">
 
-<div class="table-responsive">
-  
-  <table class="table-head">
-    <thead>
-      <tr>
-        <th>
-          <div class="well">
-            <a href = "{{url('/Applicants')}}" {{$page == 'applicants_hr' ? 'class=active' : ''}}>
-              <img src="img/applicant.png" style="width:40%">
-              <h3> Applicants </h3>
-            </a>  
+        <div class="table-responsive">
+          <?php
+          
+            
+            ?>
+            <table class="table-head">
+              <thead>
+                <tr>
+                  <th>
+                    <div class="well">
+                      <a href = "{{url('/Applicants')}}" {{$page == 'applicants_hr' ? 'class=active' : ''}}>
+                        <img src="img/applicant.png" style="width:40%">
+                        <h3> Applicants </h3>
+                      </a>  
+                    </div>
+                  </th>
+                  <th>
+                    <div class="well">
+                      <a href="{{url('/Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
+                        <img src="img/schedule.png" style="width:40%">
+                        <h3>Schedule </h3>
+                      </a>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="well">
+                      <a href="{{url('hr-statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
+                        <img src="img/statistics.png" style="width:40%">
+                        <h3>Statistic</h3></div></div>
+                      </a>
+                    </div>
+                  </th>
+                  <th>
+                    <div class="well">
+                      <a href="{{url('/JobVacant')}}" {{$page == 'available_position' ? 'class=active' : ''}}>
+                        <img src="img/vacant.png" style="width:40%">
+                        <h3>Available Position </h3>
+                      </a>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+
           </div>
-        </th>
-        <th>
-          <div class="well">
-            <a href="{{url('/Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>
-              <img src="img/schedule.png" style="width:40%">
-              <h3>Schedule </h3>
-            </a>
-          </div>
-        </th>
-        <th>
-          <div class="well">
-            <a href="{{url('hr-statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
-              <img src="img/statistics.png" style="width:40%">
-              <h3>Statistic</h3></div></div>
-            </a>
-          </div>
-        </th>
-        <th>
-          <div class="well">
-            <a href="{{url('/JobVacant')}}" {{$page == 'available_position' ? 'class=active' : ''}}>
-              <img src="img/vacant.png" style="width:40%">
-              <h3>Available Position </h3>
-            </a>
-          </div>
-        </th>
-      </tr>
-    </thead>
-  </table>
 
-</div>
+        </div>
 
-</div>
-
-</div>
-  
-</section>    
-
-<!--Footer-->
-<footer>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="copyright">
-        <ul class="menu list-ctr">
-          <li>Copyright PT.Definite Maji Arsana 2016</li>
-          </ul>
       </div>
-    </div>
-  </div>
-</footer>
-  
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/bootstrap-select.js"></script>
-<script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.file-input.js"></script>
-<script type="text/javascript" src="js/moment-with-locales.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
+      
+    </section>    
 
-</body>
+    <!--Footer-->
+    <footer>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="copyright">
+            <ul class="menu list-ctr">
+              <li>Copyright PT.Definite Maji Arsana 2016</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.js"></script>
+    <script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.file-input.js"></script>
+    <script type="text/javascript" src="js/moment-with-locales.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 
-</html>
+  </body>
+
+  </html>

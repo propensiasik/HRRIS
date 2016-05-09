@@ -35,9 +35,10 @@ class ApplicantController extends Controller
 
 
         $count = DB::table('applicant')->count();
+        $from = 'Home';
 
         // Melempar data yang dibutuhkan ke VIEW/UI
-        return view('applicants')->with('applicants',$applicants)->with('jobs',$jobs)->with('count',$count)->with('page','applicants');
+        return view('applicants')->with('applicants',$applicants)->with('jobs',$jobs)->with('count',$count)->with('page','applicants')->with('from',$from);
     }
 
     public function getListOfApplicantChoosen(){
@@ -72,13 +73,13 @@ class ApplicantController extends Controller
                                 ->where('applicant.status_ter_update', '=', $status)
                                 ->get();
 
-        
+         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
         if($applicants == null){
-            return view('applicantChooseNotFound')->with('statusFor', $statusFor);
+            return view('applicantChooseNotFound')->with('statusFor', $statusFor)->with('jobs',$jobs);
         }
         else{
             // Melempar data yang dibutuhkan ke VIEW/UI
-            return view('chooseApplicant')->with('applicants',$applicants)->with('status',$status)->with('statusFor', $statusFor)->with('page','chooseApplicant');
+            return view('chooseApplicant')->with('applicants',$applicants)->with('status',$status)->with('statusFor', $statusFor)->with('page','chooseApplicant')->with('jobs',$jobs);
         }
     }
 
@@ -314,10 +315,12 @@ class ApplicantController extends Controller
                                          ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                          ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
                                         ->where('applicant.gender', '=', $gender)
-                                         ->get();
+                                         ->paginate(15);
                
-         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
-
+        $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+        //$temp = (array)$applicants;
+        $count = count($applicants);
+        //dd($count);
 
         //JIKA USER MEMASUKKAN INPUT POSISI KOSONG
         if($posisi == "none"){
@@ -328,10 +331,12 @@ class ApplicantController extends Controller
                                  ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                  ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                 ->where('applicant.gender', '=', $gender)
-                                 ->get();
+                                ->paginate(15);
 
                   $jobs = DB::select('select posisi_ditawarkan from job_vacant');
-                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+                  $temp = (array)$applicants;
+                  $count = count($temp);
+                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
             }
 
         //JIKA USER MEMASUKKAN INPUT GENDER KOSONG
@@ -343,9 +348,10 @@ class ApplicantController extends Controller
                                  ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                  ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                  ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
-                                 ->get();
+                                 ->paginate(15);
                  $jobs = DB::select('select posisi_ditawarkan from job_vacant');
-                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+                $count = count($applicants);
+                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
             }
 
         }
@@ -359,13 +365,14 @@ class ApplicantController extends Controller
                                          ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                          ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
                                         ->where('applicant.gender', '=', $gender)
-                                         ->get();
+                                         ->paginate(15);
                
             $jobs = DB::select('select posisi_ditawarkan from job_vacant');
-            return view('applicantChooseNotFound')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+            $count = count($applicants);
+            return view('applicantChooseNotFound')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
         }else {
             //JIKA SEMUA PILIHAN SESUAI
-            return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs);
+            return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
         }
 
     }
@@ -736,9 +743,9 @@ class ApplicantController extends Controller
         }   
 
     }
-	
-	//Untuk halaman applicant buat admin
-	public function getListOfApplicantAdmin(){
+    
+    //Untuk halaman applicant buat admin
+    public function getListOfApplicantAdmin(){
         $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
@@ -752,9 +759,9 @@ class ApplicantController extends Controller
         // Melempar data yang dibutuhkan ke VIEW/UI
         return view('applicants_admin')->with('applicants',$applicants)->with('count',$count)->with('page','applicants_admin');
     }
-	
-	//Untuk delete applicant
-	public function deleteApplicant($id_applicant)
+    
+    //Untuk delete applicant
+    public function deleteApplicant($id_applicant)
     {
         Applicant::where('id_applicant', '=', $id_applicant)->delete();
         return Redirect::to('ApplicantsAdmin');

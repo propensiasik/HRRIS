@@ -1,8 +1,7 @@
-@extends('master')
-
-@section('title')
-  Job Vacant Information
-@endsection
+@extends('layouts.master')
+<?php 
+  session_start();
+?>  
 
 @section('content')
 
@@ -77,7 +76,7 @@
                 <div style="text-align: center"><h3>Person In Charge</h3></div>
                   <div>
                     @foreach($users_involved as $user)
-                      <li>{{ $user->email_users }}</li>
+                      <p>-. {{ $user->email_users }}</p>
                     @endforeach
                   </div>
                 </div>

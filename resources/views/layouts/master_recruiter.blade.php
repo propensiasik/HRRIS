@@ -59,11 +59,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{url('recruiter')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
-            <img class="icon-menu" src="{{asset('img/Logo.png')}}">
-          </a>
-          <a class="navbar-brand title" href="{{url('/Home')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
-            HRRIS
+          <a class="navbar-brand" href="{{url('/Home')}}" {{$page == 'recruiter' ? 'class=active' : ''}}>
+            <img class="icon-menu" src="{{asset('img/HRRIS.png')}}">
           </a>
         </div>
     
@@ -83,7 +80,7 @@
             </li>
           </ul> 
       
-      <ul class="nav navbar-nav navbar-right main-nav">
+      <ul class="nav navbar-nav">
         <li><a href="{{url('/Home')}}" {{$page == 'home' ? 'class=active' : ''}}>Home</a></li>
                 <li><a href="{{url('/Applicants')}}" {{$page == 'applicants' ? 'class=active' : ''}}>Applicants</a></li>
                 <li><a href="{{url('Schedule')}}" {{$page == 'schedule' ? 'class=active' : ''}}>Schedule</a></li>

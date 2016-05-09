@@ -1,5 +1,7 @@
-@extends('master')
-
+@extends('layouts.master')
+<?php 
+  session_start();
+?>
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 <script type="text/javascript"></script>
 
@@ -68,6 +70,7 @@
   <form action="SaveCreatedForm" method="post">
     <input name="array_id" value= "" id="json_to_submit" style="display:none">
     <input name="id_job_vacant" value= "{{$id_job_vacant}}" style="display:none">
+  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
   <button class="simpan btn btn-primary">Save</button>
   </form>
 </div>  
@@ -121,4 +124,4 @@ $('.simpan').click(function(){
 });
 });
 </script>
-@stop
+@stop 

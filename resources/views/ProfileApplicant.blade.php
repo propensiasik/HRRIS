@@ -1,16 +1,9 @@
-@extends('layouts.master_recruiter')
-
-@section('title')
-	@foreach ($applicantProfile as $ap)
-		{{ $ap->nama_applicant}} {{'- Applicant Profile' }}
-	@endforeach
-@endsection
+@extends('layouts.master')
 
 @section('content')
 <?php
 	session_start();
 ?>
-
 <div class="container">
 	
 

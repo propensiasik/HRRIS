@@ -1,7 +1,8 @@
 @extends('layouts.master')
-
 @section('content')
-
+<?php 
+	session_start();
+?>
 <section id="content">
 	<h1> Registration Form</h1>
 
@@ -108,5 +109,4 @@
 		
 	{!! Form::close() !!}
 </section>
-
 @stop
