@@ -3,24 +3,15 @@
 ?>
 @extends('layouts.master')
 
-@section('title')
-	Choose Applicant
-@endsection
-
 @section('content')
 
-<section id="content">
-	<div class = "container">
+<div class = "container">
 		
-		<div class="table-responsive">
-        	<table class="table">
-            	<thead>
-                    <tr>
-                      <th width="420px">
-                      	<!--Judul-->
-                      	<div class="form-group"><h1>Choose Applicants</h1></div>
-                      </th>
+    <!--Judul-->
+        <h1>Choose Applicants</h1>
 
+        <br><br>
+                      
                       <!-- Choose Applicant -->
                       <!-- <th>
                       	{!!  Form::open(array('action' => 'ApplicantController@getListOfApplicantChoosen')) !!}
@@ -56,15 +47,8 @@
         				{!! Form::close() !!}
         			  </th> -->
 
-         			</tr>
-         		</thead>
-         	</table>
-        </div>
-
-	</div>
-
-</section>
-
+<div class="col-md-3"> 
+<h4>Filter</h4>
 {!!  Form::open(array('action' => 'ApplicantController@filter')) !!}
 <form method="POST">
 	{{ csrf_field() }}
@@ -78,24 +62,27 @@
 				@endforeach
 			</select> 
 
+			<br><br>
+
 			<select class="selectpicker" name="ambilgender" id="selection">
 					<option value="none">None</option>
 		            <option value="M">Male</option>
 		            <option value="F">Female</option>
 		    </select>
 
+		   <br><br>
          <input class ="btn btn-secondary" type="submit" value="Filter">
 
      </div>
 
     </form>
 {!! Form::close() !!}
+</div>
 
-<div class="container">
-	<div class="col-md-8">
+<div class="col-md-9">
 		<h4> Choose For: {{ $statusFor }} </h4> <br>
 		<div class="table-responsive">
-			<table id="searchTable" class="table" style="margin-left:25%; margin-right:15%;">	
+			<table id="searchTable" class="table">	
 				<thead>	
 					<tr>
 						<th>Name</th>

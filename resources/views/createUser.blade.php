@@ -1,27 +1,16 @@
+<?php 
+    session_start();
+?>
+
 @extends('layouts.master_admin')
 
 @section('content')
-
-<script>
-    $('#state').on('change', function(e){
-        console.log(e);
-        var state_id = e.target.value;
-
-        $.get('{{url('/Users/Create')}}', function(data) {
-            console.log(data);
-            $('#city').empty();
-            $.each(data, function(index,subCatObj){
-                $('#city').append(''+subCatObj.name+'');
-            });
-        });
-    });
-</script>
 
     <h1>Create User</h1>
 
     {!! Form::open(['url' => 'Users/Create']) !!}
 
-<div class="form-group">
+    <div class="form-group">
                     <div id="nav">
                         {!! Form::label('Nama') !!} 
                     </div>

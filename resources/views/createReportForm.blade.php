@@ -6,14 +6,16 @@
 <script type="text/javascript"></script>
 
 @section('content')
-<div id="createForm">
- <h1 style="text-align: center"> Create Assessment Form Competency</h1>
-</div>
 
-<br>
-<div class="col-md-12">
+<div class="container">
+
+  <div id="createForm">
+    <h1> Create Assessment Form Competency</h1>
+  </div>
+
+<br><br>
   <div class="table-responsive">
-    <table class="table" style="margin-left:25%; margin-right:15%;">  
+    <table class="table">  
       <tbody>
         <tr>
           <td>Job Vacancy</td>
@@ -30,14 +32,12 @@
       </tbody>
     </table>
   </div>
-</div><br>
 
-<div class="col-md-12">
   <div class="table-responsive">
-    <table class="table" style="margin-left:25%, margin-right:15%;">
+    <table class="table">
       <h3>Competency List</h3>
       <thead>
-        <th>#</th>
+        <th>No.</th>
         <th>Competency</th>
         <th>Explanation</th>
         <th>Select</th>
@@ -51,8 +51,12 @@
           <td>  <div><div id="{{$comp->id_kompetensi}}" class="kompetensi">{{$comp->nama_kompetensi}}</div></div></td>
           <td>{{ $comp->penjelasan_kompetensi }}</td>
           <td>
-            <button id="{{$comp->id_kompetensi}}" class="opsi-kompetensi tambah-kompetensi active">add</button>
-            <button id="{{$comp->id_kompetensi}}" class="opsi-kompetensi hapus-kompetensi" style="display:none">remove</button>
+            <button id="{{$comp->id_kompetensi}}" class="opsi-kompetensi tambah-kompetensi active btn btn-secondary">
+              <img src="{{asset('img/Icon - Add - White.png')}}">add
+            </button>
+            <button id="{{$comp->id_kompetensi}}" class="opsi-kompetensi hapus-kompetensi btn btn-default" style="display:none">
+              <img src="{{asset('img/Icon - Delete.png')}}">remove
+            </button>
           </td>
           <td></td>
         </tr>        
@@ -60,7 +64,6 @@
       </tbody>
     </table>
   </div>
-</div>
 
 
   @foreach($competency as $com)
@@ -74,6 +77,8 @@
   <button class="simpan btn btn-primary">Save</button>
   </form>
 </div>  
+
+</div>
 
 <script type="text/javascript">
 $(document).ready(function() {

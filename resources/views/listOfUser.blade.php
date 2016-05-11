@@ -1,13 +1,19 @@
+<?php 
+    session_start();
+?>
+
 @extends('layouts.master_admin')
 
 @section('content')
 
 <div class = "container">
 
+    <div class="top">
+
     <h1 class="alignleft">Users</h1>
     <br><a href="{{url('/Users/Create')}}" class="alignright"><button type="button" class="btn btn-secondary">Create User</button></a>
 
-<br><br><br><br>
+    </div>
 
     <div class="table-responsive">
         <table class = "table">
@@ -48,9 +54,7 @@
             </tbody>
         </table>
     </div>
-
            
-    
 <center> {!! $users->render() !!} </center>
 
 </div>

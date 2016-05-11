@@ -1,22 +1,22 @@
-@extends('layouts.master')
-
-@section('content')
 <?php
 session_start();
 ?>
+
+@extends('layouts.master')
+
+@section('content')
+
 <script type="text/javascript">
     function goBack() {
         window.location.href = 'ada/public/JobVacant/';
     }
 </script>
-<section id="content">
 
-    <h1> Create Available Posistion</h1>
+<div class="container">
 
-    <div class="row margin">
-        <div class="col-md-6">
+    <h1>Create Available Posistion</h1>
 
-            {!! Form::open(['url' => 'CreateAvailablePosition']) !!}
+        {!! Form::open(['url' => 'CreateAvailablePosition']) !!}
 
 
             <div class="form-group">

@@ -8,7 +8,7 @@ $countSchedule = count($schedule);
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 
 
-<h3>Interview Schedule</h3>
+<h1>Interview Schedule</h1>
 @if($countSchedule > 0)
 
 @foreach ($schedule as $sc)

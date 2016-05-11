@@ -8,65 +8,14 @@
 
 @section('content')
 
-<section id="content">
 	<div class = "container">
+
+	<h1>Applicants</h1>
+
+	<br><br>
 		
 		<div class="table-responsive">
-        	<table class="table">
-            	<thead>
-                    <tr>
-                      <th width="420px">
-                      	<!--Judul-->
-                      	<div class="form-group"><h1>Applicants</h1></div>
-                      </th>
-                      	<!-- <form action="" method="POST"> -->
-                      	{!! Form::open(['url' => 'Applicants']) !!}
-                      		<th>
-		                      	<!--Filter-->
-		                      	<div class="form-group" name="status">
-		            				<select class="selectpicker" name="status" id="selection">
-		                				<option value="Interview 1">Interview 1</option>
-		                				<option value="Interview  2">Interview 2</option>
-		                				<option value="Offering Letter">Offering Letter</option>
-		                				<option value="Hire">Hire</option>
-		            				</select>
-		          				</div>
-	                      	</th>
-                      	<!-- </form> -->
-                      	{!! Form::close() !!}
-
-                      <th>
-                      	<!--Search-->
-                      	{!!  Form::open(array('action' => 'ApplicantController@getSearch')) !!}
-                      	<!-- <form name="myform" action="{{URL::action('ApplicantController@getSearch')}}" method="post"> -->
-							<div class="form-group">
-	            				<div class="input-group">
-	            					{!!  Form::text('keyword') !!}
-	              					<!-- <input type="text" class="form-control" id="search" name="search" placeholder="Search for...">
-	            					}
- -->	              				<span class="input-group-btn">
- 									<!-- {!! Form::submit('submit') !!} -->
-	                				<button class="btn-search" type="submit"><img src="{{asset('img/search.png')}}"></button>
-	              					</span>
-	            				</div><!-- /input-group -->
-	        				</div>
-        				<!-- </form> -->
-        				{!! Form::close() !!}
-        			  </th>
-         			</tr>
-         		</thead>
-         	</table>
-        </div>
-
-	</div>
-
-</section>
-
-<br>
-<div class="container">
-	<div class="col-md-8">
-		<div class="table-responsive">
-			<table id="searchTable" class="table" style="margin-left:25%; margin-right:15%;">	
+			<table class = "table">	
 				<thead>	
 					<tr>
 						<th>No.</th>
@@ -105,7 +54,6 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
 </div>
 
 

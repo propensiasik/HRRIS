@@ -3,38 +3,16 @@
 ?>
 @extends('layouts.master')
 
-@section('title')
-	Choose Applicant
-@endsection
-
 @section('content')
 
-<section id="content">
-	<div class = "container">
-		
+<div class = "container">
+	<h1>Choose Applicants</h1>
+
+<br><br>
+
+	<h4> Choose For: {{ $statusFor }} </h4> <br>
 		<div class="table-responsive">
-        	<table class="table">
-            	<thead>
-                    <tr>
-                      <th width="420px">
-                      	<!--Judul-->
-                      	<div class="form-group"><h1>Choose Applicants</h1></div>
-                      </th>
-         		</thead>
-         	</table>
-        </div>
-
-	</div>
-
-</section>
-
-
-<div class="container">
-	
-	<div class="col-md-8">
-		<h4> Choose For: {{ $statusFor }} </h4> <br>
-		<div class="table-responsive">
-			<table id="searchTable" class="table" style="margin-left:25%; margin-right:15%;">	
+			<table class="table">	
 				<thead>	
 					<tr>
 						<th>Name</th>
@@ -62,7 +40,7 @@
 								{{ $applicant->nama_company }}
 							</td>
 							<td>
-								<select name="{{ $applicant->id_applicant }}">
+								<select name="{{ $applicant->id_applicant }}" class="form-login">
 									<option value="0"> no change </option>
 	            					<option value="1"> Accept </option>
 	            					<option value="2"> Reject </option>
@@ -74,7 +52,7 @@
 							<td colspan="3"></td>
 							<td> 
 								<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Choose</button>
-								<br> <br>
+								<!-- <br> <br> -->
 								<a href="{{ URL::to('Applicants')}}"> 
 									<button type="button" class="btn-danger">Cancel</button>
 								</a>

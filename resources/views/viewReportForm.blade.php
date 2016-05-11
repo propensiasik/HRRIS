@@ -3,19 +3,21 @@
 <?php 
   session_start();
 ?>
-@section('title')
-@endsection
-
-@section('title')
-  View Report Form
-@endsection
 
 @section('content')
-<h1 style="text-align: center"> View Assessment Form Competency </h1>
-<br>
-  <div class="col-md-8">
+
+<div class = "container">
+
+<div class="top">
+  <h1 class="alignleft"> View Assessment Form Competency </h1>
+  <br>
+  <button class = "btn btn-success alignright" type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/CheckReportForm/". $id_job_vacant)}}'">
+    <img src="{{asset('img/Icon - Edit.png')}}">Update
+  </button>
+</div>
+  
     <div class="table-responsive">
-      <table class="table" style="margin-left:25%; margin-right:15%;">  
+      <table class="table">  
         <tbody>
           <tr>
             <td>Available Position</td>
@@ -32,12 +34,10 @@
         </tbody>
       </table>
 
-      <br>
-
-      <table class="table" style="margin-left:25%; margin-right:15%;">
-         <h3 style="text-align:center">Competency List</h3>
+      <table class="table">
+         <h3>Competency List</h3>
         <thead>
-            <th>#</th>
+            <th>No.</th>
             <th>Competency</th>              
             <th>Explanation</th>
         </thead> 
@@ -61,9 +61,9 @@
       </table>
     </div>
 
-     <div>
-          <button type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/CheckReportForm/". $id_job_vacant)}}'">Update</button>
-        </div>
+     
+          
+        
     
   </div>
 @stop

@@ -53,6 +53,7 @@
       <div class="row">
         <div class="col-md-13">
 
+          <div class="box">
           <h1>HRRIS Login</h1>
           <form action = {{url('/dologin')}} method="POST">
 
@@ -61,16 +62,17 @@
             <div class="form-inline">
               <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="Enter email">
+                <input type="email" name="email" class="form-login" id="exampleInputEmail3" placeholder="Enter email">
               </div>
 
               <br>
 
               <div class="form-group">
                 <label class="sr-only" for="exampleInputPassword3">Password</label>
-                <input type="password" name ="password"class="form-control" id="exampleInputPassword3" placeholder="Password">
+                <input type="password" name ="password"class="form-login" id="exampleInputPassword3" placeholder="Password">
               </div>
 
+              <div class = "error">
               <?php 
               if(session_id()){
                 if(isset($_SESSION['username'])){
@@ -85,6 +87,7 @@
               else{ 
               }
               ?>
+              </div>
               
               <br>
 
@@ -92,6 +95,7 @@
               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
             </div>
           </form>
+        </div>
         </div>
       </div>
     </div>

@@ -5,11 +5,22 @@
 
 @section('content')
 
-<h1 style="text-align: center"> Available Position Detail Infromation </h1>
-  
-   <div class="col-md-8">
-          <div class="table-responsive">
-                <table class="table" style="margin-left:25%; margin-right:15%;">  
+<div class = "container">
+
+<div class="top">
+  <h1 class="alignleft"> Available Position Detail Information </h1>
+  <div class = "alignright"><br>
+      <a href="{{ URL::to('/JobVacant/ReportForm/' . $id_job_vacant) }}">
+        <button class="btn btn-default"><img src="{{asset('img/Icon - Archive.png')}}">View assessment form</button>
+      </a>
+      <a href="{{ URL::to('/UpdateAvailablePosition/' . $id_job_vacant) }}">
+        <button class="btn btn-success"><img src="{{asset('img/Icon - Edit.png')}}">Update information</button>
+      </a>
+  </div>
+</div>
+
+    <div class="table-responsive">
+                <table class="table">  
               
                   <tbody>
                   <tr>
@@ -46,7 +57,7 @@
                       array_shift($result); //membuang element kosong pertama
                     }
                   ?>
-                  <div style="text-align: center"><h3>Job Description</h3></div>
+                 <h3>Job Description</h3>
                   <div>
                     @foreach($result as $r)
                       <li>{{ $r }}</li>
@@ -65,7 +76,7 @@
                       array_shift($result); //membuang element kosong pertama
                     }
                   ?>
-                  <div style="text-align: center"><h3>Job Requirement</h3></div>
+                  <h3>Job Requirement</h3>
                   <div>
                     @foreach($result as $r)
                       <li>{{ $r }}</li>
@@ -73,7 +84,7 @@
                   </div>
                 </div>
 
-                <div style="text-align: center"><h3>Person In Charge</h3></div>
+                <h3>Person In Charge</h3>
                   <div>
                     @foreach($users_involved as $user)
                       <p>-. {{ $user->email_users }}</p>
@@ -82,12 +93,12 @@
                 </div>
 
                  <div>
-                  <div class="col-md-8" style="text-align: center"><h3>Registered Applicant</h3></div>
+                  <h3>Registered Applicant</h3>
                   <div class="table-responsive">
-                    <table class="table" style="margin-left:25%; margin-right:15%;">
+                    <table class="table"s>
                       <thead>
                         <tr>
-                          <th>#</th>
+                          <th>No.</th>
                           <th>Applicant's Name</th>
                           <th>Major</th>
                           <th>University</th>
@@ -108,16 +119,9 @@
                          @endforeach
                       </tbody>
                       </table>
-                  </div>
+                 
                 </div>
               </div>
         </div>
       </div> 
-
-  <div>
-    <a href="{{ URL::to('/JobVacant/ReportForm/' . $id_job_vacant) }}"><button>View assessment form</button></a>
-    <a href="{{ URL::to('/UpdateAvailablePosition/' . $id_job_vacant) }}"><button>Update information</button></a>
-    </div>
- 
-
 @stop

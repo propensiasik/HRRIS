@@ -5,18 +5,12 @@
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 <script type="text/javascript"></script>
 
-@section('title')
-  Update Available Position
-@endsection
-
 @section('content')
 
-<h1 style="text-align: center"> Update Available Position </h1>
+<h1> Update Available Position </h1>
   
-   <div class="col-md-8">
     <form action="Save" method="post" autocomplete="on">
-          <div class="table-responsive">
-                <table class="table" style="margin-left:25%; margin-right:15%;">  
+                <table class="table">  
                   <tbody>
                   <tr>
                     <td><label>Available Position<span class="error"></span></label></td>

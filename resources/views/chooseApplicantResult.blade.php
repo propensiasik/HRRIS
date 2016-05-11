@@ -3,38 +3,18 @@
 ?>
 @extends('layouts.master')
 
-@section('title')
-	Preview - Choose Applicant
-@endsection
-
 @section('content')
 
-<section id="content">
-	<div class = "container">
+<div class = "container">
 		
-		<div class="table-responsive">
-        	<table class="table">
-            	<thead>
-                    <tr>
-                      <th width="420px">
-                      	<!--Judul-->
-                      	<div class="form-group"><h1>Choose Applicants</h1></div>
-                      </th>
-         		</thead>
-         	</table>
-        </div>
+    <!--Judul-->
+    <h1>Choose Applicants</h1>
 
-	</div>
-
-</section>
-
-
-<div class="container">
+    <br>
 	
-	<div class="col-md-8">
-		<h4> Choose Applicant Preview - {{ $statusFor}}</h4> <br>
+	<h4> Choose Applicant Preview - {{ $statusFor}}</h4> <br>
 		<div class="table-responsive">
-			<table id="searchTable" class="table" style="margin-left:25%; margin-right:15%;">	
+			<table id="searchTable" class="table">	
 				<thead>	
 					<tr>
 						<th>Name</th>
