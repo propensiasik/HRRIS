@@ -22,7 +22,7 @@ class UsersController extends Controller
 {
     public function getListofUser(){
     	
-    	$users = Users::orderBy('created_at', 'desc');
+    	$users = Users::where('is_active','=',1)->orderBy('created_at', 'desc');
     	$users = $users->paginate(10);
     	return view('listOfUser')->with('users',$users);
     }
@@ -96,7 +96,7 @@ class UsersController extends Controller
 
     public function deleteUser($email_users)
     {
-    	Users::where('email_users', '=', $email_users)->delete();
+    	Users::where('email_users', '=', $email_users)->update(['is_active' => 0]);
    		return Redirect::to('Users');
     }
 

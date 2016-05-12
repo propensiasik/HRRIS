@@ -1,7 +1,4 @@
 @extends('layouts.master')
-<?php
-session_start();
-?>
 <script type="text/javascript">
 	function save(){
 		var e = document.getElementById("datetime");

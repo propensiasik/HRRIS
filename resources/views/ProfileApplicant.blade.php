@@ -1,9 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<?php
-	session_start();
-?>
+
 <div class="container">
 	
 <div class="top">

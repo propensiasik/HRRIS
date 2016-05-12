@@ -1,6 +1,6 @@
 @extends('layouts.master')
 <?php
-session_start();
+
 $cara = array('Skype','Meet','Phone Call');
 ?>
 <script type="text/javascript">

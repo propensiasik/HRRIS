@@ -114,7 +114,7 @@
         </th>
         <th>
           <div class="well">
-            <a href="{{url('hr-statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
+            <a href="{{url('/Statistic')}}" {{$page == 'statistic' ? 'class=active' : ''}}>
               <img src="img/statistics.png" style="width:40%">
               <h3>Statistic</h3></div></div>
             </a>

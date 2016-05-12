@@ -54,7 +54,8 @@
 						</td>
 						<td>
 							<a href="{{URL::to('AvailableSchedule/Delete/' . $av->id_av_schedule.'-'.$detail->id_job_vacant) }}">
-								<button type="button"  class="btn btn-default"><img src="{{asset('img/Icon - Delete.png')}}"> Delete</button></a>
+								<button type="button"  class="btn btn-default"><img src="{{asset('img/Icon - Delete.png')}}"> Delete</button>
+								</a>
 							</td>
 							@endif
 

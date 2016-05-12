@@ -1,6 +1,6 @@
 @extends('layouts.master')
 <?php
-session_start();
+
 $countApp = count($applicant);
 $countInterview = count($list_interview);
 ?>
@@ -23,7 +23,6 @@ $countInterview = count($list_interview);
 			@endforeach
 		</div>
 		@if($countInterview >0)
-		@foreach ($list_interview as $li)
 		<div class="table-responsive">
 			<table class="table">  
 				<thead>
@@ -31,8 +30,11 @@ $countInterview = count($list_interview);
 						<th>Applicant Name</th>              
 						<th>Date</th>
 						<th>Time</th>
+						<th>Type</th>
 					</tr>
 				</thead>
+		@foreach ($list_interview as $li)
+		
 				<tbody>
 					<tr>
 						<td><a href="{{ URL::to('ChangeInterview/' . $li->id_applicant.'-'.$jobvacant->id_job_vacant.'-'. $interviewke)}}">
@@ -44,13 +46,17 @@ $countInterview = count($list_interview);
 						<td>
 							{{$li->available_time}}
 						</td>
+						<td>
+							{{$li->cara_wawancara}}
+						</td>
 					</tr>
 				</tbody>
-			</table>
+			
 			@endforeach
 			@else
 			<h3>There are no interview schedule</h3>
 			@endif
+			</table>
 			<a href="{{url('/UpdateInterview')}}"><input type="button" class = "btn btn-default" value="Back"></a>
 		</div>
 	</div>

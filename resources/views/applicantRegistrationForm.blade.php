@@ -1,8 +1,7 @@
-@extends('layouts.master')
-<?php 
+@extends('layouts.master_applicant')
+<?php  
   session_start();
 ?>
-
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 <script type="text/javascript"></script>
 

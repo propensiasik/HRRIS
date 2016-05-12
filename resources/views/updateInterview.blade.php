@@ -1,8 +1,5 @@
 @extends('layouts.master')
-<?php
-session_start();
 
-?>
 <script type="text/javascript">
 	function test(val){
 		var e = document.getElementById("posisi");

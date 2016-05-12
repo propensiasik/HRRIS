@@ -159,17 +159,17 @@ class ScheduleController extends Controller
 
 	//Create Available Schedule
 	public function showIndex(){
-		session_start();
 		$listJobVacant = DB::table('involved_job_vacant')
 		->join('job_vacant', 'job_vacant.id_job_vacant','=','involved_job_vacant.id_job_vacant')
 		->join('divisi', 'divisi.id_divisi','=','job_vacant.id_divisi')
 		->join('company', 'company.id_company','=','divisi.id_company')
-		-> where('involved_job_vacant.email_users','=',$_SESSION['email'])->orderBy('divisi.nama_divisi')->get();
+		->where('involved_job_vacant.email_users','=',$_SESSION['email'])
+		->where('job_vacant.is_open','=',1)	
+		->orderBy('divisi.nama_divisi')->get();
 		return view('createAVS')->with('jobvacant',$listJobVacant);
 	}
 
 	public function getForm($id_job_vacant){
-		session_start();
 		$total_applicant = DB::table('applicant')
 		->join('involved_job_vacant','involved_job_vacant.id_job_vacant','=','applicant.id_job_vacant')
 		->where('involved_job_vacant.id_job_vacant','=',$id_job_vacant)
@@ -194,7 +194,6 @@ class ScheduleController extends Controller
 
 	public function createAVS(Request $val, $id_job_vacant){
 		//dd($val->date);
-		session_start();
 		//proses input user
 		$pisah = explode(" ", $val->date);
 		$temp_date = explode("/", $pisah[0]);
@@ -210,6 +209,18 @@ class ScheduleController extends Controller
 
 		else{
 			$time_avs = $temp_time[0].':'.$temp_time[1].':00';
+		}
+		//validasi data input kedalam database
+		$available_schedule = \App\Available_Schedule::where('email_users','=',$_SESSION['email'])->where('id_job_vacant','=',$id_job_vacant)->get();
+		$counter = count($available_schedule);
+		if($counter != 0){
+			foreach ($available_schedule as $avs) {
+				if($date_avs == $avs->available_date || $time_avs==$avs->$available_time){
+					Session::flash('message', 'There are already same date or time!'); 
+					Session::flash('alert-class', 'alert-danger'); 
+				}
+			}
+
 		}
 		//dd($date_avs);
 		DB::table('available_schedule')

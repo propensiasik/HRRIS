@@ -1,7 +1,5 @@
 @extends('layouts.master')
-<?php 
-  session_start();
-?>
+
 <script src="{{asset('/js/jquery-1.11.1.min.js')}}"></script>
 <script type="text/javascript"></script>
 
@@ -30,7 +28,7 @@ if(session()->has('comErr')){
       <div class="form-group">
         <div id="nav"><label>Available Position<span class="error"></span></label></div>
         <div id="section"><input type="text" class = "form-control" name="posisi" autofocus required placeholder=" Name of the position "></div>
-                	
+                  
         <div id="nav"><label>Status<span></span></label></div>
         <div id="section">
             <select name="status" class = "form-control" required>
@@ -38,7 +36,7 @@ if(session()->has('comErr')){
               <option value=1>Publish</option>
             </select>
         </div>
-                	
+                  
         <div id="nav"><label>Company<span></span></label></div>
         <div id="section">
             <select name="company" class = "form-control" required>
@@ -49,7 +47,7 @@ if(session()->has('comErr')){
               <option value=4>Innovacto (PT Adrian Saka Arsana)</option>
             </select>
         </div>
-                	
+                  
         <div id="nav"><label>Business Unit<span></span></label></div>
         <div id="section">
             <select name="divisi" class="form-control" required>
@@ -66,7 +64,7 @@ if(session()->has('comErr')){
               <option value=10>Produser</option>
             </select>
         </div>
-                	
+                  
         <div id="nav"><label>Number of Needs<span></span></label></div>
         <div id="section">
           <input type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required>

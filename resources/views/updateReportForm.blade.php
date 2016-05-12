@@ -1,7 +1,5 @@
 @extends('layouts.master')
-<?php 
-session_start();
-?>
+
 
 @section('title')
 @endsection

@@ -79,7 +79,7 @@ class ApplicantController extends Controller
         }
         else{
             // Melempar data yang dibutuhkan ke VIEW/UI
-            return view('chooseApplicant')->with('applicants',$applicants)->with('status',$status)->with('statusFor', $statusFor)->with('page','chooseApplicant')->with('jobs',$jobs);
+            return view('chooseApplicant')->with('applicants',$applicants)->with('status',$status)->with('statusFor', $statusFor)->with('page','chooseApplicant')->with('jobs',$jobs)   ;
         }
     }
 

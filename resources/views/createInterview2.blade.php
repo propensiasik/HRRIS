@@ -1,6 +1,5 @@
 @extends('layouts.master')
 <?php
-session_start();
 $countApp = count($applicant);
 ?>
 @section('content')

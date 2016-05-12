@@ -53,7 +53,8 @@ class UserController extends Controller
    return view('\login');
  }
  public function quit(){
-   session_unset();
+   session_start();
+   session_destroy();
    return Redirect::to('/');
         //return view('\login');
  }

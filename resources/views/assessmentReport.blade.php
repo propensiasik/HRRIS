@@ -1,15 +1,8 @@
 @extends('layouts.master_recruiter')
 
-@section('title')
-	@foreach ($nama_applicant as $name)
-		{{ $name->nama_applicant}} {{'- Assessment Report' }}
-	@endforeach
-@endsection
 
 @section('content')
-<?php
-	session_start();
-?>
+
 
 <section id="content">
 	<div class = "container">

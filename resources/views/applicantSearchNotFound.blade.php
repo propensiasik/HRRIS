@@ -1,11 +1,6 @@
-<?php 
-	session_start();
-?>
+
 @extends('layouts.master')
 
-@section('title')
-	Search Applicant
-@endsection
 
 @section('content')
 

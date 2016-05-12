@@ -85,7 +85,7 @@
             <li><a href="{{url('/JobVacant')}}">Av. Position</a></li>
             @endif
             <li><a href="{{url('/Schedule')}}">Schedule</a></li>
-            <li><a href="#">Statistic</a></li>
+            <li><a href="{{url('/Statistic')}}">Statistic</a></li>
           </ul>
 
         </div><!-- /.navbar-collapse -->

@@ -1,10 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.master_applicant')
 <?php 
   session_start();
 ?>
-@section('title')
-Job Vacant List
-@endsection
+
 
 @section('content')
 
