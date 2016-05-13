@@ -45,6 +45,7 @@
 			<form method="POST">
 				{{ csrf_field() }}
 				<div class="form-group"> 
+					<h5>Position : </h5>
 		            <select class = "selectpicker" name="ambilposisi" id="selection">  
 							<option value="none">None</option>
 						@foreach ($jobs as $job)
@@ -55,6 +56,7 @@
 
 					<br><br>
 
+					<h5>Gender : </h5>
 					<select class="selectpicker" name="ambilgender" id="selection">
 							<option value="none">None</option>
 				            <option value="M">Male</option>
