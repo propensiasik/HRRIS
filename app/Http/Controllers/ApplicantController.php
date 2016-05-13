@@ -284,12 +284,13 @@ class ApplicantController extends Controller
                                 ->orWhere('job_vacant.posisi_ditawarkan', 'LIKE', '%'.$keyword.'%')
                                 ->orWhere('company.nama_company', 'LIKE', '%'.$keyword.'%')
                                 ->count();
+        $jobs = DB::select('select posisi_ditawarkan from job_vacant');
 
         if($applicants->isEmpty()){
             return view('applicantSearchNotFound');
         }
         else{
-            return view('applicants')->with('applicants',$applicants)->with('count',$count)->with('page','applicants');
+            return view('applicants')->with('applicants',$applicants)->with('jobs', $jobs)->with('count',$count)->with('page','applicants');
         }
     }
 
