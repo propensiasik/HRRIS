@@ -8,7 +8,7 @@
 
     <div class="form-group">
                     <div id="nav">
-                        {!! Form::label('Nama') !!} 
+                        {!! Form::label('Name') !!} 
                     </div>
                     <div id="section">
                         {!! Form::text('nama_users',null,['class'=>'form-control']) !!}
@@ -28,7 +28,7 @@
             
                 <div class="form-group">
                     <div id="nav">
-                        {!! Form::label('Posisi') !!} 
+                        {!! Form::label('Position') !!} 
                     </div>
                     <div id="section">
                         {!! Form::text('posisi',null,['class'=>'form-control']) !!}
@@ -38,7 +38,7 @@
              
                 <div class="form-group">
                     <div id="nav">
-                        {!! Form::Label('Divisi') !!} 
+                        {!! Form::Label('Division') !!} 
                     </div>
                     <div id="section">
                         {!! Form::select('id_divisi', $divisi, null, ['class' => 'form-control']) !!}

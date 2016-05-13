@@ -13,7 +13,7 @@ $countInterview = count($list_interview);
 			<input id='ijv' value="{{$jobvacant->posisi_ditawarkan}} - {{$jobvacant->nama_company}}"class="form-control" readonly></input>
 		</div>
 		<div class="form-group">
-			<label>Interview Ke </label><br/>
+			<label>Interview Part </label><br/>
 			<input id='invk' value="{{$interviewke}}"class="form-control" readonly></input>  
 		</div>
 		<div class="form-group">

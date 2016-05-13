@@ -22,7 +22,7 @@
 	</select>
 </div>
 <div class="form-group">
-	<label>Interview Ke </label> <br/>
+	<label>Interview Part </label> <br/>
 	<select id = 'interview' name='jmlhInterview' class="form-control">
 		<option>Choose</option>
 		<option id ='opt2'>1</option>
