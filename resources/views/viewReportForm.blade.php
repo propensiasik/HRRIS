@@ -12,19 +12,19 @@
   </button>
 </div>
   
-    <div class="table-responsive">
+    <div class="desc-group inline">
       <table class="table">  
         <tbody>
           <tr>
-            <td>Available Position</td>
+            <td><label>Available Position</label></td>
             <td>{{ $nama_jv }}</td>
           </tr>
           <tr>
-            <td>Business Unit</td>
+            <td><label>Business Unit</label></td>
             <td>{{ $nama_divisi }}</td>
           </tr>
           <tr>
-            <td>Company</td>
+            <td><label>Company</label></td>
             <td>{{ $nama_company }}</td>
           </tr>
         </tbody>

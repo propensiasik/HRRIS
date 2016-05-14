@@ -7,9 +7,66 @@
 
 	<div class = "container">
 
-	<h1>Applicants</h1>
+	<div class="top">			
+		<!--Judul-->
+		<div class="col-md-9">
+			<h1 class="alignleft">Applicants</h1>
+		</div>
+		<!--Search-->
+		<div class="col-md-3">
+			<div class="alignright">
+			<br>
+			{!!  Form::open(array('action' => 'ApplicantController@getSearch')) !!}
+			<div class="form-group">
+		    	<div class="input-group">
+		       		{!!  Form::text('keyword',null, ['class'=>'form-control', 'placeholder' => 'Search for...']) !!}
+		       		<span class="input-group-btn">          
+		        		<button class="btn-search" type="submit"><img src="{{asset('img/search.png')}}"></button>
+		        	</span>
+		    	</div>
+			</div>
+	   		{!! Form::close() !!}
+    	</div>
+    	</div>
+    </div>
 
-	<br><br>
+    <div class="col-md-3">
+
+        <!--Filter--> 
+        <h4>Filter</h4>          
+		{!!  Form::open(array('action' => 'ApplicantController@filter')) !!}
+			<form method="POST">
+				{{ csrf_field() }}
+				<div class="form-group"> 
+					<h5>Position : </h5>
+		            <select class = "selectpicker" name="ambilposisi" id="selection">  
+							<option value="none">None</option>
+						@foreach ($jobs as $job)
+							<option value="{{$job->posisi_ditawarkan}}">{{$job->posisi_ditawarkan}}</option>
+							{{ Form::label('ambilposisi', $job->posisi_ditawarkan) }}<br>
+						@endforeach
+					</select> 
+
+					<br><br>
+
+					<h5>Gender : </h5>
+					<select class="selectpicker" name="ambilgender" id="selection">
+							<option value="none">None</option>
+				            <option value="M">Male</option>
+				            <option value="F">Female</option>
+				    </select>
+
+				 <br><br>
+		         <input class ="btn btn-secondary" type="submit" value="Filter">
+		     	
+		     	</div>
+
+		    </form>
+		{!! Form::close() !!}
+
+	</div>
+
+<div class="col-md-9">
 		
 		<div class="table-responsive">
 			<table class = "table">	
@@ -43,7 +100,7 @@
 						</td>
 						<td align="right">
 							<a href="{{ url('Applicants/delete/'.$applicant->id_applicant.'') }}" onclick="return confirm('Are you sure you want to delete?')">
-                                <button class = "btn btn-danger">Delete</button>
+                                <button class="btn btn-default"><img src="{{asset('img/Icon - Delete.png')}}">Delete</button>
                             </a>
 						</td>
 					</tr>
@@ -51,6 +108,8 @@
 				</tbody>
 			</table>
 		</div>
+</div>
+
 </div>
 
 

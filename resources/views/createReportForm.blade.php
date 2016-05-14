@@ -12,19 +12,19 @@
   </div>
 
 <br><br>
-  <div class="table-responsive">
+  <div class="desc-group inline">
     <table class="table">  
       <tbody>
         <tr>
-          <td>Job Vacancy</td>
+          <td><label>Job Vacancy</label></td>
           <td>{{ $nama_jv }}</td>
         </tr>
         <tr>
-          <td>Business Unit</td>
+          <td><label>Business Unit</label></td>
           <td>{{ $nama_divisi }}</td>
         </tr>
         <tr>
-          <td>Company</td>
+          <td><label>Company</label></td>
           <td>{{ $nama_company }}</td>
         </tr>
       </tbody>
@@ -72,7 +72,7 @@
     <input name="array_id" value= "" id="json_to_submit" style="display:none">
     <input name="id_job_vacant" value= "{{$id_job_vacant}}" style="display:none">
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-  <button class="simpan btn btn-primary">Save</button>
+  <button class="simpan btn btn-success"><img src="{{asset('img/check.png')}}">Save</button>
   </form>
 </div>  
 

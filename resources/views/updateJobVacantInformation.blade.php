@@ -7,36 +7,46 @@
 
 <h1> Update Available Position </h1>
 
+<br><br>
+
 <form action="Save" method="post" autocomplete="on">
-  <table class="table">  
-    <tbody>
-      <tr>
-        <td><label>Available Position<span class="error"></span></label></td>
-        <td><input type="text" name="posisi" value="{{ $posisi }}" autofocus required placeholder=" Name of the position "></td>
-      </tr>
-      <tr>
-        <td><label>Status<span></span></label></td>
-        <td><select id="status" name="status" value= "{{ $status }}" required>
+  <div class="row margin">
+      <div class="form-group">
+        <div class="col-md-3"><label>Available Position<span class="error"></span></label></div>
+        <div class="col-md-9"><input type="text" name="posisi" value="{{ $posisi }}" autofocus required placeholder=" Name of the position " class = "form-control"></div>
+      </div>
+  </div>
+
+  <div class="row margin">
+      <div class="form-group">
+        <div class="col-md-3"><label>Status<span></span></label></div>
+        <div class="col-md-9"><select id="status" name="status" value= "{{ $status }}" required class = "form-control">
           <option value=0>Not Publish</option>
           <option value=1>Publish</option>
         </select>
-      </td>
-    </tr> 
-    <tr>
-      <td><label>Company<span></span></label></td>
+        </div>
+      </div>
+  </div>
+
+  <div class="row margin">
+      <div class="form-group">
+      <div class="col-md-3"><label>Company<span></span></label></div>
       <?php $default = $company; ?>
-      <td><select id="company" name="company" value="{{ $company }}" required>
+      <div class="col-md-9"><select id="company" name="company" value="{{ $company }}" required class = "form-control">
         <option value=0>-------------------</option>
         <option value=1>Definite (PT Definite Maji Arsana)</option>
         <option value=2>Flipbox (PT Saka Digital Arsana)</option>
         <option value=3>Karya (PT Karya Saka Arsana)</option>
         <option value=4>Innovacto (PT Adrian Saka Arsana)</option>
       </select>
-    </td>
-  </tr> 
-  <tr>
-    <td><label>Business Unit<span></span></label></td>
-    <td><select id="divisi" name="divisi" value="{{ $divisi }}" required>
+    </div>
+    </div>
+  </div>
+
+  <div class="row margin">
+      <div class="form-group">  
+    <div class="col-md-3"><label>Business Unit<span></span></label></div>
+    <div class="col-md-9"><select id="divisi" name="divisi" value="{{ $divisi }}" required class = "form-control">
       <option value=0>-------------------</option>
       <option value=1>Project Manager</option>
       <option value=2>Web Developer</option>
@@ -49,34 +59,51 @@
       <option value=9>Analyst</option>
       <option value=10>Produser</option>
     </select>
-  </td>
-</tr> 
-<tr>
-  <td><label>Number of Needs<span></span></label></td>
-  <td><input type="number" name="jml_kebutuhan" value="{{ $jml_kebutuhan }}" min="1" step="1" placeholder= "1" required></td>
-</tr> 
-</tbody>
-</table>
-<div>
-  <div><label>Job Description<span></span></label></div>
-  <div><textarea name="description" placeholder= "o>description 1" required>{{ $description }}</textarea></div>
+  </div>
+  </div>
+  </div>
+
+  <div class="row margin">
+      <div class="form-group">
+  <div class="col-md-3"><label>Number of Needs<span></span></label></div>
+  <div class="col-md-9"><input type="number" name="jml_kebutuhan" value="{{ $jml_kebutuhan }}" min="1" step="1" placeholder= "1" required class = "form-control"></div>
 </div>
-<br>
-<div>
-  <div><label>Job Requirement<span></span></label></div>
-  <div><textarea name="requirement" placeholder= "o>requirement 1" required>{{ $requirement }}</textarea></div>
 </div>
-<div>
-  <div><label>Person In Charge<span></span></label></div>
-  <div><textarea name="pic" placeholder="example1@gmail.com, example2@gmail.com" required>{{ $pic }}</textarea></div>
+
+
+  <div class="row margin">
+      <div class="form-group">
+        <div class="col-md-3"><label>Job Description<span></span></label></div>
+        <div class="col-md-9"><textarea name="description" placeholder= "o>description 1" required class = "form-control">{{ $description }}</textarea></div>
+      </div>
+  </div>
+
+  <div class="row margin">
+      <div class="form-group">
+        <div class="col-md-3"><label>Job Requirement<span></span></label></div>
+        <div class="col-md-9"><textarea name="requirement" placeholder= "o>requirement 1" required class = "form-control">{{ $requirement }}</textarea></div>
+      </div>
+  </div>
+  
+  <div class="row margin">
+      <div class="form-group">
+  <div class="col-md-3"><label>Person In Charge<span></span></label></div>
+  <div class="col-md-9"><textarea name="pic" placeholder="example1@gmail.com, example2@gmail.com" required class = "form-control">{{ $pic }}</textarea></div>
 </div>
+
+
 <input type="number" name="id_job_vacant" value="{{ $id_job_vacant }}" style="display:none">
 </div>
 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
 <input type="submit" class="btn btn-primary" value="Save" style="display:none"> 
 </form>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Save</button>
-<a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-secondary">Cancel</button></a>
+
+<div class="col-md-3"></div>
+<div class="col-md-9">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">
+<img src="{{asset('img/check.png')}}">Save</button>
+<a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-danger">
+<img src="{{asset('img/cancel.png')}}">Cancel</button></a>
 </div>
 </div> 
 

@@ -7,69 +7,111 @@
 
 @section('content')
 
- <h1 style="text-align: center"> Applicant's Personal Information </h1>
+ <h1> Applicant's Personal Information </h1>
+
+ <br><br>
 
  <form action="Registration/Save" method="post" autocomplete="on" enctype="multipart/form-data">
-  <table class="table" style="margin-left:25%; margin-right:15%;">  
-    <tr>
-      <td><label>Full name</label></td>
-      <td><input type="text" name="nama" autofocus required placeholder=" Your Name "></td>
-    </tr>
-    <tr>
-      <td><label>E-mail<span></span></label></td>
-      <td><input type="email" name="email" required placeholder=" example@mail.com "></td>
-    </tr>
-    <tr>
-      <td><label>Gender<span></span></label></td>
-      <td><select name="gender" id="gender" required>
+  
+  <div class="row margin">
+    <div class="form-group"> 
+      <div class="col-md-3"><label>Full name</label></div>
+      <div class="col-md-9"><input type="text" name="nama" autofocus required placeholder=" Your Name " class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="form-group"> 
+      <div class="col-md-3"><label>E-mail<span></span></label></div>
+      <div class="col-md-9"><input type="email" name="email" required placeholder=" example@mail.com " class="form-control">
+      </div>
+    </div>
+  </div>
+  
+  <div class="row margin">
+    <div class="form-group"> 
+      <div class="col-md-3"><label>Gender<span></span></label></div>
+      <div class="col-md-9"><select name="gender" id="gender" required class="form-control">
                <option value="M">Male</option>
                <option value="F">Female</option>
-          </select></td>
-    </tr>
-    <tr>
-      <td><label>Address<span></span></label></td>
-      <td><textarea name="alamat" required placeholder="Street, home number, city"></textarea></td>
-    </tr>
-    <tr>
-      <td><label>Phone number<span></span></label></td>
-      <td><input type="tel" name="phone" required placeholder="08xxxxxxxxxx"></td>
-    </tr>
-    <tr>
-      <td><label>Major<span></span></label></td>
-      <td><input type="text" name="jurusan" required placeholder="Your Major"></td>
-    </tr>
-    <tr>
-      <td><label>University<span></span></label></td>
-      <td><input type="text" name="universitas" required placeholder="University " ></td>
-    </tr>
-    <tr>
-      <td><label>Graduation year<span></span></label></td>
-      <td><input type="text" name="tahunLulus" required placeholder="20xx"></td>
-    </tr>
-    <tr>
-      <td><label>GPA<span></span></label></td>
-      <td><input type="number" name="ipk" min="0" max="4" step="0.01" required placeholder="3,51" ></td>
-    </tr>
-    <tr>
-      <td><label>Portfolio<span></span></label></td>
-      <td><input type="file" id="portofolio" name="portofolio"><div><br>*required for UI/UX<br>*only pdf allowed</div></td>
-    </tr>
-    <tr>
-      <td><label>CV<span></span></label></td>
-      <td><input type="file" id="cv" name="cv" required ><div><br>*only pdf allowed</div></td>
-    </tr>
-</table>
-   
-    <div>
-      <div><label>Is there anything you want to share with us?</label></div>
-      <div><textarea name="pesan"></textarea></div>
+          </select></div>
     </div>
+  </div>
+  
+  <div class="row margin">
+    <div class="form-group"> 
+      <div class="col-md-3"><label>Address<span></span></label></div>
+      <div class="col-md-9"><textarea name="alamat" required placeholder="Street, home number, city" class="form-control"></textarea></div>
+    </div>
+  </div>
+  
+  <div class="row margin">
+    <div class="form-group">  
+      <div class="col-md-3"><label>Phone number<span></span></label></div>
+      <input type="tel" name="phone" required placeholder="08xxxxxxxxxx" class="form-control"></div>
+    </div>
+  </div>
+
+  <div class="row-margin">
+    <div class="form-group">  
+      <div class="col-md-3"><label>Major<span></span></label></div>
+      <div class="col-md-9"><input type="text" name="jurusan" required placeholder="Your Major" class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="form-group">
+      <div class="col-md-3"><label>University<span></span></label></div>
+      <div class="col-md-9"><input type="text" name="universitas" required placeholder="University " class="form-control">
+      </div>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="form-group">  
+      <div class="col-md-3"><label>Graduation year<span></span></label></div>
+      <div class="col-md-9"><input type="text" name="tahunLulus" required placeholder="20xx" class="form-control"></div>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="form-group">  
+      <div class="col-md-3"><label>GPA<span></span></label></div>
+      <div class="col-md-9"><input type="number" name="ipk" min="0" max="4" step="0.01" required placeholder="3,51" class="form-control"></div>
+    </div>
+  </div>
+
+  <div class="row margin">
+    <div class="form-group"> 
+      <div class="col-md-3"><label>Portfolio<span></span></label></div>
+      <div class="col-md-9"><input type="file" id="portofolio" name="portofolio" class="form-control"><div><br>*required for UI/UX<br>*only pdf allowed</div>
+    </div>
+  </div>
+
+ <div class="row margin">
+    <div class="form-group">
+      <div class="col-md-3"><label>CV<span></span></label></div>
+      <div class="col-md-9"><input type="file" id="cv" name="cv" required class="form-control" ><div><br>*only pdf allowed</div>
+    </div>
+  </div> 
+   
+  <div class="row margin">
+    <div class="form-group">
+      <div class="col-md-3"><label>Is there anything you want to share with us?</label></div>
+      <div class="col-md-9"><textarea name="pesan"></textarea class="form-control"></div>
+    </div>
+  </div>
     <input type="text" name="id_job_vacant" id="id_job_vacant" value="{{$id_job_vacant}}" style="display:none">
 
-  <div>
-    <div>Work experience</div>
+  <div class="row margin">
+    <div class="form-group">
+      <label>Work experience</label>
+    </div>
+  </div>
     <br>
-    <table class="table" style="margin-left:25%; margin-right:15%;">
+    <table class="table">
       <div class="position">
         <tr>
           <td><label class="pos1">Position</label></td>
@@ -178,12 +220,13 @@
 <input type="submit" class="btn btn-primary" value="Save and continue to apply" style="display:none">
 </form>
 
- <div><button class="add">Add more experience</button></div>
+ <div><button class="btn btn-secondary"><img src="{{asset('img/Icon - Add - White.png')}}">Add more experience</button></div>
+
+<br>
 
 
-
-
- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Save</button>
+ <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">
+ <img src="{{asset('img/check.png')}}">Save</button>
 
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">

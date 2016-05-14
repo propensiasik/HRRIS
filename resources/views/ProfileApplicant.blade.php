@@ -15,16 +15,16 @@
 		@foreach ($applicantProfile as $ap)
 
 		<a href="{{ URL::to('applicant/profile/report/' . $ap->id_applicant) }}">
-			<button type="button" class="btn btn-secondary"> View Report </button>
+			<button type="button" class="btn btn-warning"> View Report </button>
 		</a>
 
 		<a href="{{ URL::to('applicant/profile/cv/' . $ap->id_applicant) }}"> 
-			<button type="button" class="btn btn-primary">View CV</button>
+			<button type="button" class="btn btn-default">View CV</button>
 		</a>
 		
 		@if($ap->portofolio !== null)
 		<a href="{{ URL::to('applicant/profile/portofolio/' . $ap->id_applicant) }}">
-			<button type="button" class="btn btn-success"> View <br> Portofolio</button>
+			<button type="button" class="btn btn-success"> View Portofolio</button>
 		</a>
 		@endif	
 
@@ -74,6 +74,7 @@
 	
 	<div class="form-group">
          <label for="status">Change Status : </label><br><br>
+         	<div class="input-group">
             <select id='valuestatus' class="status form-control" name="status">
                 <option value="S03">Interview 1</option>
                 <option value="S04">Interview 2</option>
@@ -81,7 +82,10 @@
                 <option value="S02">Reject</option>
                 <option value="S07">Hire</option>
             </select>
+            <span class="input-group-btn">
            <input type="submit" value="Change" class="btn btn-secondary">
+           </span>
+           </div>
     </div>  
     </form>
 

@@ -8,17 +8,24 @@
 
 	<div class="top">			
 		<!--Judul-->
-		<h1 class="alignleft">Applicants</h1><br>
+		<div class="col-md-9">
+			<h1 class="alignleft">Applicants</h1>
+		</div>
 		<!--Search-->
-		<div class="alignright">
+		<div class="col-md-3">
+			<div class="alignright">
+			<br>
 			{!!  Form::open(array('action' => 'ApplicantController@getSearch')) !!}
 			<div class="form-group">
 		    	<div class="input-group">
-		       		{!!  Form::text('keyword') !!}
-		        	<button class="btn-search" type="submit"><img src="{{asset('img/search.png')}}"></button>
+		       		{!!  Form::text('keyword',null, ['class'=>'form-control', 'placeholder' => 'Search for...']) !!}
+		       		<span class="input-group-btn">          
+		        		<button class="btn-search" type="submit"><img src="{{asset('img/search.png')}}"></button>
+		        	</span>
 		    	</div>
 			</div>
 	   		{!! Form::close() !!}
+    	</div>
     	</div>
     </div>
 

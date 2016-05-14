@@ -23,22 +23,32 @@ if(session()->has('comErr')){
   return session()->get('comErr');
 }
 ?>
-    <br>
-    <form action="CreateAvailablePosition/Save" method="post" autocomplete="on">
-      <div class="form-group">
-        <div id="nav"><label>Available Position<span class="error"></span></label></div>
-        <div id="section"><input type="text" class = "form-control" name="posisi" autofocus required placeholder=" Name of the position "></div>
-                  
-        <div id="nav"><label>Status<span></span></label></div>
-        <div id="section">
+<br><br>
+  <form action="CreateAvailablePosition/Save" method="post" autocomplete="on">
+    <div class="row margin">
+      <div class="form-group">      
+        <div class="col-md-3"><label>Available Position<span class="error"></span></label></div>
+        <div class="col-md-9"><input type="text" class = "form-control" name="posisi" autofocus required placeholder=" Name of the position ">
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin">
+      <div class="form-group"> 
+        <div class="col-md-3"><label>Status<span></span></label></div>
+        <div class="col-md-9">
             <select name="status" class = "form-control" required>
               <option value=0>Not Publish</option>
               <option value=1>Publish</option>
             </select>
         </div>
+      </div>
+    </div>
                   
-        <div id="nav"><label>Company<span></span></label></div>
-        <div id="section">
+    <div class="row margin">
+      <div class="form-group">
+        <div class="col-md-3"><label>Company<span></span></label></div>
+        <div class="col-md-9">
             <select name="company" class = "form-control" required>
               <option value=0>-------------------</option>
               <option value=1>Definite (PT Definite Maji Arsana)</option>
@@ -47,9 +57,13 @@ if(session()->has('comErr')){
               <option value=4>Innovacto (PT Adrian Saka Arsana)</option>
             </select>
         </div>
-                  
-        <div id="nav"><label>Business Unit<span></span></label></div>
-        <div id="section">
+      </div>
+    </div>
+
+    <div class="row margin">
+      <div class="form-group">              
+        <div class="col-md-3"><label>Business Unit<span></span></label></div>
+        <div class="col-md-9">
             <select name="divisi" class="form-control" required>
               <option value=0>-------------------</option>
               <option value=1>Project Manager</option>
@@ -64,29 +78,48 @@ if(session()->has('comErr')){
               <option value=10>Produser</option>
             </select>
         </div>
-                  
-        <div id="nav"><label>Number of Needs<span></span></label></div>
-        <div id="section">
+      </div>
+    </div>
+
+    <div class="row margin">
+      <div class="form-group">
+        <div class="col-md-3"><label>Number of Needs<span></span></label></div>
+        <div class="col-md-9">
           <input type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required>
         </div>
-                
-        <div id="nav"><label>Job Description<span></span></label></div>
-        <div id="section"><textarea name="description" class = "form-control" placeholder= "o>description 1" required></textarea></div>
-              
-        <div id="nav"><label>Job Requirement<span></span></label></div>
-        <div id="section"><textarea name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea></div>
-        
-        <div id="nav"><label>Person In Charge<span></span></label></div>
-        <div id="section"><textarea name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
-        
-  </div>
+      </div>
+    </div>
+    
+    <div class="row margin">
+      <div class="form-group">            
+        <div class="col-md-3"><label>Job Description<span></span></label></div>
+        <div class="col-md-9"><textarea name="description" class = "form-control" placeholder= "o>description 1" required></textarea></div>
+      </div>
+    </div>
 
-<div id="nav"></div>
-<div id="section">
+    <div class="row margin">
+      <div class="form-group">        
+        <div class="col-md-3"><label>Job Requirement<span></span></label></div>
+        <div class="col-md-9"><textarea name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea></div>
+      </div>
+    </div>
+
+    <div class="row margin">
+      <div class="form-group">   
+        <div class="col-md-3"><label>Person In Charge<span></span></label></div>
+        <div class="col-md-9"><textarea name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
+      </div>
+    </div>
+
+      </form>
+
+<div class="col-md-3"></div>
+<div class="col-md-9">
 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-<input type="submit" id="real=save" class="btn btn-primary" value="Save" style="display:none"> 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Save</button>
-<a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-secondary">Cancel</button></a>
+<input type="submit" id="real=save" class="btn btn-success" value="Save" style="display:none"> 
+<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">
+<img src="{{asset('img/check.png')}}">Save</button>
+<a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-danger"><img src="{{asset('img/cancel.png')}}">Cancel</button></a>
 </div>
         
     

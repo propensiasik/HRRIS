@@ -47,20 +47,16 @@
 							</tr>
 							@endforeach
 						@endif
-						<tr>
-							<td colspan="2"></td>
-							<td colspan="2">
-								<br>	 
-								<a href="{{ URL::to('Applicants')}}"> 
-									<button style="align-items: center;" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Back to List of Applicants</button>
-								</a>
-							</td>
-						</tr>
-
-            		</form>
+						</form>
 				</tbody>
 			</table>
-		</div>
+		</div>						
+
+		<br>	 
+			<a href="{{ URL::to('Applicants')}}"> 
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+				<img src="{{asset('img/back.png')}}">Back to List of Applicants</button>
+			</a>		
 	</div>
 </div>
 

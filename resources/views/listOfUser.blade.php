@@ -7,7 +7,8 @@
     <div class="top">
 
     <h1 class="alignleft">Users</h1>
-    <br><a href="{{url('/Users/Create')}}" class="alignright"><button type="button" class="btn btn-secondary">Create User</button></a>
+    <br><a href="{{url('/Users/Create')}}" class="alignright"><button type="button" class="btn btn-secondary">
+    <img src="{{asset('img/Icon - Add - White.png')}}">Create User</button></a>
 
     </div>
 
@@ -37,12 +38,13 @@
                         <td>{{ $user->divisi->company->nama_company }}</td>
                         <td>{{ $user->role }}</td>
                         <td align="right">
-                            <a class="btn btn-success" href="{{ route('edit', $user->email_users) }}">Update</a>
+                            <a class="btn btn-success" href="{{ route('edit', $user->email_users) }}">
+                            <img src="{{asset('img/Icon - Edit.png')}}">Update</a>
                         </td>
                         <td>
                             <a href="{{ url('Users/Delete/'.$user->email_users.'') }}" 
                             onclick="return confirm('Are you sure you want to delete?')">
-                                <button class="btn btn-danger">Delete</button>
+                                <button class="btn btn-default"><img src="{{asset('img/Icon - Delete.png')}}">Delete</button>
                             </a>       
                         </td>
                     </tr>

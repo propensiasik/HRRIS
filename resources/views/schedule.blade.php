@@ -8,8 +8,10 @@ $countSchedule = count($schedule);
 
 
 <h1>Interview Schedule</h1>
+
+<br><br>
 @if($countSchedule > 0)
-<table style="width:50%" class="table">
+<table class="table">
 	<thead>
 		<th>Date</th>
 		<th>Time</th>
@@ -72,11 +74,15 @@ $countSchedule = count($schedule);
 	<h4>There are no interview schedule for you </h4>
 	@endif
 
-	<div class="vertical-separator"></div>
+	<br>
+
 	@if($_SESSION['booleanRole']=='0')
-	<a href="{{url('/CreateInterview')}}"><button type="submit" class="btn btn-primary" id="HR">Create Interview Schedule</button></a>
-	<a href="{{url('/UpdateInterview')}}"><button type="submit" class="btn btn-primary" id="HR">Update Interview Schedule</button></a>
+	<a href="{{url('/CreateInterview')}}"><button type="submit" class="btn btn-secondary" id="HR">
+	<img src="{{asset('img/Icon - Add - White.png')}}">Create Interview Schedule</button></a>
+	<a href="{{url('/UpdateInterview')}}"><button type="submit" class="btn btn-success" id="HR">
+	<img src="{{asset('img/Icon - Edit.png')}}">Update Interview Schedule</button></a>
 	@else
-	<a href="{{url('/AvailableSchedule')}}"><button type="submit" class="btn btn-primary" id="R">Create Available Schedule</button></a>
+	<a href="{{url('/AvailableSchedule')}}"><button type="submit" class="btn btn-secondary" id="R">
+	<img src="{{asset('img/Icon - Add - White.png')}}">Create Available Schedule</button></a>
 	@endif
 	@stop

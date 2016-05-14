@@ -12,6 +12,8 @@
 @section('content')
 <h1>Update Interview Schedule</h1>
 
+<br><br>
+
 <div class="form-group">
 	<label for="jobvacant">Job Vacant</label> <br/>
 	<select id='posisi'name='Jobvacant' class="form-control">
@@ -30,8 +32,9 @@
 	</select>  
 </div>
 </div>
-<div class="vertical-separator"></div>
-<button type="button" class="btn btn-primary" onclick="test(this.value)">Update Interview Applicant</button>
+
+<button type="button" class="btn btn-success" onclick="test(this.value)">
+<img src="{{asset('img/Icon - Edit.png')}}">Update Interview Applicant</button>
 </div>
 
 </body>

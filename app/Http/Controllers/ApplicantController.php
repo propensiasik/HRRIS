@@ -869,6 +869,8 @@ class ApplicantController extends Controller
     
     //Untuk halaman applicant buat admin
     public function getListOfApplicantAdmin(){
+	
+		$jobs = DB::select('select posisi_ditawarkan from job_vacant');
         $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
@@ -880,7 +882,7 @@ class ApplicantController extends Controller
         $count = DB::table('applicant')->count();
 
         // Melempar data yang dibutuhkan ke VIEW/UI
-        return view('applicants_admin')->with('applicants',$applicants)->with('count',$count)->with('page','applicants_admin');
+        return view('applicants_admin')->with('applicants',$applicants)->with('jobs',$jobs)->with('count',$count)->with('page','applicants_admin');
     }
     
     //Untuk delete applicant

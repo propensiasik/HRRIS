@@ -49,10 +49,11 @@
 						<tr>
 							<td colspan="3"></td>
 							<td> 
-								<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">Choose</button>
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">
+								<img src="{{asset('img/check.png')}}">Choose</button>
 								<!-- <br> <br> -->
 								<a href="{{ URL::to('Applicants')}}"> 
-									<button type="button" class="btn-danger">Cancel</button>
+									<button type="button" class="btn btn-danger"><img src="{{asset('img/cancel.png')}}">Cancel</button>
 								</a>
 
 								<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -70,9 +71,8 @@
 												</div>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 												<button type="submit" class="btn btn-secondary">Yes</button>
-
+												<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 											</div>
 										</div>
 									</div>
