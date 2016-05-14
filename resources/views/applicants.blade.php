@@ -3,6 +3,7 @@
 
 @section('content')
 
+
 <div class = "container">
 
 	<div class="top">			
@@ -24,15 +25,21 @@
     <div class="col-md-3">
 
     	<!--Choose-->
-    	<h4>Choose</h4>               
+    	<h4>Choose Applicant for :</h4>               
         {!!  Form::open(array('action' => 'ApplicantController@getListOfApplicantChoosen')) !!}
             <div class="form-group">
 				<select class="selectpicker" id='valuestatus' class="status" name="status">
-					<option value="1">Interview 1</option>
-					<option value="3">Interview 2</option>
-					<option value="4">Interview 3</option>
-					<option value="5">Offering Letter</option>
-					<option value="6">Hire</option>
+					@if($_SESSION["booleanRole"] == '0')
+						<option value="1">Interview 1</option>
+						<option value="3">Interview 2</option>
+						<option value="4">Interview 3</option>
+						<option value="5">Offering Letter</option>
+						<option value="6">Hire</option>
+					@else
+						<option value="1">Interview 1</option>
+						<option value="3">Interview 2</option>
+						<option value="4">Interview 3</option>
+					@endif
 				</select>
 				<br><br>
 	         	<button type="submit" class="btn btn-secondary">Choose</button> 
@@ -75,7 +82,7 @@
 
 <div class="col-md-9">
 	<div class="table-responsive">
-		<table border="0" id="searchTable" class="table">	
+		<table class="table">	
 			<thead>	
 				<tr>
 					<th>Name</th>
@@ -117,5 +124,6 @@
 </div>
 
 </div>
+
 
 @endsection

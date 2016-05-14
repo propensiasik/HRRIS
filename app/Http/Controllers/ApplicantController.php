@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Response;
 use App\Applicant;
+use App\Users;
 use App\Status_applicant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,7 @@ class ApplicantController extends Controller
         // METHOD INI UNTUK ME-RETRIEVE SEMUA DAFTAR APPLICANT YANG ME-APPLY JOB VACANT
 
         // Retrieve List of Applicant dari database untuk mengambil atribut yang dibutuhkan untuk di tampilkan pada UI, seperti NAMA applicant, POSISI atau job vacant apa yang applicant apply, dan COMPANY mana yang membuka job vacant tsb. Retrieve ini menampilkan tabel dengan fungsi pagination. 
-
+        
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
 
         $applicants = DB::table('applicant')
@@ -31,8 +32,8 @@ class ApplicantController extends Controller
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->where('applicant.is_active', '=', '1')
                                 ->paginate(15);
-
 
         $count = DB::table('applicant')->count();
         $from = 'Home';
@@ -41,16 +42,24 @@ class ApplicantController extends Controller
         return view('applicants')->with('applicants',$applicants)->with('jobs',$jobs)->with('count',$count)->with('page','applicants')->with('from',$from);
     }
 
+
+    /*  writter  : Ferri Saputra
+        function : untuk menampilkan list of applicant yang akan di choose berdasarkan status yang dipilih 
+        caller   : dari halaman applicants.blade.php ketika user menekan tombol 'choose'
+        input    : mengambil value dari dropdown choose status yang dipilih
+        output   : list of applicant yang akan di choose dan juga status yang akan dipilih untuk di simpan ke DB
+    */  
     public function getListOfApplicantChoosen(){
         // TODO: METHOD INI UNTUK ME-RETRIEVE SEMUA DAFTAR APPLICANT YANG BERADA PADA STATUS RECRUITMENT TERTENTU YANG AKAN DIGUNAKAN UNTUK DI UPDATE STATUS NYA (ACCEPT UTK TAHAP SELANJUTNYA / REJECT / TIDAK ADA PERUBAHAN).
         
-        $input = Input::all(); 
+        $input = Input::all(); // menerima inputan dari dropdown
 
         // Mengambil input STATUS dari dropdown yang ada pada UI applicants.blade.php. Value yang diterima digenerate ke id_status yang disesuaikan dengan atribut di database 
         $status = $input['status'];
 
-        $statusFor = '';
+        $statusFor = ''; 
 
+        // me-generate status dari value dropdown
         if($status == 1) {
             $statusFor = 'INTERVIEW 1';
         } elseif ($status == 3) {
@@ -65,17 +74,36 @@ class ApplicantController extends Controller
 
 
         // Retrieve List of Applicant dari database untuk mengambil atribut yang dibutuhkan untuk di tampilkan pada UI, seperti NAMA applicant, POSISI atau job vacant apa yang applicant apply, dan COMPANY mana yang membuka job vacant tsb.
-        $applicants = DB::table('applicant')
+        // Terdapat dua kondisi role, yaitu untuk HR dan non-HR
+        $applicants;
+        if($_SESSION["booleanRole"] == '0'){ // role untuk HR (menampilkan semua applicant)
+            $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                 ->where('applicant.status_ter_update', '=', $status)
+                                ->where('applicant.is_active', '=', '1')
                                 ->get();
+        }
+        else{ // role untuk non-HR (menampilkan applicant yang dimana users terdaftar pada involved_job_vacant)
+            $applicants = DB::table('applicant')
+                                ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')   
+                                ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                ->join('involved_job_vacant', 'job_vacant.id_job_vacant', '=', 'involved_job_vacant.id_job_vacant')
+                                ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->where('involved_job_vacant.email_users', '=', $_SESSION["email"])
+                                ->where('applicant.status_ter_update', '=', $status)
+                                ->where('applicant.is_active', '=', '1')
+                                ->get();
+        }
 
-         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
-        if($applicants == null){
-            return view('applicantChooseNotFound')->with('statusFor', $statusFor)->with('jobs',$jobs);
+        $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+
+        // Jika applicant yang di pilih ada / tidak ada
+        if($applicants == null){ // tidak ada satu applicant yang dapat di choose
+            return view('applicantChooseNotFound')->with('statusFor', $statusFor)->with('jobs',$jobs); //  menampilkan pesan
         }
         else{
             // Melempar data yang dibutuhkan ke VIEW/UI
@@ -83,6 +111,14 @@ class ApplicantController extends Controller
         }
     }
 
+
+
+    /*  writter  : Ferri Saputra
+        function : untuk melakukan choose applicant dan melakukan UPDATE dan CREATE pada status applicant 
+        caller   : dari halaman chooseApplicant.blade.php ketika user menekan tombol 'choose' dan melakukan konfirmasi
+        input    : mengambil value dari dropdown choose status yang dipilih  untuk setiap applicant
+        output   : list of applicant yang berhasil di choose akan ditampilkan preview dari list of applicants tersebut
+    */  
     public function choose() {
         $input = Input::all(); // Menerima masukan input dari user dari UI (chooseApplicant.blade.php)
 
@@ -90,6 +126,7 @@ class ApplicantController extends Controller
 
         $statusFor = '';
 
+        // me-generate status dari value dropdown
         if($status == 1) {
             $statusFor = 'INTERVIEW 1';
         } elseif ($status == 3) {
@@ -102,10 +139,8 @@ class ApplicantController extends Controller
             $statusFor = 'HIRE';
         }
 
-        $slaAccept = ''; // variabel untuk menentukan status SLA yang sesuai
-        $slaReject = '';
-
-        // $sApply=1; $sReject=2; $sInterview1=3; $sInterview2=4; $sInterview3=5; $sOffering=6; $sHire=7;
+        $slaAccept = ''; // variabel untuk menentukan status SLA yang diterima (accept)
+        $slaReject = ''; // variabel untuk menentukan status SLA yang ditolak (reject)
 
         // Menentukan status SLA yang ACCEPT yang disesuaikan dengan choose status applicant yang dipilih untuk salah satu proses recruitment
         if($status == '1') { // APPLY
@@ -134,23 +169,47 @@ class ApplicantController extends Controller
             $slaReject = 4; // Reject Hire
         }
 
+        
         // Mengambil data-data applicant dari table APPLICANT yang sesuai proses recruitment terplih
-        $applicants = Applicant::where('status_ter_update', $status)->get();
+        $applicants;
+        if($_SESSION["booleanRole"] == '0'){ // role untuk HR
+            $applicants = DB::table('applicant')
+                                ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
+                                ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                ->select('applicant.id_applicant', 'applicant.id_job_vacant')
+                                ->where('applicant.status_ter_update', '=', $status)
+                                ->where('applicant.is_active', '=', '1')
+                                ->get();
+        }
+        else{
+            $applicants = DB::table('applicant') // role untuk non-HR
+                                ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
+                                ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')   
+                                ->join('company', 'divisi.id_company', '=', 'company.id_company')
+                                ->join('involved_job_vacant', 'job_vacant.id_job_vacant', '=', 'involved_job_vacant.id_job_vacant')
+                                ->select('applicant.id_applicant', 'applicant.id_job_vacant')
+                                ->where('involved_job_vacant.email_users', '=', $_SESSION["email"])
+                                ->where('applicant.status_ter_update', '=', $status)
+                                ->where('applicant.is_active', '=', '1')
+                                ->get();
+        }
                             
         $array_app = [];  // array applicant yang di pilih
 
-        $array_result = [];
+        $array_result = [];  // array applicant hasil dari choose
 
         // Memasukan status (accept/reject/null) untuk setiap applicant ke array
         foreach ($applicants as $applicant) {
             $id_applicant = $applicant->id_applicant; // get id applicant
             $status_choosen = $input[$id_applicant]; // status yang dipilih dr dropdown dgn name=id_applicant
-            $jv = $applicant->id_job_vacant; 
-            // dd($status_choosen);
+            $jv = $applicant->id_job_vacant; // mengambil job vacant yang diambil utk setiap applicant
+
             $obj_app = array ('id_applicant' => $id_applicant, 'status_choosen' => $status_choosen, 'id_job_vacant' => $jv);
             $applicant = (object) $obj_app;
-            array_push($array_app, $applicant);
+            array_push($array_app, $applicant);  // memasukan data-data yang dibutuhkan ke $array_app
 
+            // Memasukan data applicant yang statusnya di ACCEPT atau REJECT
             if($status_choosen == 1 || $status_choosen == 2) {
                 $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
@@ -158,6 +217,7 @@ class ApplicantController extends Controller
                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                 ->where('applicant.id_applicant', '=', $id_applicant)
+                                ->where('applicant.is_active', '=', '1')
                                 ->get();
                 $name;
                 $posisi;
@@ -169,22 +229,22 @@ class ApplicantController extends Controller
                     $company = $app->nama_company;
                 }
                 $choosen = array ('name' => $name, 'posisi' => $posisi, 'company' => $company, 'status_choosen' => $status_choosen);
-                array_push($array_result, $choosen);
+                array_push($array_result, $choosen); // memasukan data2 applicant ke $array_result
             }
         }
 
-       // dd($array_app);
 
         //looping sebanyak applicants
         while ($array_app != null) {
-            $app = array_pop($array_app);
+            $app = array_pop($array_app); // mengambil data-data $array_app satu per satu
             if($app->status_choosen == '2'){
                 // JIKA STATUS "REJECT"
 
-                // Update atribut 'status_terupdate' di tabel applicant, id_status 2 = 'Reject'
+                // UPDATE atribut 'status_terupdate' di tabel applicant, id_status 2 = 'Reject'
                 Applicant::where('id_applicant', $app->id_applicant)
                             ->update(['status_ter_update' => 2]);
 
+                // CREATE atau memasukan tupple baru pada tabel status_applicant 
                 $status_app = new Status_applicant;
                 $status_app->id_sla = $slaReject;
                 $status_app->id_status = 2; // REJECT
@@ -199,6 +259,7 @@ class ApplicantController extends Controller
                     Applicant::where('id_applicant', $app->id_applicant)
                             ->update(['status_ter_update' => 3]);
 
+                    // CREATE atau memasukan tupple baru pada tabel status_applicant
                     $status_app = new Status_applicant;
                     $status_app->id_sla = $slaAccept;
                     $status_app->id_status = 3; // INTERVIEW 1
@@ -211,6 +272,7 @@ class ApplicantController extends Controller
                     Applicant::where('id_applicant', $app->id_applicant)
                             ->update(['status_ter_update' => 4]);
 
+                    // CREATE atau memasukan tupple baru pada tabel status_applicant
                     $status_app = new Status_applicant;
                     $status_app->id_sla = $slaAccept;
                     $status_app->id_status = 4; // INTERVIEW 2
@@ -223,6 +285,7 @@ class ApplicantController extends Controller
                     Applicant::where('id_applicant', $app->id_applicant)
                             ->update(['status_ter_update' => 5]);
 
+                    // CREATE atau memasukan tupple baru pada tabel status_applicant
                     $status_app = new Status_applicant;
                     $status_app->id_sla = $slaAccept;
                     $status_app->id_status = 5; // INTERVIEW 3
@@ -235,6 +298,7 @@ class ApplicantController extends Controller
                     Applicant::where('id_applicant', $app->id_applicant)
                             ->update(['status_ter_update' => 6]);
 
+                    // CREATE atau memasukan tupple baru pada tabel status_applicant
                     $status_app = new Status_applicant;
                     $status_app->id_sla = $slaAccept;
                     $status_app->id_status = 6; // OFFERING LETTER
@@ -247,6 +311,7 @@ class ApplicantController extends Controller
                     Applicant::where('id_applicant', $app->id_applicant)
                             ->update(['status_ter_update' => 7]);
 
+                    // CREATE atau memasukan tupple baru pada tabel status_applicant
                     $status_app = new Status_applicant;
                     $status_app->id_sla = $slaAccept;
                     $status_app->id_status = 7; // INTERVIEW 2
@@ -257,39 +322,53 @@ class ApplicantController extends Controller
             }
         }
 
-        
+        // Melempar hasil data aplicant mana saja yang di ACCEPT atau di REJECT
         return view('chooseApplicantResult')->with('array_result', $array_result)->with('statusFor', $statusFor);
        
     }
 
+    
+
+    /*  writter  : Ferri Saputra
+        function : untuk melakukan search applicant berdasarkan nama_applicant, position, dan company yang terdapat pada UI 
+        caller   : dari halaman applicants.blade.php ketika user memasukan keyword di kotak pencarian dan melakukan submit
+        input    : keyword yang dimasukan oleh user
+        output   : list of applicant berdasarkan keyword yang dimasukan oleh user
+    */  
     public function getSearch(){
-        $input = Input::all();
-        $keyword = $input['keyword'];
+        $input = Input::all(); // menerima inputan
+        $keyword = $input['keyword']; // menerima inputan dari kotak pencarian yang diketikan user
+
+        // Retrieve data applicant sesuai keyword + ditampilkan dalam bentuk pagination
         $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->where('applicant.is_active', '=', '1')
                                 ->where('applicant.nama_applicant', 'LIKE', '%'.$keyword.'%')
                                 ->orWhere('job_vacant.posisi_ditawarkan', 'LIKE', '%'.$keyword.'%')
                                 ->orWhere('company.nama_company', 'LIKE', '%'.$keyword.'%')
                                 ->paginate(15);
 
+        // Menghitung jumlah baris dari data yang di tampilkan
         $count = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->where('applicant.is_active', '=', '1')
                                 ->where('applicant.nama_applicant', 'LIKE', '%'.$keyword.'%')
                                 ->orWhere('job_vacant.posisi_ditawarkan', 'LIKE', '%'.$keyword.'%')
                                 ->orWhere('company.nama_company', 'LIKE', '%'.$keyword.'%')
                                 ->count();
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
 
-        if($applicants->isEmpty()){
-            return view('applicantSearchNotFound');
+
+        if($applicants->isEmpty()){ // jika keyword tidak sesuai dengan data di DB
+            return view('applicantSearchNotFound')->with('jobs', $jobs);
         }
-        else{
+        else{ // jika keyword sesuai dengan data di DB dan menampilkan hasil pencarian ke applicants.blade.php
             return view('applicants')->with('applicants',$applicants)->with('jobs', $jobs)->with('count',$count)->with('page','applicants');
         }
     }
@@ -378,9 +457,18 @@ class ApplicantController extends Controller
 
     }
 
-    public function getApplicantProfile($id_applicant){
-        $applicantProfile = Applicant::where('id_applicant', $id_applicant)->get();
 
+    /*  writter  : Ferri Saputra
+        function : untuk menampilkan applicant profile 
+        caller   : dari halaman applicants.blade.php ketika user meng-klik nama applicant
+        input    : id_applicant
+        output   : appllicant profile dan status history dari applicant
+    */  
+    public function getApplicantProfile($id_applicant){
+        // Meretrive data applicant berdasarkan id_applicant yang dipilih
+        $applicantProfile = Applicant::where('id_applicant', $id_applicant)->get(); 
+
+        // Meretrive data status applicant
         $applicantStatus = DB::table('status_applicant')
                             ->join('status', 'status_applicant.id_status', '=', 'status.id_status')
                             ->join('job_vacant', 'status_applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
@@ -389,10 +477,20 @@ class ApplicantController extends Controller
                             ->where('status_applicant.id_applicant', '=', $id_applicant)
                             ->get();
 
+         // Melempar data applicant profile ke ProfileApplicant.blade.php
          return view('ProfileApplicant', ['applicantProfile' => $applicantProfile, 'applicantStatus' => $applicantStatus, 'page'=>'recruiter']);
     }
 
+
+
+    /*  writter  : Ferri Saputra
+        function : untuk menampilkan applicant report (nilai kompetensi dan comments dari interviewer) 
+        caller   : dari halaman ProfileApplicants.blade.php ketika user meng-klik 'View Report'
+        input    : id_applicant
+        output   : appllicant profile dan status history dari applicant
+    */  
     public function getReport($id_applicant) {
+        // Meretrieve data-data interviewer
         $interviewer = DB::table('report')
                                 ->join('applicant', 'applicant.id_applicant', '=', 'report.id_applicant')
                                 ->join('users', 'users.email_users', '=', 'report.email_users')
@@ -400,6 +498,7 @@ class ApplicantController extends Controller
                                 ->where('applicant.id_applicant', $id_applicant)
                                 ->get();
 
+        // Meretrieve list of competency untuk setiap applicant
         $competency = DB::table('competency')
                                 ->join('competency_used', 'competency_used.id_kompetensi', '=', 'competency.id_kompetensi')
                                 ->join('report_form', 'report_form.id_report_form', '=', 'competency_used.id_report_form')
@@ -409,36 +508,55 @@ class ApplicantController extends Controller
                                 ->where('applicant.id_applicant', '=', $id_applicant)
                                 ->get();
 
+        // mengambil nama applicant
         $nama_applicant = DB::table('applicant')
                             ->select('nama_applicant')
                             ->where('id_applicant', $id_applicant)
                             ->get();
                                 
+        // Melempar data applicant report assessmentReport.blade.php
         return view('assessmentReport')->with('interviewer',$interviewer)->with('nama_applicant',$nama_applicant)
             ->with('competency',$competency)->with('page','assessmentReport');;
     }
 
+    
+
+    /*  writter  : Ferri Saputra
+        function : untuk menampilkan CV applicant dalam bentuk .pdf melalui pdf reader di browser 
+        caller   : dari halaman ProfileApplicants.blade.php ketika user meng-klik 'View CV'
+        input    : id_applicant
+        output   : file CV pdf, dibuka melalui pdf reader di browser atau di download
+    */  
     public function getCV($id_applicant) {
+        // Meretrieve CV dari applicant
         $applicantCV = DB::table('applicant')
                             ->select('cv')
                             ->where('id_applicant', $id_applicant)
                             ->get();
-
-        $cvPath = $applicantCV[0]->cv;
+ 
+        $cvPath = $applicantCV[0]->cv;   // Mengambil path CV yang di simpan di direktori sistem
         
-        return redirect($cvPath);
+        return redirect($cvPath); // menampilakan file CV pdf
     }
 
+    
+
+    /*  writter  : Ferri Saputra
+        function : untuk menampilkan Portofolio applicant dalam bentuk .pdf melalui pdf reader di browser 
+        caller   : dari halaman ProfileApplicants.blade.php ketika user meng-klik 'View Portofolio'
+        input    : id_applicant
+        output   : file Portofolio pdf, dibuka melalui pdf reader di browser atau di download
+    */  
     public function getPortofolio($id_applicant) {
+        // Meretrieve CV dari applicant
         $applicantPortofolio = DB::table('applicant')
                             ->select('portofolio')
                             ->where('id_applicant', $id_applicant)
                             ->get();
 
-        $portofofolioPath = $applicantPortofolio[0]->portofolio;
+        $portofofolioPath = $applicantPortofolio[0]->portofolio;  // Mengambil path Portofolio yang di simpan di direktori sistem
         
-        return redirect($portofofolioPath);
-        
+        return redirect($portofofolioPath);  // menampilakan file Portofolio pdf
     }
 
     public function getStatus(){
