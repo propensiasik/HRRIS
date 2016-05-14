@@ -393,6 +393,7 @@ class ApplicantController extends Controller
                                          ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                          ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                          ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                         ->where('applicant.is_active', '=', '1')
                                          ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
                                         ->where('applicant.gender', '=', $gender)
                                          ->paginate(15);
@@ -410,6 +411,7 @@ class ApplicantController extends Controller
                                  ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                  ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                  ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                 ->where('applicant.is_active', '=', '1')
                                 ->where('applicant.gender', '=', $gender)
                                 ->paginate(15);
 
@@ -427,6 +429,7 @@ class ApplicantController extends Controller
                                  ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                  ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                  ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                 ->where('applicant.is_active', '=', '1')
                                  ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
                                  ->paginate(15);
                  $jobs = DB::select('select posisi_ditawarkan from job_vacant');
@@ -443,6 +446,7 @@ class ApplicantController extends Controller
                                          ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                          ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                          ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                         ->where('applicant.is_active', '=', '1')
                                          ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
                                         ->where('applicant.gender', '=', $gender)
                                          ->paginate(15);
@@ -573,7 +577,7 @@ class ApplicantController extends Controller
          return view('applicants')->with('applicants',$applicants)->with('page','applicants');
     }
     
-    public function process(Request $val){
+    public function changeStatus(Request $val){
 
         $id = $val->input('id_applicant');
        $status = $val->input('status');

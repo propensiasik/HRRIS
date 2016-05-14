@@ -43,7 +43,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/Applicants/search', 'ApplicantController@getSearch');	 // search
 	Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile'); // profile + status
 	Route::post('/Applicants', 'ApplicantController@getStatus');  // <=== ini keknya ga ke pake
-	Route::post('/applicant/profile/{id_applicant}', 'ApplicantController@process');
+	Route::post('/applicant/profile/{id_applicant}', 'ApplicantController@changeStatus');
 	Route::get('/applicant/profile/report/{id_applicant}', 'ApplicantController@getReport'); // Report
 	Route::get('/applicant/profile/cv/{id_applicant}', 'ApplicantController@getCV'); // CV
 	Route::get('/applicant/profile/portofolio/{id_applicant}', 'ApplicantController@getPortofolio'); // Portofolio
