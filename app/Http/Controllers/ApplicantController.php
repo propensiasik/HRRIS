@@ -581,17 +581,21 @@ class ApplicantController extends Controller
     
     public function changeStatus(Request $val){
 
+       //$status = DB::select('select * from status');
+
         $id = $val->input('id_applicant');
-       $status = $val->input('status');
-       $sla = $val->input('sla');
-       $id_job = $val->input('id_job');
+        $status = $val->input('status');
+        $sla = $val->input('sla');
+        $id_job = $val->input('id_job');
 
-    $applicantProfile = Applicant::where('id_applicant', $id)->get();
+      
+        //$applicantProfile = Applicant::where('id_applicant', $id)->get();
 
-       $id = $val->input('id_applicant');
-       $status = $val->input('status');
-       $sla = $val->input('sla');
-       $id_job = $val->input('id_job');
+        $interview = DB::select('select id_applicant from interview');
+
+
+        Applicant::where('id_applicant', $id)
+                            ->update(['status_ter_update' => $status]);
 
         $post = new Status_applicant;
          
