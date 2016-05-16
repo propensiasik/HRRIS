@@ -44,13 +44,19 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/applicant/profile/{id_applicant}', 'ApplicantController@getApplicantProfile'); // profile + status
 	Route::post('/Applicants', 'ApplicantController@getStatus');  // <=== ini keknya ga ke pake
 	Route::post('/applicant/profile/{id_applicant}', 'ApplicantController@changeStatus');
-	Route::get('/applicant/profile/report/{id_applicant}', 'ApplicantController@getReport'); // Report
 	Route::get('/applicant/profile/cv/{id_applicant}', 'ApplicantController@getCV'); // CV
 	Route::get('/applicant/profile/portofolio/{id_applicant}', 'ApplicantController@getPortofolio'); // Portofolio
 	Route::post('/Applicants', 'ApplicantController@filter'); //Filtering
 	//untuk menampilkan form registrasi applicant
 	//Statistic
 	Route::get('/Statistic','StatisticController@statistic');
+
+	//Report
+	Route::get('/applicant/profile/report/{id_applicant}', 'ReportController@viewReport'); // Report
+	Route::get('/Report/{id_applicant}', 'ReportController@create');
+	Route::get('/FillReport/{id_applicant}', 'ReportController@getReport');
+	Route::post('/FillReportYaa', 'ReportController@saveReport');
+
 });
 
 Route::group(['middleware'=>'hr'],function(){
@@ -110,6 +116,7 @@ Route::group(['middleware'=>'admin'],function(){
 	Route::get('/ApplicantsAdmin', 'ApplicantController@getListOfApplicantAdmin');
 //Delete applicant
 	Route::get('Applicants/delete/{id_applicant}','ApplicantController@deleteApplicant');
+
 });
 Route::group(['middleware'=>'userhr'],function(){
 	//Av Schedule
@@ -121,6 +128,9 @@ Route::group(['middleware'=>'userhr'],function(){
 
 
 Route::group(['middleware'=>'web'],function(){
-	Route::post('/dologin','UserController@process');
+	Route::get('/dologin','UserController@redirectToProvider');
+//	Route::get('/asu','UserController@redirectToProvider');
+	Route::get('/dologin/google/callback','UserController@handleProviderCallback');
+//	Route::get('/asuasu','UserController@handleProviderCallback');
 	Route::get('/dologout','UserController@quit');
 });
