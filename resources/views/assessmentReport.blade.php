@@ -1,15 +1,16 @@
-@extends('layouts.master_recruiter')
+@extends('layouts.master')
 
 
 @section('content')
-
+<?php
+$adaReport = count($interviewer);
+?>
 
 <section id="content">
 	<div class = "container">
 			
-			@foreach ($nama_applicant as $name)
-	 			<h1> Assessment Report - {{$name->nama_applicant}}</h1>
- 			@endforeach
+			<h1> Assessment Report - {{$nama_applicant->nama_applicant}}</h1>
+ 			@if($adaReport != 0)
  			<div class="desc-group inline">
 
  			<br>
@@ -25,9 +26,9 @@
  				@foreach ($competency as $comp)
  				<tr>
 	 				<td> <h5> {{ $comp->nama_kompetensi }} </h5></td>
-	 				<td> <input type="text" style="text-align: center;"></input> </td>
-	 				<td> <input type="text" style="text-align: center;"></input> </td>
-	 				<td> <input type="text" style="text-align: center;"></input> </td>
+	 				@foreach ($interviewer as $intr)
+ 					<td> <input type="text" style="text-align: center;"></input> </td>
+ 					@endforeach
  				</tr>
  				@endforeach
  			</table>
@@ -38,6 +39,13 @@
  					<h4> {!! Form::label('user', $intr->nama_users ) !!} </h4>
  					<textarea readonly style="width: 550px; height: 100px;"> {{ $intr->isi_report }}</textarea>
  				@endforeach
+ 			</div>
+ 			<a href="{{url('FillReport/'.$nama_applicant->id_applicant)}}"><button class="btn btn-secondary">Fill Report</button></a>
+ 			@else
+ 				<h4>There are still no report</h4>
+ 				<a href="{{url('Report/'.$nama_applicant->id_applicant)}}"><button class="btn btn-secondary">Create Report</button></a>
+			@endif
+			<a href=""><button class="btn btn-default">Back</button></a>
 	</div>
 
 </section>

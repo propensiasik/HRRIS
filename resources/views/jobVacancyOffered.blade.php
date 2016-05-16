@@ -64,7 +64,7 @@
 @else
 <h3>Sorry there is no available position right now</h3>
 @endif
-	
+  
 
 @stop
 

@@ -416,8 +416,10 @@ class ApplicantController extends Controller
                                 ->paginate(15);
 
                   $jobs = DB::select('select posisi_ditawarkan from job_vacant');
-                  $temp = (array)$applicants;
-                  $count = count($temp);
+                  //$temp = (array)$applicants;
+                  $count = count($applicants);
+
+                  //dd($count);
                 return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
             }
 
@@ -640,7 +642,8 @@ class ApplicantController extends Controller
         $universitas = Input::get('universitas');
         $id_job_vacant = Input::get('id_job_vacant');
         $email = Input::get('email');
-
+        //$cv = Input::get('cv');
+        //dd($cv);
         $posisi = DB::table('job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->select('posisi_ditawarkan')->value('posisi_ditawarkan');
 
         $error = false; //flag
@@ -751,6 +754,7 @@ class ApplicantController extends Controller
                 session()->flash('cvErr', 'Only pdf allowed, please upload your CV as pdf');
             }
         }else{
+            dd($input['cv']);
             $error = true;
             dd('CV is required');
             session()->flash('cvErr', 'CV is required');
@@ -869,13 +873,14 @@ class ApplicantController extends Controller
     
     //Untuk halaman applicant buat admin
     public function getListOfApplicantAdmin(){
-	
-		$jobs = DB::select('select posisi_ditawarkan from job_vacant');
+    
+        $jobs = DB::select('select posisi_ditawarkan from job_vacant');
         $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
                                 ->join('divisi', 'job_vacant.id_divisi', '=', 'divisi.id_divisi')
                                 ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                 ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
+                                ->where('is_active','=',1)
                                 ->paginate(15);
 
 
@@ -888,7 +893,7 @@ class ApplicantController extends Controller
     //Untuk delete applicant
     public function deleteApplicant($id_applicant)
     {
-        Applicant::where('id_applicant', '=', $id_applicant)->delete();
+        Applicant::where('id_applicant', '=', $id_applicant)->update(['is_active'=>0]);
         return Redirect::to('ApplicantsAdmin');
     }
 

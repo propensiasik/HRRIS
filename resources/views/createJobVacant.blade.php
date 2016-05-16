@@ -24,7 +24,7 @@ if(session()->has('comErr')){
 }
 ?>
 <br><br>
-  <form action="CreateAvailablePosition/Save" method="post" autocomplete="on">
+  <form action="CreateAvailablePosition/Save" method="post" autocomplete="on" id="submitForm">
     <div class="row margin">
       <div class="form-group">      
         <div class="col-md-3"><label>Available Position<span class="error"></span></label></div>
@@ -110,7 +110,7 @@ if(session()->has('comErr')){
         <div class="col-md-9"><textarea name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
       </div>
     </div>
-
+    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
       </form>
 
 <div class="col-md-3"></div>
@@ -142,7 +142,7 @@ if(session()->has('comErr')){
 
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-            <button type="button" class="btn btn-secondary" id="to-save">Yes</button>
+            <button type="button" class="btn btn-secondary" onclick="submitForm()">Yes</button>
           </div>
 
         </div>
@@ -151,6 +151,9 @@ if(session()->has('comErr')){
 
 
     <script type="text/javascript">
+    function submitForm() {
+    document.getElementById("submitForm").submit();
+    }
       $(document).ready(function(){
         $('#to-save').click(function(){
           $('input[type="submit"]').trigger('click');

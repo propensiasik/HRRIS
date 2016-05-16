@@ -4,14 +4,14 @@ $countApp = count($applicant);
 ?>
 @section('content')
 <h1>Create Interview Schedule</h1>
-
-<br><br>
+<div class="container">
+	<div class="col-md-8">
 		<div class="form-group">
 			<label for="jobvacant">Job Vacant</label><br/>
 			<input id='ijv' value="{{$jobvacant->posisi_ditawarkan}} - {{$jobvacant->nama_company}}"class="form-control" readonly></input>
 		</div>
 		<div class="form-group">
-			<label>Interview Part </label><br/>
+			<label>Interview Ke </label><br/>
 			<input id='invk' value="{{$interviewke}}"class="form-control" readonly></input>  
 		</div>
 		<div class="form-group">
@@ -46,10 +46,10 @@ $countApp = count($applicant);
 				@else
 				<h4>All Applicants have assigned</h4>
 				@endif
-		</div>			
-	</div>	
-	
-	<a href="{{url('/CreateInterview')}}"><button type="button" class = "btn btn-primary">
-	<img src="{{asset('img/back.png')}}">Back</button></a>
+			</div>
+		</div>
+	</div>
+	<a href="{{url('/CreateInterview')}}"><input type="button" class = "btn btn-default" value="Back"></a>
+</div>
 </body>
 @stop

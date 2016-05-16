@@ -12,8 +12,6 @@
 @section('content')
 <h1>Create Interview Schedule</h1>
 
-<br><br>
-
 <div class="form-group">
 	<label for="jobvacant">Job Vacant</label> <br/>
 	<select id='posisi'name='Jobvacant' class="form-control">
@@ -24,7 +22,7 @@
 	</select>
 </div>
 <div class="form-group">
-	<label>Interview Part </label> <br/>
+	<label>Interview Ke </label> <br/>
 	<select id = 'interview' name='jmlhInterview' class="form-control">
 		<option>Choose</option>
 		<option id ='opt2'>1</option>
@@ -32,7 +30,7 @@
 	</select>  
 </div>
 </div>
-
+<div class="vertical-separator"></div>
 <button type="button" class="btn btn-primary" onclick="test(this.value)">Assign Applicant</button>
 </div>
 

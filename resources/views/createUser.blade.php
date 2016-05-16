@@ -79,7 +79,7 @@
     <div class="col-md-9">
         <!-- {!! Form::submit('Save', ['class' => 'btn btn-success']) !!} -->
         <button type="submit" class="btn btn-success"><img src="{{asset('img/check.png')}}">Save</button>
-        <a href="{{ URL::to('Users/Create')}}"> 
+        <a href="{{ URL::to('Users')}}"> 
             <button type="button" class="btn btn-danger"><img src="{{asset('img/cancel.png')}}">Cancel</button>
         </a>
     </div>    

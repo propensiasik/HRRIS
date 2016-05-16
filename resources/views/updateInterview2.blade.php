@@ -6,7 +6,6 @@ $countInterview = count($list_interview);
 ?>
 @section('content')
 <h1>Update Interview Schedule</h1>
-<br><br>
 <div class="container">
 	<div class="col-md-8">
 		<div class="form-group">
@@ -14,7 +13,7 @@ $countInterview = count($list_interview);
 			<input id='ijv' value="{{$jobvacant->posisi_ditawarkan}} - {{$jobvacant->nama_company}}"class="form-control" readonly></input>
 		</div>
 		<div class="form-group">
-			<label>Interview Part </label><br/>
+			<label>Interview Ke </label><br/>
 			<input id='invk' value="{{$interviewke}}"class="form-control" readonly></input>  
 		</div>
 		<div class="form-group">
@@ -58,8 +57,7 @@ $countInterview = count($list_interview);
 			<h3>There are no interview schedule</h3>
 			@endif
 			</table>
-			<a href="{{url('/UpdateInterview')}}">
-			<button type="button" class = "btn btn-primary"><img src="{{asset('img/back.png')}}">Back</button></a>
+			<a href="{{url('/UpdateInterview')}}"><input type="button" class = "btn btn-default" value="Back"></a>
 		</div>
 	</div>
 </body>

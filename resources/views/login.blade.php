@@ -55,7 +55,7 @@
 
           <div class="box">
           <h1>HRRIS Login</h1>
-          <form action = {{url('/dologin')}} method="POST">
+          <form action = {{url('/dologin')}} method="GET">
 
             <br>
 

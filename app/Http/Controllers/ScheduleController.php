@@ -210,18 +210,18 @@ class ScheduleController extends Controller
 		else{
 			$time_avs = $temp_time[0].':'.$temp_time[1].':00';
 		}
-		//validasi data input kedalam database
-		$available_schedule = \App\Available_Schedule::where('email_users','=',$_SESSION['email'])->where('id_job_vacant','=',$id_job_vacant)->get();
-		$counter = count($available_schedule);
-		if($counter != 0){
-			foreach ($available_schedule as $avs) {
-				if($date_avs == $avs->available_date || $time_avs==$avs->$available_time){
-					Session::flash('message', 'There are already same date or time!'); 
-					Session::flash('alert-class', 'alert-danger'); 
-				}
-			}
+		// //validasi data input kedalam database
+		// $available_schedule = \App\Available_Schedule::where('email_users','=',$_SESSION['email'])->where('id_job_vacant','=',$id_job_vacant)->get();
+		// $counter = count($available_schedule);
+		// if($counter != 0){
+		// 	foreach ($available_schedule as $avs) {
+		// 		if($date_avs == $avs->available_date || $time_avs==$avs->$available_time){
+		// 			Session::flash('message', 'There are already same date or time!'); 
+		// 			Session::flash('alert-class', 'alert-danger'); 
+		// 		}
+		// 	}
 
-		}
+		// }
 		//dd($date_avs);
 		DB::table('available_schedule')
 		->insert(['available_date'=>$date_avs,'notes'=>$val->note,'email_users'=>$_SESSION['email'],'is_Used'=>0,'id_job_vacant'=>$id_job_vacant,'available_time'=>$time_avs]);
