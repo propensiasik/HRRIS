@@ -93,6 +93,10 @@
 						<td colspan="5"> 
 							<br>
 							<p style="text-align: center;"> <strong>{{ 'No applicant can be choose status' }}</strong> </p>
+							<br>
+							<a href="{{ URL::to('Applicants')}}"> 
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"> <img src="{{asset('img/back.png')}}">Back to List of Applicants
+								</button>
 						</td>
 						<td></td>
 					</tr>
