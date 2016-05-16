@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'google' => [
+    'client_id' => '1005147426400-crm79oot1utsav1kv6ffo2qlafcvbjp4.apps.googleusercontent.com',
+    'client_secret' => 'gt7s66FhIfR3jLVBL1zIsITZ',
+    'redirect' => 'http://localhost/ada/public/dologin/google/callback',
+],
 
 ];
