@@ -9,18 +9,34 @@
 
 <br><br>
 
+<div>
+    <?php
+      $errors = []; 
+      if(session()->has('errors')){
+          $errors = session()->get('errors')->toArray();
+          //dd($errors);
+      }
+      $old = [];
+      if(session()->has('old_input')){
+          $old = session()->get('old_input')->toArray();
+          //dd($old);
+      }
+    ?>
+ </div>
+
 <form action="Save" method="post" autocomplete="on">
   <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Available Position<span class="error"></span></label></div>
-        <div class="col-md-9"><input type="text" name="posisi" value="{{ $posisi }}" autofocus required placeholder=" Name of the position " class = "form-control"></div>
+        <div class="col-md-9"><input type="text" name="posisi" value="{{ $posisi }}" autofocus placeholder=" Name of the position " class = "form-control"></div>
+        <div class="col-md-9 error"><?php if(array_key_exists('posisiErr', $errors)){ echo($errors['posisiErr'][0]);} ?></div>
       </div>
   </div>
 
   <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Status<span></span></label></div>
-        <div class="col-md-9"><select id="status" name="status" value= "{{ $status }}" required class = "form-control">
+        <div class="col-md-9"><select id="status" name="status" value= "{{ $status }}" class = "form-control">
           <option value=0>Not Publish</option>
           <option value=1>Publish</option>
         </select>
@@ -32,7 +48,7 @@
       <div class="form-group">
       <div class="col-md-3"><label>Company<span></span></label></div>
       <?php $default = $company; ?>
-      <div class="col-md-9"><select id="company" name="company" value="{{ $company }}" required class = "form-control">
+      <div class="col-md-9"><select id="company" name="company" value="{{ $company }}" class = "form-control">
         <option value=0>-------------------</option>
         <option value=1>Definite (PT Definite Maji Arsana)</option>
         <option value=2>Flipbox (PT Saka Digital Arsana)</option>
@@ -40,13 +56,14 @@
         <option value=4>Innovacto (PT Adrian Saka Arsana)</option>
       </select>
     </div>
+     <div class="col-md-9 error"><?php if(array_key_exists('comErr', $errors)){ echo($errors['comErr'][0]);} ?></div>
     </div>
   </div>
 
   <div class="row margin">
       <div class="form-group">  
     <div class="col-md-3"><label>Business Unit<span></span></label></div>
-    <div class="col-md-9"><select id="divisi" name="divisi" value="{{ $divisi }}" required class = "form-control">
+    <div class="col-md-9"><select id="divisi" name="divisi" value="{{ $divisi }}" class = "form-control">
       <option value=0>-------------------</option>
       <option value=1>Project Manager</option>
       <option value=2>Web Developer</option>
@@ -60,6 +77,7 @@
       <option value=10>Produser</option>
     </select>
   </div>
+  <div class="col-md-9 error"><?php if(array_key_exists('divErr', $errors)){ echo($errors['divErr'][0]);} ?></div>
   </div>
   </div>
 
@@ -67,6 +85,7 @@
       <div class="form-group">
   <div class="col-md-3"><label>Number of Needs<span></span></label></div>
   <div class="col-md-9"><input type="number" name="jml_kebutuhan" value="{{ $jml_kebutuhan }}" min="1" step="1" placeholder= "1" required class = "form-control"></div>
+  <div class="col-md-9 error"><?php if(array_key_exists('jml_kebutuhanErr', $errors)){ echo($errors['jml_kebutuhanErr'][0]);} ?></div>
 </div>
 </div>
 
@@ -74,21 +93,32 @@
   <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Job Description<span></span></label></div>
-        <div class="col-md-9"><textarea name="description" placeholder= "o>description 1" required class = "form-control">{{ $description }}</textarea></div>
+        <div class="col-md-9"><textarea name="description" placeholder= "o>description 1" class = "form-control">{{ $description }}</textarea></div>
+         <div class="col-md-9 error"><?php if(array_key_exists('descriptionErr', $errors)){ echo($errors['descriptionErr'][0]);} ?></div>
       </div>
   </div>
 
   <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Job Requirement<span></span></label></div>
-        <div class="col-md-9"><textarea name="requirement" placeholder= "o>requirement 1" required class = "form-control">{{ $requirement }}</textarea></div>
+        <div class="col-md-9"><textarea name="requirement" placeholder= "o>requirement 1" class = "form-control">{{ $requirement }}</textarea></div>
+         <div class="col-md-9 error"><?php if(array_key_exists('requirementErr', $errors)){ echo($errors['requirementErr'][0]);} ?></div>
       </div>
   </div>
   
   <div class="row margin">
       <div class="form-group">
   <div class="col-md-3"><label>Person In Charge<span></span></label></div>
-  <div class="col-md-9"><textarea name="pic" placeholder="example1@gmail.com, example2@gmail.com" required class = "form-control">{{ $pic }}</textarea></div>
+  <div class="col-md-9"><textarea name="pic" placeholder="example1@gmail.com, example2@gmail.com" class = "form-control">{{ $pic }}</textarea></div>
+  <div class="col-md-9 error">
+      @if(array_key_exists('picErr', $errors))
+          <?php $i = 0 ?>
+          @foreach($errors['picErr'] as $p)
+              {{ $errors['picErr'][$i] }}<br>  
+              <?php $i++ ?>
+          @endforeach
+      @endif
+  </div>
 </div>
 
 

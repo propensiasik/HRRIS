@@ -18,17 +18,28 @@
   }
 </style>
 
-<?php
-if(session()->has('comErr')){
-  return session()->get('comErr');
-}
-?>
+<div>
+    <?php
+      $errors = []; 
+      if(session()->has('errors')){
+          $errors = session()->get('errors')->toArray();
+          //dd($errors);
+      }
+      $old = [];
+      if(session()->has('old_input')){
+          $old = session()->get('old_input')->toArray();
+          //dd($old);
+      }
+    ?>
+ </div>
+
 <br><br>
   <form action="CreateAvailablePosition/Save" method="post" autocomplete="on" id="submitForm">
     <div class="row margin">
       <div class="form-group">      
         <div class="col-md-3"><label>Available Position<span class="error"></span></label></div>
         <div class="col-md-9"><input type="text" class = "form-control" name="posisi" autofocus required placeholder=" Name of the position ">
+        <div class="col-md-9 error"><?php if(array_key_exists('posisiErr', $errors)){ echo($errors['posisiErr'][0]);} ?></div>
         </div>
       </div>
     </div>
@@ -57,6 +68,7 @@ if(session()->has('comErr')){
               <option value=4>Innovacto (PT Adrian Saka Arsana)</option>
             </select>
         </div>
+        <div class="col-md-9 error"><?php if(array_key_exists('comErr', $errors)){ echo($errors['comErr'][0]);} ?></div>
       </div>
     </div>
 
@@ -78,15 +90,15 @@ if(session()->has('comErr')){
               <option value=10>Produser</option>
             </select>
         </div>
+        <div class="col-md-9 error"><?php if(array_key_exists('divErr', $errors)){ echo($errors['divErr'][0]);} ?></div>
       </div>
     </div>
 
     <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Number of Needs<span></span></label></div>
-        <div class="col-md-9">
-          <input type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required>
-        </div>
+        <div class="col-md-9"><input type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required></div>
+        <div class="col-md-9 error"><?php if(array_key_exists('jml_kebutuhanErr', $errors)){ echo($errors['jml_kebutuhanErr'][0]);} ?></div>
       </div>
     </div>
     
@@ -94,6 +106,7 @@ if(session()->has('comErr')){
       <div class="form-group">            
         <div class="col-md-3"><label>Job Description<span></span></label></div>
         <div class="col-md-9"><textarea name="description" class = "form-control" placeholder= "o>description 1" required></textarea></div>
+        <div class="col-md-9 error"><?php if(array_key_exists('descriptionErr', $errors)){ echo($errors['descriptionErr'][0]);} ?></div>
       </div>
     </div>
 
@@ -101,6 +114,7 @@ if(session()->has('comErr')){
       <div class="form-group">        
         <div class="col-md-3"><label>Job Requirement<span></span></label></div>
         <div class="col-md-9"><textarea name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea></div>
+        <div class="col-md-9 error"><?php if(array_key_exists('requirementErr', $errors)){ echo($errors['requirementErr'][0]);} ?></div>
       </div>
     </div>
 
@@ -108,6 +122,15 @@ if(session()->has('comErr')){
       <div class="form-group">   
         <div class="col-md-3"><label>Person In Charge<span></span></label></div>
         <div class="col-md-9"><textarea name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
+        <div class="col-md-9 error">
+          @if(array_key_exists('picErr', $errors))
+              <?php $i = 0 ?>
+              @foreach($errors['picErr'] as $p)
+                  {{ $errors['picErr'][$i] }}<br>  
+                  <?php $i++ ?>
+              @endforeach
+          @endif
+        </div>
       </div>
     </div>
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">

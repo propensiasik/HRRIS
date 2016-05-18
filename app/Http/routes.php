@@ -20,9 +20,9 @@ Route::get('/JobVacant/{id_job_vacant}', 'JobVacantController@showJobVacantInfor
 
 //Applicant Job Vacant
 Route::get('/career', 'JobVacantController@showAvailablePosition');
-Route::post('/applicant/registration', 'ApplicantController@showRegistrationForm');
+Route::get('/Apply/{id_job_vacant}', 'ApplicantController@showRegistrationForm');
 //untuk menyimpan isian form dari applicant
-Route::post('/applicant/Registration/Save', 'ApplicantController@storeApplicant');
+Route::post('/Apply/Save', 'ApplicantController@storeApplicant');
 
 
 

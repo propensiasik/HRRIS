@@ -52,10 +52,7 @@
     </div>
     <br>
     <div>
-      <form action="applicant/registration" method="post">
-        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-        <input type="submit" class="btn btn-success" name="{{ $jv->id_job_vacant }}" value= "Apply">
-      </form>
+      <button type="button" class="btn btn-primary"><a href="{{ URL::to('/Apply/' . $jv->id_job_vacant) }}"><b style="color:white;">Apply</b></a></button>
     </div>
   </div>
   <br>
