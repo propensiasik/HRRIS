@@ -650,6 +650,7 @@ class ApplicantController extends Controller
         $universitas = Input::get('universitas');
         $id_job_vacant = Input::get('id_job_vacant');
         $email = Input::get('email');
+        $num = 0;
        
         $posisi = DB::table('job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->select('posisi_ditawarkan')->value('posisi_ditawarkan');
 
@@ -776,6 +777,7 @@ class ApplicantController extends Controller
         $work_exp_list = []; 
         for ($i=1; $i <= 10 ; $i++) { 
             if(!empty($input['posisi'.$i]) || !empty($input['perusahaan'.$i]) || !empty($input['start'.$i]) || !empty($input['end'.$i])){
+                $num++;
                 //berarti dia berniat diisi
                 if(empty($input['posisi'.$i])){
                     $error = true;
@@ -823,17 +825,21 @@ class ApplicantController extends Controller
                             array_push($work_exp_list, $work_exp_obj);
                         }else{
                             $error = true;
-                            $endErr = "Please make sure that all your end period of work have a bigger date than the start period";
-                            $error_message->add('endErr', $endErr);
+                            $periodeErr = "Please make sure that all your end period of work have a bigger date than the start period";
+                            $error_message->add('periodeErr', $periodeErr);
                         }
                     } 
                 }
                
             }
-            if($error_message->has('posisiErr') || $error_message->has('perusahaanErr') || $error_message->has('dateErr') || $error_message->has('startErr') || $error_message->has('endErr')){ //dia cukup ngecek sekali
-                break; //keluar dari loop supaya error messagenya ga numpuk isinya sama semua
-            }
+            // if($error_message->has('posisiErr') || $error_message->has('perusahaanErr') || $error_message->has('dateErr') || $error_message->has('startErr') || $error_message->has('endErr')){ //dia cukup ngecek sekali
+                     //break; //keluar dari loop supaya error messagenya ga numpuk isinya sama semua
+            // }
         }
+
+
+        //$num = sizeof($work_exp_list);
+        //dd($num);
          
         //menyimpan data applicant ke table applicant
         if($error == false){
@@ -910,6 +916,7 @@ class ApplicantController extends Controller
               $old_input->add('universitas', $input['universitas']);
               $old_input->add('tahunLulus', $input['tahunLulus']);
               $old_input->add('ipk', $input['ipk']);
+              $old_input->add('banyak_work_exp', $num);
               if(!empty($cv_clone)){
                 $old_input->add('cv', $cv_clone);
               }

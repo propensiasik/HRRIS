@@ -16,6 +16,23 @@
       $errors = []; 
       if(session()->has('errors')){
           $errors = session()->get('errors')->toArray();
+          $errors_work_exp = [];
+          if(array_key_exists('posisiErr', $errors)){
+            array_push($errors_work_exp, $errors['posisiErr'][0]);
+          }
+          if(array_key_exists('perusahaanErr', $errors)){
+             array_push($errors_work_exp, $errors['perusahaanErr'][0]); 
+          }
+          if(array_key_exists('startErr', $errors)){
+            array_push($errors_work_exp, $errors['startErr'][0]); 
+          }
+          if(array_key_exists('endErr', $errors)){
+            array_push($errors_work_exp, $errors['endErr'][0]); 
+          }
+          if(array_key_exists('periodeErr', $errors)){
+            array_push($errors_work_exp, $errors['periodeErr'][0]); 
+          }
+          //dd($errors_work_exp);
       }
       $old = [];
       if(session()->has('old_input')){
@@ -137,28 +154,17 @@
   </div>
   <div class="error">
     <?php 
-    if(array_key_exists('posisiErr', $errors)){ 
-        echo($errors['posisiErr'][0]);
-    } 
+      // if(!empty($errors_work_exp)){
+      //   foreach ($errors_work_exp as $e) {
+      //    echo $e;
+      //   }
+      // }
     ?>
-    <br>
-    <?php
-    if(array_key_exists('perusahaanErr', $errors)){ 
-        echo($errors['perusahaanErr'][0]);
-    } 
-    ?>
-    <br>
-    <?php
-    if(array_key_exists('startErr', $errors)){ 
-        echo($errors['startErr'][0]);
-    } 
-    ?>
-    <br>
-    <?php
-    if(array_key_exists('endErr', $errors)){ 
-        echo($errors['endErr'][0]);
-    } 
-    ?>
+    @if(!empty($errors_work_exp))
+      @foreach($errors_work_exp as $e)
+        <li>{{ $e }}</li>
+      @endforeach
+    @endif
   </div>
     <br>
     <table class="form-group row margin">
@@ -306,6 +312,15 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+
+  var num = 0;
+  num = "<?php if(array_key_exists('banyak_work_exp', $old)){ echo($old['banyak_work_exp'][0]);} ?>"
+  //alert(num);
+
+  for (var i = 2; i <= num; i++) {
+    $('.pos'+i).show();
+  };
+
   var i = 2;
    $('.add').click(function(){
       $('.pos'+i).show();
