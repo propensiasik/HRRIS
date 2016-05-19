@@ -70,12 +70,21 @@
 
 					<br><br>
 
-					<h5>Gender : </h5>
+					<!--<h5>Gender : </h5>
 					<select class="selectpicker" name="ambilgender" id="selection">
 							<option value="none">None</option>
 				            <option value="M">Male</option>
 				            <option value="F">Female</option>
-				    </select>
+				    </select>-->
+
+				     <h5>Company: </h5>
+				     <select class = "selectpicker" name="ambilcompany" id="selection">  
+							<option value="none">None</option>
+						@foreach ($company as $perusahaan)
+							<option value="{{$perusahaan->nama_company}}">{{$perusahaan->nama_company}}</option>
+							{{ Form::label('ambilcompany', $perusahaan->nama_company) }}<br>
+						@endforeach
+					</select> 
 
 				 <br><br>
 		         <input class ="btn btn-secondary" type="submit" value="Filter">

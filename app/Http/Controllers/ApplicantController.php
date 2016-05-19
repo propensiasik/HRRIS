@@ -27,6 +27,7 @@ class ApplicantController extends Controller
         // Retrieve List of Applicant dari database untuk mengambil atribut yang dibutuhkan untuk di tampilkan pada UI, seperti NAMA applicant, POSISI atau job vacant apa yang applicant apply, dan COMPANY mana yang membuka job vacant tsb. Retrieve ini menampilkan tabel dengan fungsi pagination. 
         
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+        $company = DB::select('select nama_company from company');
 
         $applicants = DB::table('applicant')
                                 ->join('job_vacant', 'applicant.id_job_vacant', '=', 'job_vacant.id_job_vacant')
@@ -40,7 +41,7 @@ class ApplicantController extends Controller
         $from = 'Home';
 
         // Melempar data yang dibutuhkan ke VIEW/UI
-        return view('applicants')->with('applicants',$applicants)->with('jobs',$jobs)->with('count',$count)->with('page','applicants')->with('from',$from);
+        return view('applicants')->with('applicants',$applicants)->with('jobs',$jobs)->with('company', $company)->with('count',$count)->with('page','applicants')->with('from',$from);
     }
 
 
@@ -101,6 +102,7 @@ class ApplicantController extends Controller
         }
 
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+        $company = DB::select('select nama_company from company');
 
         // Jika applicant yang di pilih ada / tidak ada
         if($applicants == null){ // tidak ada satu applicant yang dapat di choose
@@ -108,7 +110,7 @@ class ApplicantController extends Controller
         }
         else{
             // Melempar data yang dibutuhkan ke VIEW/UI
-            return view('chooseApplicant')->with('applicants',$applicants)->with('status',$status)->with('statusFor', $statusFor)->with('page','chooseApplicant')->with('jobs',$jobs)   ;
+            return view('chooseApplicant')->with('applicants',$applicants)->with('status',$status)->with('company', $company)->with('statusFor', $statusFor)->with('page','chooseApplicant')->with('jobs',$jobs)   ;
         }
     }
 
@@ -364,13 +366,14 @@ class ApplicantController extends Controller
                                 ->orWhere('company.nama_company', 'LIKE', '%'.$keyword.'%')
                                 ->count();
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+        $company = DB::select('select nama_company from company');
 
 
         if($applicants->isEmpty()){ // jika keyword tidak sesuai dengan data di DB
             return view('applicantSearchNotFound')->with('jobs', $jobs);
         }
         else{ // jika keyword sesuai dengan data di DB dan menampilkan hasil pencarian ke applicants.blade.php
-            return view('applicants')->with('applicants',$applicants)->with('jobs', $jobs)->with('count',$count)->with('page','applicants');
+            return view('applicants')->with('applicants',$applicants)->with('jobs', $jobs)->with('company', $company)->with('count',$count)->with('page','applicants');
         }
     }
 
@@ -381,7 +384,7 @@ class ApplicantController extends Controller
 
         //MENGAMBIL INPUT DARI USER
         $posisi = Input::get('ambilposisi');
-        $gender = Input::get('ambilgender');
+        $perusahaan =Input::get('ambilcompany');
 
         /*APPLICANT DIGUNAKAN UNTUK ME-RETRIEVE DATA DARI DATABASE MENGENAI APPLICANT YANG AKAN DITAMPILKAN DALAM LIST OF
         APPLICANT, DIMANA KETIKA USER MELAKUKAN FITERING, INPUT YANG MASUK DI CEK DENGAN DATA YANG ADA DI DATABASE SEHINGGA
@@ -400,6 +403,7 @@ class ApplicantController extends Controller
                                          ->paginate(15);
                
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+        $company = DB::select('select nama_company from company');
         //$temp = (array)$applicants;
         $count = count($applicants);
         //dd($count);
@@ -417,11 +421,12 @@ class ApplicantController extends Controller
                                 ->paginate(15);
 
                   $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+                  $company = DB::select('select nama_company from company');
                   //$temp = (array)$applicants;
                   $count = count($applicants);
 
                   //dd($count);
-                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
+                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('company', $company)->with('count',$count);
             }
 
         //JIKA USER MEMASUKKAN INPUT GENDER KOSONG
@@ -436,8 +441,9 @@ class ApplicantController extends Controller
                                  ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
                                  ->paginate(15);
                  $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+                 $company = DB::select('select nama_company from company');
                 $count = count($applicants);
-                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
+                return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('company', $company)->with('count',$count);
             }
 
         }
@@ -455,11 +461,12 @@ class ApplicantController extends Controller
                                          ->paginate(15);
                
             $jobs = DB::select('select posisi_ditawarkan from job_vacant');
+            $company = DB::select('select nama_company from company');
             $count = count($applicants);
-            return view('applicantChooseNotFound')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
+            return view('applicantChooseNotFound')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('company', $company)->with('count',$count);
         }else {
             //JIKA SEMUA PILIHAN SESUAI
-            return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('count',$count);
+            return view('applicants')->with('applicants',$applicants)->with('page','applicants')->with('jobs', $jobs)->with('company', $company)->with('count',$count);
         }
 
     }
