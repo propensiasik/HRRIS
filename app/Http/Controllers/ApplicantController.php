@@ -582,15 +582,10 @@ class ApplicantController extends Controller
     
     public function changeStatus(Request $val){
 
-       //$status = DB::select('select * from status');
-
-        $id = $val->input('id_applicant');
+       $id = $val->input('id_applicant');
         $status = $val->input('status');
         $sla = $val->input('sla');
         $id_job = $val->input('id_job');
-
-      
-        //$applicantProfile = Applicant::where('id_applicant', $id)->get();
 
         $interview = DB::select('select id_applicant from interview');
 
@@ -598,22 +593,27 @@ class ApplicantController extends Controller
         Applicant::where('id_applicant', $id)
                             ->update(['status_ter_update' => $status]);
 
-        $post = new Status_applicant;
-         
-        
-        $post->id_status=  $val->input('status');
-        $post->id_job_vacant =$val->input('id_job'); //ini untuk ambil dari dropdow       
-        $post->id_sla = $val->input('sla'); //ini untuk ambil dari dropdown         
-        $post->id_applicant = $val->input('id_applicant');
-        //$post->tgl_konfirmasi = Carbon::now();
-        
+        $cek = DB::table('status_applicant')
+                    ->select('id_status as id') 
+                    ->where('id_applicant', '=', $id)
+                    ->orderBy('tgl_notifikasi', 'desc')
+                    ->first();
+        $cek2 = $cek->id ;
 
-         $post->save();
-        //return redirect('/Applicants')->with('status', 'Profile updated!');
-         //return redirect()->route('/applicant/profile/{id_applicant}', ['id_applicant' => $val->input('id_applicant')]);
+        $post = new Status_applicant;
+        
+        if($status != $cek2){
+            
+            $post->id_status=  $val->input('status');
+            $post->id_job_vacant =$val->input('id_job'); //ini untuk ambil dari dropdow       
+            $post->id_sla = $val->input('sla'); //ini untuk ambil dari dropdown         
+            $post->id_applicant = $val->input('id_applicant');
+            $post->save();
+
+        }else{
+           return redirect()->back();
+        }
          return redirect()->back();
-       
-       
     }
 
 
