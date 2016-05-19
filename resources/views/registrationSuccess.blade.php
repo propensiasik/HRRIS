@@ -3,7 +3,7 @@
 	session_start();
 ?>
 @section('title')
-Job Vacant List
+
 @endsection
 
 @section('content')

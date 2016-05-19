@@ -80,7 +80,7 @@
                   
 <h3>Person In Charge</h3>
 @foreach($users_involved as $user)
-  <p>-. {{ $user->email_users }}</p>
+  <li>{{ $user->email_users }}</li>
 @endforeach
                 
 

@@ -6,10 +6,14 @@
 
 <div class="top">
   <h1 class="alignleft"> View Assessment Form Competency </h1>
-  <br>
-  <button class = "btn btn-success alignright" type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/CheckReportForm/". $id_job_vacant)}}'">
+  <div class = "alignright"><br>
+   <a href="{{ URL::to('/JobVacant/' . $id_job_vacant) }}">
+    <button class="btn btn-default"><img src="{{asset('img/Icon - Archive.png')}}">View Available Position</button>
+   </a>
+  <button class = "btn btn-success" type ="submit" onclick="window.location='{{url("/JobVacant/ReportForm/CheckReportForm/". $id_job_vacant)}}'">
     <img src="{{asset('img/Icon - Edit.png')}}">Update
   </button>
+  </div>
 </div>
   
     <div class="desc-group inline">

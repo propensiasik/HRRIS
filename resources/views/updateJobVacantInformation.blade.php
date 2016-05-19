@@ -132,7 +132,7 @@
 <div class="col-md-9">
 <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg">
 <img src="{{asset('img/check.png')}}">Save</button>
-<a href="{{ URL::to('/JobVacant') }}"><button class="btn btn-danger">
+<a href="{{ URL::to('/JobVacant/'. $id_job_vacant) }}"><button class="btn btn-danger">
 <img src="{{asset('img/cancel.png')}}">Cancel</button></a>
 </div>
 </div> 

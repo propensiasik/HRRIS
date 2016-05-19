@@ -106,6 +106,14 @@
   </div>
 
   <div class="row margin">
+    <div class="form-group">
+      <div class="col-md-3"><label>CV<span></span></label></div>
+      <div id="cv" class="col-md-9"><input type="file" id="cv" name="cv" class="form-control"><div><br>*only pdf allowed</div>
+      <div class="col-md-9 error"><?php if(array_key_exists('cvErr', $errors)){ echo($errors['cvErr'][0]);} ?></div></div> 
+  </div>
+</div> 
+
+  <div class="row margin">
     <div class="form-group"> 
       <div class="col-md-3"><label>Portfolio<span></span></label></div>
       <div id="portofolio" class="col-md-9"><input type="file" id="portofolio" name="portofolio" class="form-control"><div><br>*required for UI/UX<br>*only pdf allowed</div>
@@ -113,14 +121,6 @@
     </div>
   </div>
 </div>
-
- <div class="row margin">
-    <div class="form-group">
-      <div class="col-md-3"><label>CV<span></span></label></div>
-      <div id="cv" class="col-md-9"><input type="file" id="cv" name="cv" class="form-control"><div><br>*only pdf allowed</div>
-      <div class="col-md-9 error"><?php if(array_key_exists('cvErr', $errors)){ echo($errors['cvErr'][0]);} ?></div></div> 
-  </div>
-</div> 
    
   <div class="row margin">
     <div class="form-group">
@@ -314,14 +314,6 @@ $(document).ready(function(){
    $('#to-save').click(function(){
       $('input[type="submit"]').trigger('click');
    });
-
-
-   // document.getElementById('gender').value="<?php if(array_key_exists('gender', $old)){ Print($old['gender'][0]);} ?>";
-   // document.getElementById('cv').value="<?php if(array_key_exists('cv', $old)){ Print($old['cv'][0]);} ?>";
-   // document.getElementById('portofolio').value="<?php if(array_key_exists('portofolio', $old)){ Print($old['portofolio'][0]);} ?>";
-
-   
-   
    
 });
 </script>  

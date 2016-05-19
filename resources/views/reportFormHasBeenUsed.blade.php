@@ -2,7 +2,7 @@
 
 
 @section('title')
-	Report Form
+
 @endsection
 
 <style type="text/css">

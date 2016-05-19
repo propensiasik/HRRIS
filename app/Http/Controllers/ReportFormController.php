@@ -78,7 +78,9 @@ class ReportFormController extends Controller
       $array_id = json_decode($input);
 
       if(empty($array_id)){
-        dd('There is no competency choosen');
+        $error = "There is no competency choosen";
+        session()->flash('error', $error);
+        return redirect()->action('ReportFormController@createReportForm', $id_job_vacant);
       }else{       
       //memasukan data report form pada table report form
       $id_report_form = DB::table('report_form')->insertGetId(['id_job_vacant' => $id_job_vacant]);      
@@ -112,7 +114,9 @@ class ReportFormController extends Controller
       $array_id = json_decode($input);
 
       if(empty($array_id)){
-        dd('There is no competency choosen');
+        $error = "There is no competency choosen";
+        session()->flash('error', $error);
+        return redirect()->action('ReportFormController@updateReportForm', $id_job_vacant);
       }else{
 
       $id_report_form = Input::get('id_report_form');

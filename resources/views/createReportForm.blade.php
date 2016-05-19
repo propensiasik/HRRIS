@@ -31,6 +31,14 @@
     </table>
   </div>
 
+ <div class="error">
+    <?php
+      if(session()->has('error')){
+          echo session()->get('error');
+      }
+    ?>
+  </div>
+
   <div class="table-responsive">
     <table class="table">
       <h3>Competency List</h3>
@@ -74,6 +82,7 @@
   <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
   <button class="simpan btn btn-success"><img src="{{asset('img/check.png')}}">Save</button>
   </form>
+   <a href="{{ URL::to('/JobVacant/'. $id_job_vacant) }}"><button class="btn btn-danger"><img src="{{asset('img/cancel.png')}}">Cancel</button></a>
 </div>  
 
 </div>

@@ -35,6 +35,13 @@
     </table>
   </div>
 
+<div class="error">
+    <?php
+      if(session()->has('error')){
+          echo session()->get('error');
+      }
+    ?>
+</div>
 
   <div class="table-responsive">
     <table class="table">
@@ -82,6 +89,7 @@
     <input name="id_report_form" value= "{{$id_report_form}}" style="display:none">
   <button class="simpan btn btn-success"><img src="{{asset('img/check.png')}}">Save</button>
   </form>
+  <a href="{{ URL::to('/JobVacant/ReportForm/ViewReportForm/'. $id_job_vacant) }}"><button class="btn btn-danger"><img src="{{asset('img/cancel.png')}}">Cancel</button></a>
 </div>
 
 </div>
