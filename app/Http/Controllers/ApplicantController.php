@@ -901,7 +901,7 @@ class ApplicantController extends Controller
 
             //mengirim email konfirmasi ke email applicant dan hr
             // Mail::send('emails.toSend', ['nama' => $nama, 'posisi' => $posisi], function($message) {
-   //           $message->to('khalila9616@gmail.com', 'Khalila Hunafa')->subject('Definite Confirmation');
+            //  $message->to('khalila9616@gmail.com', 'Khalila Hunafa')->subject('Definite Confirmation');
             // });
 
              return view('registrationSuccess', ['nama' => $nama, 'posisi' => $posisi]);

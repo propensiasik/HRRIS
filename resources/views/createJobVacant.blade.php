@@ -38,7 +38,7 @@
     <div class="row margin">
       <div class="form-group">      
         <div class="col-md-3"><label>Available Position<span class="error"></span></label></div>
-        <div class="col-md-9"><input type="text" class = "form-control" name="posisi" autofocus required placeholder=" Name of the position ">
+        <div class="col-md-9"><input id="posisi" type="text" class = "form-control" name="posisi" autofocus required placeholder=" Name of the position ">
         <div class="col-md-9 error"><?php if(array_key_exists('posisiErr', $errors)){ echo($errors['posisiErr'][0]);} ?></div>
         </div>
       </div>
@@ -48,7 +48,7 @@
       <div class="form-group"> 
         <div class="col-md-3"><label>Status<span></span></label></div>
         <div class="col-md-9">
-            <select name="status" class = "form-control" required>
+            <select name="status" id="status" class = "form-control" required>
               <option value=0>Not Publish</option>
               <option value=1>Publish</option>
             </select>
@@ -60,7 +60,7 @@
       <div class="form-group">
         <div class="col-md-3"><label>Company<span></span></label></div>
         <div class="col-md-9">
-            <select name="company" class = "form-control" required>
+            <select name="company" id="company" class = "form-control" required>
               <option value=0>-------------------</option>
               <option value=1>Definite (PT Definite Maji Arsana)</option>
               <option value=2>Flipbox (PT Saka Digital Arsana)</option>
@@ -76,7 +76,7 @@
       <div class="form-group">              
         <div class="col-md-3"><label>Business Unit<span></span></label></div>
         <div class="col-md-9">
-            <select name="divisi" class="form-control" required>
+            <select name="divisi" id="divisi" class="form-control" required>
               <option value=0>-------------------</option>
               <option value=1>Project Manager</option>
               <option value=2>Web Developer</option>
@@ -97,7 +97,7 @@
     <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Number of Needs<span></span></label></div>
-        <div class="col-md-9"><input type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required></div>
+        <div class="col-md-9"><input id="jml_kebutuhan" type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required></div>
         <div class="col-md-9 error"><?php if(array_key_exists('jml_kebutuhanErr', $errors)){ echo($errors['jml_kebutuhanErr'][0]);} ?></div>
       </div>
     </div>
@@ -105,7 +105,7 @@
     <div class="row margin">
       <div class="form-group">            
         <div class="col-md-3"><label>Job Description<span></span></label></div>
-        <div class="col-md-9"><textarea name="description" class = "form-control" placeholder= "o>description 1" required></textarea></div>
+        <div class="col-md-9"><textarea id="description" name="description" class = "form-control" placeholder= "o>description 1" required></textarea></div>
         <div class="col-md-9 error"><?php if(array_key_exists('descriptionErr', $errors)){ echo($errors['descriptionErr'][0]);} ?></div>
       </div>
     </div>
@@ -113,7 +113,7 @@
     <div class="row margin">
       <div class="form-group">        
         <div class="col-md-3"><label>Job Requirement<span></span></label></div>
-        <div class="col-md-9"><textarea name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea></div>
+        <div class="col-md-9"><textarea id="requirement" name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea></div>
         <div class="col-md-9 error"><?php if(array_key_exists('requirementErr', $errors)){ echo($errors['requirementErr'][0]);} ?></div>
       </div>
     </div>
@@ -121,7 +121,7 @@
     <div class="row margin">
       <div class="form-group">   
         <div class="col-md-3"><label>Person In Charge<span></span></label></div>
-        <div class="col-md-9"><textarea name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
+        <div class="col-md-9"><textarea id="pic" name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
         <div class="col-md-9 error">
           @if(array_key_exists('picErr', $errors))
               <?php $i = 0 ?>
@@ -178,6 +178,15 @@
     document.getElementById("submitForm").submit();
     }
       $(document).ready(function(){
+        document.getElementById('posisi').value= "<?php if(array_key_exists('posisi', $old)){ echo($old['posisi'][0]);} ?>";
+        document.getElementById('company').value= "<?php if(array_key_exists('company', $old)){ echo($old['company'][0]);} ?>";
+        document.getElementById('status').value= "<?php if(array_key_exists('status', $old)){ echo($old['status'][0]);} ?>";
+        document.getElementById('divisi').value= "<?php if(array_key_exists('divisi', $old)){ echo($old['divisi'][0]);} ?>";
+        document.getElementById('jml_kebutuhan').value= "<?php if(array_key_exists('jml_kebutuhan', $old)){ echo($old['jml_kebutuhan'][0]);} ?>";
+        document.getElementById('description').value= "<?php if(array_key_exists('description', $old)){ echo($old['description'][0]);} ?>";
+        document.getElementById('requirement').value= "<?php if(array_key_exists('requirement', $old)){ echo($old['requirement'][0]);} ?>";
+        document.getElementById('pic').value= "<?php if(array_key_exists('pic', $old)){ echo($old['pic'][0]);} ?>";
+       
         $('#to-save').click(function(){
           $('input[type="submit"]').trigger('click');
         });
