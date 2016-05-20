@@ -901,11 +901,14 @@ class ApplicantController extends Controller
 
             //mengirim email konfirmasi ke email applicant dan hr
             // Mail::send('emails.toSend', ['nama' => $nama, 'posisi' => $posisi], function($message) {
-            //  $message->to('khalila9616@gmail.com', 'Khalila Hunafa')->subject('Definite Confirmation');
+   //           $message->to('khalila9616@gmail.com', 'Khalila Hunafa')->subject('Definite Confirmation');
             // });
 
              return view('registrationSuccess', ['nama' => $nama, 'posisi' => $posisi]);
         }else{ //ketika error ditemukan dia akan melempar error message ke form
+              $error_message->add('undoUploadCV', "If you have uploaded your CV previously. Please upload it again");
+              $error_message->add('undoUploadPortofolio', "If you have uploaded your portofolio previously. Please upload it again");
+
               $old_input = new MessageBag();
               $old_input->add('nama', $input['nama']);
               $old_input->add('email', $input['email']);
@@ -917,12 +920,6 @@ class ApplicantController extends Controller
               $old_input->add('tahunLulus', $input['tahunLulus']);
               $old_input->add('ipk', $input['ipk']);
               $old_input->add('banyak_work_exp', $num);
-              if(!empty($cv_clone)){
-                $old_input->add('cv', $cv_clone);
-              }
-              if(!empty($portofolio_clone)){
-                $old_input->add('portofolio', $portofolio_clone);
-              }
               $old_input->add('pesan', $input['pesan']);
               $old_input->add('id_job_vacant', $input['id_job_vacant']);
               for ($i=1; $i <= 10 ; $i++) { 
@@ -946,7 +943,7 @@ class ApplicantController extends Controller
               
               return view('applicantRegistrationForm', ['id_job_vacant' => $id_job_vacant]);
         }
-    }   
+    }    
     
     //Untuk halaman applicant buat admin
     public function getListOfApplicantAdmin(){

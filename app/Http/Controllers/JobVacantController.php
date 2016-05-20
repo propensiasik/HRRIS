@@ -168,7 +168,7 @@ class JobVacantController extends Controller
          $status = 'Not published';
        }
 
-       $applicant_list = DB::table('applicant')->where('id_job_vacant', $id_job_vacant)->get();
+       $applicant_list = DB::table('applicant')->where('id_job_vacant', $id_job_vacant)->where('is_active', 1)->simplePaginate(10);
 
        $users_involved = DB::table('involved_job_vacant')->where('id_job_vacant', '=', $id_job_vacant)->get();
   
@@ -229,13 +229,6 @@ class JobVacantController extends Controller
            $error = true;
            $comErr = "Please choose the company.";
            $error_message->add('comErr', $comErr);
-           //session()->put('comErr', 'Please choose the company.');
-            // if(session()->has('comErr')){
-            //    return session()->get('comErr');
-            //  }
-
-          //dd($comErr);
-          //return redirect('CreateAvailablePosition');
       }
 
       if(empty($input['posisi'])){
@@ -371,7 +364,7 @@ class JobVacantController extends Controller
       session()->flash('old_input', $old_input);
       //lempar session ke halaman form
 
-      return redirect()->action('JobVacantController@showCreateJobVacantForm');
+      return redirect()->route('FormCreateAvailablePosition');
 
     }
   }
@@ -591,12 +584,12 @@ class JobVacantController extends Controller
         session()->flash('old_input', $old_input);
         //lempar session ke halaman form
 
-        return redirect()->action('JobVacantController@showUpdateJobVacantForm', $id_job_vacant);
-        // if(!$error_message->isEmpty()){
-        //   return $error_message->all();
-        // }
+       // return redirect()->action('JobVacantController@updateFormWrongInput', $id_job_vacant);
+        //return redirect()->route('updateError', ['id_job_vacant' => $id_job_vacant]);
+       return view('updateJobVacantInformation',  ['id_job_vacant' => $id_job_vacant]);
      }
   }
+
 
 
 
@@ -698,6 +691,22 @@ class JobVacantController extends Controller
            $pic = $pic.", ".$p;
         }
       }
-      return view('updateJobVacantInformation',  ['id_job_vacant' => $id_job_vacant, 'posisi' => $posisi, 'status' => $status, 'company' => $company, 'divisi' => $divisi, 'jml_kebutuhan' => $jml_kebutuhan, 'requirement' => $requirement, 'description' => $description, 'pic' => $pic]); 
+
+
+        $old_input = new MessageBag();
+        $old_input->add('posisi', $posisi);
+        $old_input->add('status', $status);
+        $old_input->add('company', $company);
+        $old_input->add('divisi', $divisi);
+        $old_input->add('jml_kebutuhan', $jml_kebutuhan);
+        $old_input->add('description', $description);
+        $old_input->add('requirement', $requirement);
+        $old_input->add('pic', $pic);
+        $old_input->add('id_job_vacant', $id_job_vacant);
+
+        session()->flash('old_input', $old_input);
+
+
+      return view('updateJobVacantInformation',  ['id_job_vacant' => $id_job_vacant]); 
     }
    }

@@ -9,15 +9,6 @@
 
 <h1> Create Available Position </h1>
 
-<style type="text/css">
-  .err {
-    background: slategrey;
-    color: #fff;
-    padding: 20px;
-    margin-buttom: 20px;      
-  }
-</style>
-
 <div>
     <?php
       $errors = []; 
@@ -67,8 +58,8 @@
               <option value=3>Karya (PT Karya Saka Arsana)</option>
               <option value=4>Innovacto (PT Adrian Saka Arsana)</option>
             </select>
+            <div class="col-md-9 error"><?php if(array_key_exists('comErr', $errors)){ echo($errors['comErr'][0]);} ?></div>
         </div>
-        <div class="col-md-9 error"><?php if(array_key_exists('comErr', $errors)){ echo($errors['comErr'][0]);} ?></div>
       </div>
     </div>
 
@@ -89,39 +80,39 @@
               <option value=9>Analyst</option>
               <option value=10>Produser</option>
             </select>
+             <div class="col-md-9 error"><?php if(array_key_exists('divErr', $errors)){ echo($errors['divErr'][0]);} ?></div>
         </div>
-        <div class="col-md-9 error"><?php if(array_key_exists('divErr', $errors)){ echo($errors['divErr'][0]);} ?></div>
       </div>
     </div>
 
     <div class="row margin">
       <div class="form-group">
         <div class="col-md-3"><label>Number of Needs<span></span></label></div>
-        <div class="col-md-9"><input id="jml_kebutuhan" type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required></div>
-        <div class="col-md-9 error"><?php if(array_key_exists('jml_kebutuhanErr', $errors)){ echo($errors['jml_kebutuhanErr'][0]);} ?></div>
+        <div class="col-md-9"><input id="jml_kebutuhan" type="number" class = "form-control" name="jml_kebutuhan" min="1" step="1" placeholder= "1" required>
+        <div class="col-md-9 error"><?php if(array_key_exists('jml_kebutuhanErr', $errors)){ echo($errors['jml_kebutuhanErr'][0]);} ?></div></div>
       </div>
     </div>
     
     <div class="row margin">
       <div class="form-group">            
         <div class="col-md-3"><label>Job Description<span></span></label></div>
-        <div class="col-md-9"><textarea id="description" name="description" class = "form-control" placeholder= "o>description 1" required></textarea></div>
-        <div class="col-md-9 error"><?php if(array_key_exists('descriptionErr', $errors)){ echo($errors['descriptionErr'][0]);} ?></div>
+        <div class="col-md-9"><textarea id="description" name="description" class = "form-control" placeholder= "o>description 1" required></textarea>
+        <div class="col-md-9 error"><?php if(array_key_exists('descriptionErr', $errors)){ echo($errors['descriptionErr'][0]);} ?></div></div>
       </div>
     </div>
 
     <div class="row margin">
       <div class="form-group">        
         <div class="col-md-3"><label>Job Requirement<span></span></label></div>
-        <div class="col-md-9"><textarea id="requirement" name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea></div>
-        <div class="col-md-9 error"><?php if(array_key_exists('requirementErr', $errors)){ echo($errors['requirementErr'][0]);} ?></div>
+        <div class="col-md-9"><textarea id="requirement" name="requirement" class = "form-control" placeholder= "o>requirement 1" required></textarea>
+        <div class="col-md-9 error"><?php if(array_key_exists('requirementErr', $errors)){ echo($errors['requirementErr'][0]);} ?></div></div>
       </div>
     </div>
 
     <div class="row margin">
       <div class="form-group">   
         <div class="col-md-3"><label>Person In Charge<span></span></label></div>
-        <div class="col-md-9"><textarea id="pic" name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea></div>
+        <div class="col-md-9"><textarea id="pic" name="pic" class = "form-control" placeholder="example1@gmail.com, example2@gmail.com" required></textarea>
         <div class="col-md-9 error">
           @if(array_key_exists('picErr', $errors))
               <?php $i = 0 ?>
@@ -130,7 +121,7 @@
                   <?php $i++ ?>
               @endforeach
           @endif
-        </div>
+        </div></div>
       </div>
     </div>
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
@@ -179,9 +170,9 @@
     }
       $(document).ready(function(){
         document.getElementById('posisi').value= "<?php if(array_key_exists('posisi', $old)){ echo($old['posisi'][0]);} ?>";
-        document.getElementById('company').value= "<?php if(array_key_exists('company', $old)){ echo($old['company'][0]);} ?>";
-        document.getElementById('status').value= "<?php if(array_key_exists('status', $old)){ echo($old['status'][0]);} ?>";
-        document.getElementById('divisi').value= "<?php if(array_key_exists('divisi', $old)){ echo($old['divisi'][0]);} ?>";
+        document.getElementById('company').value= "<?php if(array_key_exists('company', $old)){ echo($old['company'][0]);}else{ echo 0;} ?>";
+        document.getElementById('status').value= "<?php if(array_key_exists('status', $old)){ echo($old['status'][0]);}else{ echo 0;} ?>";
+        document.getElementById('divisi').value= "<?php if(array_key_exists('divisi', $old)){ echo($old['divisi'][0]);}else{ echo 0;} ?>";
         document.getElementById('jml_kebutuhan').value= "<?php if(array_key_exists('jml_kebutuhan', $old)){ echo($old['jml_kebutuhan'][0]);} ?>";
         document.getElementById('description').value= "<?php if(array_key_exists('description', $old)){ echo($old['description'][0]);} ?>";
         document.getElementById('requirement').value= "<?php if(array_key_exists('requirement', $old)){ echo($old['requirement'][0]);} ?>";

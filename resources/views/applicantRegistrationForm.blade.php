@@ -49,7 +49,7 @@
   <div class="row margin">
     <div class="form-group"> 
       <div class="col-md-3"><label>Full name</label></div>
-      <div id="nama" class="col-md-9"><input type="text" name="nama" autofocus placeholder=" Your Name " class="form-control" value="<?php if(array_key_exists('nama', $old)){ echo($old['nama'][0]);} ?>">
+      <div class="col-md-9"><input type="text" name="nama" autofocus placeholder=" Your Name " class="form-control" value="<?php if(array_key_exists('nama', $old)){ echo($old['nama'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('nameErr', $errors)){ echo($errors['nameErr'][0]);} ?></div></div>
     </div>
   </div>
@@ -57,7 +57,7 @@
   <div class="row margin">
     <div class="form-group"> 
       <div class="col-md-3"><label>E-mail<span></span></label></div>
-      <div id="email" class="col-md-9"><input type="email" name="email" placeholder=" example@mail.com " class="form-control" value="<?php if(array_key_exists('email', $old)){ echo($old['email'][0]);} ?>">
+      <div class="col-md-9"><input type="email" name="email" placeholder=" example@mail.com " class="form-control" value="<?php if(array_key_exists('email', $old)){ echo($old['email'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('emailErr', $errors)){ echo($errors['emailErr'][0]);} ?></div></div>  
     </div>
   </div>
@@ -65,7 +65,7 @@
   <div class="row margin">
     <div class="form-group"> 
       <div class="col-md-3"><label>Gender<span></span></label></div>
-      <div id="gender" class="col-md-9"><select name="gender" id="gender" class="form-control">
+      <div class="col-md-9"><select name="gender" id="gender" class="form-control">
                <option value="O">------</option>
                <option value="M">Male</option>
                <option value="F">Female</option>
@@ -77,7 +77,7 @@
   <div class="row margin">
     <div class="form-group"> 
       <div class="col-md-3"><label>Address<span></span></label></div>
-      <div id="alamat" class="col-md-9"><textarea name="alamat" placeholder="Street, home number, city" class="form-control"  value="<?php if(array_key_exists('alamat', $old)){ echo($old['alamat'][0]);} ?>"></textarea>
+      <div class="col-md-9"><textarea name="alamat" placeholder="Street, home number, city" class="form-control"><?php if(array_key_exists('alamat', $old)){ echo($old['alamat'][0]);} ?></textarea>
       <div class="col-md-9 error"><?php if(array_key_exists('addressErr', $errors)){ echo($errors['addressErr'][0]);} ?></div></div> 
     </div>
   </div>
@@ -85,7 +85,7 @@
   <div class="row margin">
     <div class="form-group">  
       <div class="col-md-3"><label>Phone number<span></span></label></div>
-      <div id="phone" class="col-md-9"><input type="tel" name="phone" placeholder="08xxxxxxxxxx" class="form-control" value="<?php if(array_key_exists('phone', $old)){ echo($old['phone'][0]);} ?>">
+      <div class="col-md-9"><input type="tel" name="phone" placeholder="08xxxxxxxxxx" class="form-control" value="<?php if(array_key_exists('phone', $old)){ echo($old['phone'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('phoneErr', $errors)){ echo($errors['phoneErr'][0]);} ?></div></div> 
     </div>
   </div>
@@ -93,7 +93,7 @@
   <div class="row margin">
     <div class="form-group">  
       <div class="col-md-3"><label>Major<span></span></label></div>
-      <div id="jurusan" class="col-md-9"><input type="text" name="jurusan" placeholder="Your Major" class="form-control" value="<?php if(array_key_exists('jurusan', $old)){ echo($old['jurusan'][0]);} ?>">
+      <div class="col-md-9"><input type="text" name="jurusan" placeholder="Your Major" class="form-control" value="<?php if(array_key_exists('jurusan', $old)){ echo($old['jurusan'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('jurusanErr', $errors)){ echo($errors['jurusanErr'][0]);} ?></div></div> 
     </div>
   </div>
@@ -101,7 +101,7 @@
   <div class="row margin">
     <div class="form-group">
       <div class="col-md-3"><label>University<span></span></label></div>
-      <div id="universitas" class="col-md-9"><input type="text" name="universitas" placeholder="University " class="form-control"  value="<?php if(array_key_exists('universitas', $old)){ echo($old['universitas'][0]);} ?>">
+      <div class="col-md-9"><input type="text" name="universitas" placeholder="University " class="form-control"  value="<?php if(array_key_exists('universitas', $old)){ echo($old['universitas'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('universitasErr', $errors)){ echo($errors['universitasErr'][0]);} ?></div></div> 
     </div>
   </div>
@@ -109,7 +109,7 @@
   <div class="row margin">
     <div class="form-group">  
       <div class="col-md-3"><label>Graduation year<span></span></label></div>
-      <div id="tahunLulus" class="col-md-9"><input type="text" name="tahunLulus" placeholder="20xx" class="form-control" value="<?php if(array_key_exists('tahunLulus', $old)){ echo($old['tahunLulus'][0]);} ?>">
+      <div class="col-md-9"><input type="text" name="tahunLulus" placeholder="20xx" class="form-control" value="<?php if(array_key_exists('tahunLulus', $old)){ echo($old['tahunLulus'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('tahunLulusErr', $errors)){ echo($errors['tahunLulusErr'][0]);} ?></div></div> 
     </div>
   </div>
@@ -117,7 +117,7 @@
   <div class="row margin">
     <div class="form-group">  
       <div class="col-md-3"><label>GPA<span></span></label></div>
-      <div id="ipk" class="col-md-9"><input type="number" name="ipk" min="0" max="4" step="0.01" placeholder="3,51" class="form-control" value="<?php if(array_key_exists('ipk', $old)){ echo($old['ipk'][0]);} ?>">
+      <div class="col-md-9"><input type="number" name="ipk" min="0" max="4" step="0.01" placeholder="3,51" class="form-control" value="<?php if(array_key_exists('ipk', $old)){ echo($old['ipk'][0]);} ?>">
       <div class="col-md-9 error"><?php if(array_key_exists('ipkErr', $errors)){ echo($errors['ipkErr'][0]);} ?></div></div> 
     </div>
   </div>
@@ -125,16 +125,20 @@
   <div class="row margin">
     <div class="form-group">
       <div class="col-md-3"><label>CV<span></span></label></div>
-      <div id="cv" class="col-md-9"><input type="file" id="cv" name="cv" class="form-control"><div><br>*only pdf allowed</div>
-      <div class="col-md-9 error"><?php if(array_key_exists('cvErr', $errors)){ echo($errors['cvErr'][0]);} ?></div></div> 
+      <div class="col-md-9"><input type="file" id="cv" name="cv" class="form-control"><div><br>*only pdf allowed</div>
+      <div class="col-md-9 error"><?php if(array_key_exists('cvErr', $errors)){ echo($errors['cvErr'][0]);} ?></div>
+      <div class="col-md-9 info" style="color:blue;"><?php if(array_key_exists('undoUploadCV', $errors)){ echo($errors['undoUploadCV'][0]);} ?></div>
+      </div> 
   </div>
 </div> 
 
   <div class="row margin">
     <div class="form-group"> 
       <div class="col-md-3"><label>Portfolio<span></span></label></div>
-      <div id="portofolio" class="col-md-9"><input type="file" id="portofolio" name="portofolio" class="form-control"><div><br>*required for UI/UX<br>*only pdf allowed</div>
-      <div class="col-md-9 error"><?php if(array_key_exists('portofolioErr', $errors)){ echo($errors['portofolioErr'][0]);} ?></div></div> 
+      <div class="col-md-9"><input type="file" id="portofolio" name="portofolio" class="form-control"><div><br>*required for UI/UX<br>*only pdf allowed</div>
+      <div class="col-md-9 error"><?php if(array_key_exists('portofolioErr', $errors)){ echo($errors['portofolioErr'][0]);} ?></div>
+      <div class="col-md-9 info" style="color:blue;"><?php if(array_key_exists('undoUploadPortofolio', $errors)){ echo($errors['undoUploadPortofolio'][0]);} ?></div>
+    </div> 
     </div>
   </div>
 </div>
@@ -142,7 +146,7 @@
   <div class="row margin">
     <div class="form-group">
       <div class="col-md-3"><label>Is there anything you want to share with us?</label></div>
-      <div id="pesan" class="col-md-9"><textarea name="pesan" class="form-control" value="<?php if(array_key_exists('pesan', $old)){ echo($old['pesan'][0]);} ?>"></textarea class="form-control"></div>
+      <div class="col-md-9"><textarea name="pesan" class="form-control"><?php if(array_key_exists('pesan', $old)){ echo($old['pesan'][0]);} ?></textarea class="form-control"></div>
     </div>
   </div>
     <input id="id_job_vacant" type="text" name="id_job_vacant" id="id_job_vacant" value="{{$id_job_vacant}}" style="display:none">
@@ -312,10 +316,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-
   var num = 0;
   num = "<?php if(array_key_exists('banyak_work_exp', $old)){ echo($old['banyak_work_exp'][0]);} ?>"
-  //alert(num);
+  document.getElementById('gender').value= "<?php if(array_key_exists('gender', $old)){ echo($old['gender'][0]);} ?>";
 
   for (var i = 2; i <= num; i++) {
     $('.pos'+i).show();

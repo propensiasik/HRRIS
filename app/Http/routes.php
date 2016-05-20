@@ -70,19 +70,20 @@ Route::group(['middleware'=>'hr'],function(){
 	Route::get('/ChangeInterview/{id_applicant}-{id_job_vacant}-{interviewKe}','ScheduleController@setUpdate');
 	Route::get('/ChangeInterview/Change/{id_av_schedule}-{type}-{id_applicant}-{id_job_vacant}-{interviewKe}-{jadwal_lama}','ScheduleController@saveChanges');
 
-//Create Update Available Position
+	//Create Update Available Position
 //untuk kembali ke halaman view available position
 	Route::post('/JobVacant/{id_job_vacant}', 'JobVacantController@showJobVacantInformation');	
 //untuk memproses perubahan pada update available position information
 	Route::post('/AvailablePosition/Update', 'JobVacantController@storeUpdateJobVacantInformation');
 //untuk menampilkan form create job vacant
-	Route::get('/CreateAvailablePosition', 'JobVacantController@showCreateJobVacantForm');
+	Route::get('/CreateAvailablePosition', ['as'=>'FormCreateAvailablePosition', 'uses'=>'JobVacantController@showCreateJobVacantForm']);
 //untuk menyimpan jobvacant yang baru dibuat
 	Route::post('/CreateAvailablePosition/Save', 'JobVacantController@saveCreatedJobVacant');
 //untuk menampilkan form update job vacant
 	Route::get('/UpdateAvailablePosition/{id_job_vacant}', 'JobVacantController@showUpdateJobVacantForm');
 //untuk menyimpan jobvacant yang baru diupdate
 	Route::post('/UpdateAvailablePosition/Save', 'JobVacantController@saveUpdatedJobVacant');
+
 	//Assessment Form
 //untuk cek apakah suatu jobVacant udah punya report form atau belum
 	Route::get('/JobVacant/ReportForm/{id_job_vacant}', 'ReportFormController@cekApakahReportFormUdahDibuat');

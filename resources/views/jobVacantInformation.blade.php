@@ -90,7 +90,6 @@
                     <table class="table"s>
                       <thead>
                         <tr>
-                          <th>No.</th>
                           <th>Applicant's Name</th>
                           <th>Major</th>
                           <th>University</th>
@@ -98,11 +97,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <?php $i=0; ?>
                         @foreach($applicant_list as $applicant)
-                        <?php $i++; ?>
                         <tr>
-                          <td>{{ $i }}</td>
                           <td><a href="{{ URL::to('applicant/profile/' . $applicant->id_applicant) }}">{{ $applicant->nama_applicant }}</a></td>
                           <td>{{ $applicant->jurusan }}</td>
                           <td>{{ $applicant->universitas }}</td>
@@ -111,7 +107,7 @@
                          @endforeach
                       </tbody>
                       </table>
-                 
+                      {!! $applicant_list->links() !!}
                 </div>
               </div>
         </div>
