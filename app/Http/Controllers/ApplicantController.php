@@ -399,7 +399,7 @@ class ApplicantController extends Controller
                                          ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                          ->where('applicant.is_active', '=', '1')
                                          ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
-                                        ->where('applicant.gender', '=', $gender)
+                                        ->where('applicant.gender', '=', $perusahaan)
                                          ->paginate(15);
                
         $jobs = DB::select('select posisi_ditawarkan from job_vacant');
@@ -417,7 +417,7 @@ class ApplicantController extends Controller
                                  ->join('company', 'divisi.id_company', '=', 'company.id_company')
                                  ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                  ->where('applicant.is_active', '=', '1')
-                                ->where('applicant.gender', '=', $gender)
+                                ->where('applicant.gender', '=', $perusahaan)
                                 ->paginate(15);
 
                   $jobs = DB::select('select posisi_ditawarkan from job_vacant');
@@ -457,7 +457,7 @@ class ApplicantController extends Controller
                                          ->select('applicant.id_applicant', 'applicant.nama_applicant', 'job_vacant.posisi_ditawarkan', 'company.nama_company')
                                          ->where('applicant.is_active', '=', '1')
                                          ->where('job_vacant.posisi_ditawarkan', '=', $posisi)
-                                        ->where('applicant.gender', '=', $gender)
+                                        ->where('applicant.gender', '=', $perusahaan)
                                          ->paginate(15);
                
             $jobs = DB::select('select posisi_ditawarkan from job_vacant');
