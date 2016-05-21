@@ -636,7 +636,7 @@ class ApplicantController extends Controller
     }
 
 
-    /*  writter  : Khalila Hunafa
+   /*  writter  : Khalila Hunafa
         function : untuk memvalidasi input dari applicant dan menyimpannya pada database
         caller   : dari halaman applicantRegistrationForm setelah applicant klik button save
         input    : isi dari form dan id_job_vacant yang di apply
@@ -799,7 +799,7 @@ class ApplicantController extends Controller
                     $endErr = "Please make sure you have entered all your end period of your experience";
                     $error_message->add('endErr', $endErr);
                 }
-                if(!empty($input['posisi'.$i]) && !empty($input['perusahaan'.$i]) && !empty($input['start'.$i]) && !empty($input['end'.$i])){
+                if(!empty($input['start'.$i]) && !empty($input['end'.$i])){
                     $date_start = date_create($input['start'.$i]);
                     $date_end = date_create( $input['end'.$i]);
                     $difference = date_diff($date_start, $date_end); //untuk ngecek start dan end
@@ -815,20 +815,20 @@ class ApplicantController extends Controller
                         $error = true;
                         $dateErr = "You can not choose a date greater than today's date";
                         $error_message->add('dateErr', $dateErr);
+                    }
+                    if( $range <= 0){
+                      $error = true;
+                      $periodeErr = "Please make sure that all your end period of work have a bigger date than the start period";
+                      $error_message->add('periodeErr', $periodeErr);
                     }else{
-                        if( $range > 0){
-                            $work_exp = array('posisi' => $input['posisi'.$i], 
-                                'perusahaan' => $input['perusahaan'.$i], 
-                                'start' => $input['start'.$i], 
-                                'end' => $input['end'.$i]);
-                            $work_exp_obj = (object) $work_exp;
-                            array_push($work_exp_list, $work_exp_obj);
-                        }else{
-                            $error = true;
-                            $periodeErr = "Please make sure that all your end period of work have a bigger date than the start period";
-                            $error_message->add('periodeErr', $periodeErr);
-                        }
-                    } 
+                        $work_exp = array('posisi' => $input['posisi'.$i], 
+                            'perusahaan' => $input['perusahaan'.$i], 
+                            'start' => $input['start'.$i], 
+                            'end' => $input['end'.$i]);
+                        $work_exp_obj = (object) $work_exp;
+                        array_push($work_exp_list, $work_exp_obj);
+                    }
+                     
                 }
                
             }
@@ -943,7 +943,7 @@ class ApplicantController extends Controller
               
               return view('applicantRegistrationForm', ['id_job_vacant' => $id_job_vacant]);
         }
-    }    
+    }   
     
     //Untuk halaman applicant buat admin
     public function getListOfApplicantAdmin(){
