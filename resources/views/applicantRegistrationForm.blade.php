@@ -318,7 +318,7 @@
 $(document).ready(function(){
   var num = 0;
   num = "<?php if(array_key_exists('banyak_work_exp', $old)){ echo($old['banyak_work_exp'][0]);} ?>"
-  document.getElementById('gender').value= "<?php if(array_key_exists('gender', $old)){ echo($old['gender'][0]);} ?>";
+  document.getElementById('gender').value= "<?php if(array_key_exists('gender', $old)){ echo($old['gender'][0]);}else{ echo "O"; } ?>";
 
   for (var i = 2; i <= num; i++) {
     $('.pos'+i).show();
