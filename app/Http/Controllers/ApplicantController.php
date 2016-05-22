@@ -776,7 +776,7 @@ class ApplicantController extends Controller
         // 2. kalo dari yang diisi itu ada bagian yang kosong dia akan nampilin pesan error
         $work_exp_list = []; 
         for ($i=1; $i <= 10 ; $i++) { 
-            if(!empty($input['posisi'.$i]) || !empty($input['perusahaan'.$i]) || !empty($input['start'.$i]) || !empty($input['end'.$i])){
+            if(!empty($input['posisi'.$i]) || !empty($input['perusahaan'.$i]) || !empty($input['start'.$i]) || array_key_exists('current'.$i, $input)){
                 $num++;
                 //berarti dia berniat diisi
                 if(empty($input['posisi'.$i])){
@@ -794,12 +794,12 @@ class ApplicantController extends Controller
                     $startErr = "Please make sure you have entered all your start period of your experience";
                     $error_message->add('startErr', $startErr);
                 }
-                if (empty($input['end'.$i])) {
+                if (empty($input['end'.$i]) && !array_key_exists('current'.$i, $input)) {
                     $error = true;
                     $endErr = "Please make sure you have entered all your end period of your experience";
                     $error_message->add('endErr', $endErr);
                 }
-                if(!empty($input['start'.$i]) && !empty($input['end'.$i])){
+                if(!empty($input['start'.$i]) && !empty($input['end'.$i]) && !array_key_exists('current'.$i, $input)){
                     $date_start = date_create($input['start'.$i]);
                     $date_end = date_create( $input['end'.$i]);
                     $difference = date_diff($date_start, $date_end); //untuk ngecek start dan end
@@ -828,7 +828,24 @@ class ApplicantController extends Controller
                         $work_exp_obj = (object) $work_exp;
                         array_push($work_exp_list, $work_exp_obj);
                     }
-                     
+                }else if(!empty($input['start'.$i]) && array_key_exists('current'.$i, $input)){
+                    $date_start = date_create($input['start'.$i]);
+                    $get_today_date = getdate();
+                    $temp = $get_today_date['year']."-".$get_today_date['mon']."-".$get_today_date["mday"];
+                    $today = date_create($temp);
+                    $today_start = date_diff($date_start, $today);
+                    $range_start_today = $today_start->format("%R%a");
+                    if( $range_start_today <= 0){
+                      $error = true;
+                      $dateErr = "You can not choose a date greater than today's date";
+                      $error_message->add('dateErr', $dateErr);
+                    }else{
+                        $work_exp = array('posisi' => $input['posisi'.$i], 
+                            'perusahaan' => $input['perusahaan'.$i], 
+                            'start' => $input['start'.$i]); 
+                        $work_exp_obj = (object) $work_exp;
+                        array_push($work_exp_list, $work_exp_obj);
+                    }
                 }
                
             }
@@ -892,11 +909,18 @@ class ApplicantController extends Controller
 
             //menyimpan data work experience 
             foreach ($work_exp_list as $w) {
-                $id_worl_exp = DB::table('work_experience')->insertGetId(['position' => $w->posisi,
+                if(!isset($w->end) || !property_exists($w, 'end')){
+                     $id_work_exp = DB::table('work_experience')->insertGetId(['position' => $w->posisi,
+                                                                        'company' => $w->perusahaan, 
+                                                                        'start' => $w->start,
+                                                                        'id_applicant' => $id_applicant]);
+                }else{
+                     $id_work_exp = DB::table('work_experience')->insertGetId(['position' => $w->posisi,
                                                                         'company' => $w->perusahaan, 
                                                                         'start' => $w->start,
                                                                         'end' => $w->end,
                                                                         'id_applicant' => $id_applicant]);
+                }
             }
 
             //mengirim email konfirmasi ke email applicant dan hr
@@ -934,6 +958,9 @@ class ApplicantController extends Controller
                 }
                 if(!empty($input['end'.$i])){
                     $old_input->add('end'.$i, $input['end'.$i]);
+                }
+                if(array_key_exists('current'.$i, $input)){
+                     $old_input->add('current'.$i, $input['current'.$i]);
                 }
               }
               
